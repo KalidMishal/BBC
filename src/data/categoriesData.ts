@@ -203,19 +203,67 @@ export const mainCategories: MainCategory[] = [
 
 // Helper to look up any category (main or sub) by slug
 export function findCategoryBySlug(slug: string) {
+  if (!slug) return null;
   const decodedSlug = decodeURIComponent(slug).toLowerCase().replace(/[\s_]+/g, '-');
+  const cleanSlug = decodedSlug.replace(/[^a-z0-9]/g, '');
 
+  // 1. Exact match on slug
   for (const main of mainCategories) {
-    const mainSlugMatch = main.slug.toLowerCase().replace(/[\s_]+/g, '-');
-    if (mainSlugMatch === decodedSlug) {
+    const mainSlug = main.slug.toLowerCase().replace(/[\s_]+/g, '-');
+    if (mainSlug === decodedSlug) {
       return { main, sub: null, isMain: true };
     }
     for (const sub of main.subcategories) {
-      const subSlugMatch = sub.slug.toLowerCase().replace(/[\s_]+/g, '-');
-      if (subSlugMatch === decodedSlug) {
+      const subSlug = sub.slug.toLowerCase().replace(/[\s_]+/g, '-');
+      if (subSlug === decodedSlug) {
         return { main, sub, isMain: false };
       }
     }
   }
+
+  // 2. Match on name
+  for (const main of mainCategories) {
+    const mainNameSlug = main.name.toLowerCase().replace(/[\s_]+/g, '-');
+    if (mainNameSlug === decodedSlug) {
+      return { main, sub: null, isMain: true };
+    }
+    for (const sub of main.subcategories) {
+      const subNameSlug = sub.name.toLowerCase().replace(/[\s_]+/g, '-');
+      if (subNameSlug === decodedSlug) {
+        return { main, sub, isMain: false };
+      }
+    }
+  }
+
+  // 3. Normalized alphanumeric match
+  for (const main of mainCategories) {
+    const mainClean = main.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const mainSlugClean = main.slug.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (mainClean === cleanSlug || mainSlugClean === cleanSlug || mainClean.startsWith(cleanSlug) || (cleanSlug.length >= 4 && mainClean.includes(cleanSlug))) {
+      return { main, sub: null, isMain: true };
+    }
+    for (const sub of main.subcategories) {
+      const subClean = sub.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const subSlugClean = sub.slug.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (subClean === cleanSlug || subSlugClean === cleanSlug) {
+        return { main, sub, isMain: false };
+      }
+    }
+  }
+
+  // 4. Aliases
+  if (cleanSlug === 'earth') {
+    const climate = mainCategories.find(c => c.id === 'cat-7');
+    if (climate) return { main: climate, sub: null, isMain: true };
+  }
+  if (cleanSlug === 'news') {
+    const world = mainCategories.find(c => c.id === 'cat-1');
+    if (world) return { main: world, sub: null, isMain: true };
+  }
+  if (cleanSlug === 'business') {
+    const biz = mainCategories.find(c => c.id === 'cat-3');
+    if (biz) return { main: biz, sub: null, isMain: true };
+  }
+
   return null;
 }

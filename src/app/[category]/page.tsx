@@ -324,27 +324,12 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       {/* 2. Top Advertisement Banner matching reference image */}
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
-      {/* 3. Category Title & Subcategory Navigation Bar */}
+      {/* 3. Category Title Banner */}
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-2 pb-6 w-full text-center">
         {/* Category Heading matching Image 5 slice 1 */}
         <h1 className="font-serif font-black text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
           {categoryTitle}
         </h1>
-
-        {/* Subcategories Horizontal Bar */}
-        {subcategories.length > 0 && (
-          <div className="mt-4 pb-2 border-b border-neutral-200 overflow-x-auto no-scrollbar flex items-center justify-center space-x-2 sm:space-x-3 text-xs sm:text-sm font-semibold whitespace-nowrap">
-            {subcategories.map((sub) => (
-              <Link
-                key={sub.slug}
-                href={encodeURI(`/${sub.slug}`)}
-                className="px-3.5 py-1 bg-neutral-100 hover:bg-neutral-900 hover:text-white rounded-full transition text-neutral-800"
-              >
-                {sub.name}
-              </Link>
-            ))}
-          </div>
-        )}
       </div>
 
       {/* 4. Section 1: Hero 5-Story Grid matching Image 1 */}

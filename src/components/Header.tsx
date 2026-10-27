@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, Search } from 'lucide-react';
 import { navCategories } from '../data/bbcData';
+import { findCategoryBySlug } from '../data/categoriesData';
 
 interface HeaderProps {
   onOpenSearch: () => void;
@@ -14,6 +15,33 @@ interface HeaderProps {
 
 export default function Header({ onOpenSearch, onOpenMenu, onOpenSignIn }: HeaderProps) {
   const pathname = usePathname() || '/';
+
+  // Decode current route slug
+  const decodedPath = decodeURIComponent(pathname);
+  const currentSlug = decodedPath.replace(/^\//, '');
+
+  // Resolve category info from current route
+  const resolvedCategory = findCategoryBySlug(currentSlug);
+  const activeMainCategory = resolvedCategory?.main || null;
+  const activeSubcategory = resolvedCategory && !resolvedCategory.isMain ? resolvedCategory.sub : null;
+
+  // Track currently selected/clicked category to display subcategories immediately
+  const [selectedMainSlug, setSelectedMainSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (activeMainCategory) {
+      setSelectedMainSlug(activeMainCategory.slug);
+    } else if (pathname === '/') {
+      setSelectedMainSlug(null);
+    }
+  }, [pathname, activeMainCategory]);
+
+  // Determine which main category's subcategories to display
+  const displayedCategory = selectedMainSlug
+    ? (findCategoryBySlug(selectedMainSlug)?.main || activeMainCategory)
+    : activeMainCategory;
+
+  const subcategoriesToDisplay = displayedCategory?.subcategories || [];
 
   return (
     <>
@@ -86,15 +114,30 @@ export default function Header({ onOpenSearch, onOpenMenu, onOpenSignIn }: Heade
         <div className="max-w-[1320px] mx-auto px-4 flex items-center justify-center">
           <ul className="flex items-center space-x-4 sm:space-x-6 text-[13px] font-bold py-2.5 sm:py-3 whitespace-nowrap overflow-x-auto no-scrollbar">
             {navCategories.map((cat) => {
-              const decodedPath = decodeURIComponent(pathname);
-              const isActive = cat.href === '/'
-                ? decodedPath === '/'
-                : decodedPath.toLowerCase() === cat.href.toLowerCase();
+              const isHome = cat.href === '/';
+              let isActive = false;
+
+              if (isHome) {
+                isActive = pathname === '/' && !selectedMainSlug;
+              } else if (displayedCategory) {
+                const catClean = cat.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                const dispClean = displayedCategory.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                isActive = catClean === dispClean;
+              } else {
+                isActive = decodedPath.toLowerCase() === cat.href.toLowerCase();
+              }
 
               return (
                 <li key={cat.name} className="relative py-1">
                   <Link
                     href={cat.href}
+                    onClick={() => {
+                      if (isHome) {
+                        setSelectedMainSlug(null);
+                      } else {
+                        setSelectedMainSlug(cat.slug);
+                      }
+                    }}
                     className={`transition cursor-pointer inline-block ${
                       isActive ? 'text-black' : 'text-neutral-800 hover:text-black hover:underline'
                     }`}
@@ -110,6 +153,39 @@ export default function Header({ onOpenSearch, onOpenMenu, onOpenSignIn }: Heade
           </ul>
         </div>
       </div>
+
+      {/* 3. Subcategories Bar directly under the 2nd navbar matching Image format */}
+      {subcategoriesToDisplay.length > 0 && (
+        <div className="w-full bg-white border-b border-neutral-200 relative z-30 animate-in fade-in duration-150">
+          <div className="max-w-[1320px] mx-auto px-4 flex items-center justify-center">
+            <ul className="flex items-center space-x-5 sm:space-x-7 text-[12px] sm:text-[12.5px] font-normal py-2.5 whitespace-nowrap overflow-x-auto no-scrollbar text-neutral-800">
+              {subcategoriesToDisplay.map((sub) => {
+                const subClean = sub.slug.toLowerCase().replace(/[^a-z0-9]/g, '');
+                const pathClean = currentSlug.toLowerCase().replace(/[^a-z0-9]/g, '');
+                const isSubActive = subClean === pathClean || (activeSubcategory && activeSubcategory.slug === sub.slug);
+
+                return (
+                  <li key={sub.slug} className="relative py-0.5">
+                    <Link
+                      href={encodeURI(`/${sub.slug}`)}
+                      className={`transition cursor-pointer inline-block ${
+                        isSubActive
+                          ? 'text-black font-bold'
+                          : 'text-neutral-700 hover:text-black hover:underline'
+                      }`}
+                    >
+                      {sub.name}
+                      {isSubActive && (
+                        <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-black" />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   );
 }
