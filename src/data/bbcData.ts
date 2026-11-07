@@ -4,12 +4,12 @@ export const topStoryLead: Article = {
   id: 'lead-1',
   title: "Clashes erupt in Paris and other cities after thousands join mostly peaceful protests across France",
   summary: "There has not yet been a repeat of the chaos seen during previous protests, our correspondent in Paris reports.",
-  tag: "FRANCE",
+  tag: "WORLD",
   badge: "LIVE",
   time: "2 days ago",
-  category: "Europe",
-  imageUrl: "/hero-lead.jpg",
-  imageAlt: "Riot police and demonstrators in Paris",
+  category: "WORLD",
+  imageUrl: "/hero-paris-protests.jpg",
+  imageAlt: "Police in Paris street at night during protests",
   link: "#"
 };
 
@@ -19,7 +19,7 @@ export const topStoriesSecondary: Article[] = [
     title: "Met Police says letter with claims about Meghan's father not shared with other law enforcement",
     summary: "The Met said it passed information to the duchess but did not share it with other law enforcement agencies.",
     tag: "UK",
-    time: "2 days ago",
+    time: "2 DAYS AGO",
     category: "UK",
     imageUrl: "/hero-meghan.jpg",
     imageAlt: "Meghan Markle portrait",
@@ -32,9 +32,9 @@ export const topStoriesSecondary: Article[] = [
     tag: "EUROPE",
     badge: "VIDEO",
     videoDuration: "02:15",
-    time: "2 days ago",
-    category: "Europe",
-    imageUrl: "/hero-eagle.jpg",
+    time: "2 DAYS AGO",
+    category: "EUROPE",
+    imageUrl: "/hero-eagles-nest.jpg",
     imageAlt: "Hitler's Eagle's Nest mountain fire at night",
     link: "#"
   }
@@ -45,33 +45,110 @@ export const topStoriesSideList: Article[] = [
     id: 'side-1',
     title: "Infantino says he is backed by 'vast majority'",
     summary: "Fifa president Gianni Infantino laughs off questions about whether he considered resigning over the World Cup sell-off debacle.",
-    time: "2 days ago",
-    category: "Football",
+    time: "2 DAYS AGO",
+    category: "FOOTBALL",
     link: "#"
   },
   {
     id: 'side-2',
-    title: "Palestinian families displaced as Israeli forces demolish Hebron homes, local officials say",
+    title: "Palestinian families displaced as Israeli forces demolish Hebron homes",
     summary: "The crackdown follows the killing of two Israeli soldiers by two Palestinian gunmen on Friday - and comes just days ahead of Israel's election.",
-    time: "2 days ago",
-    category: "Middle East",
+    time: "2 DAYS AGO",
+    category: "MIDDLE EAST",
     link: "#"
   },
   {
     id: 'side-3',
     title: "Mum who died trying to save sons was hero, husband says",
     summary: "Nathan Gregory says the loss of childhood sweetheart Leanne 'is unimaginable for our family'.",
-    time: "2 days ago",
-    category: "Nottinghamshire",
+    time: "2 DAYS AGO",
+    category: "NOTTINGHAMSHIRE",
     link: "#"
   },
   {
     id: 'side-4',
     title: "Ukraine says Starlink connection 'now stable' after network limits",
     summary: "The slowed Starlink connections had affected the Ukraine's military and drone operations for a week.",
-    time: "2 days ago",
-    category: "Europe",
+    time: "2 DAYS AGO",
+    category: "EUROPE",
     link: "#"
+  }
+];
+
+// Politics & Government (4 Cards) matching media_1793990467065_bdb49109
+export const politicsGridArticles: Article[] = [
+  {
+    id: 'pol-1',
+    title: "Fresh talks begin as leaders seek new path to end the conflict",
+    category: "WORLD",
+    time: "3 HOURS AGO",
+    imageUrl: "/politics-war-ruins.jpg",
+    imageAlt: "Destroyed city buildings in conflict zone",
+    link: "#"
+  },
+  {
+    id: 'pol-2',
+    title: "Markets steady as investors weigh latest economic data",
+    category: "BUSINESS",
+    time: "4 HOURS AGO",
+    imageUrl: "/politics-stock-market.jpg",
+    imageAlt: "Financial stock market screens and charts",
+    link: "#"
+  },
+  {
+    id: 'pol-3',
+    title: "Next wave of AI innovation reshapes global industries",
+    category: "TECHNOLOGY",
+    time: "5 HOURS AGO",
+    imageUrl: "/politics-ai-robot.jpg",
+    imageAlt: "Humanoid robot head innovation",
+    link: "#"
+  },
+  {
+    id: 'pol-4',
+    title: "Europe's mountain towns see surge in winter travel demand",
+    category: "TRAVEL & LIFESTYLE",
+    time: "6 HOURS AGO",
+    imageUrl: "/politics-mountain-village.jpg",
+    imageAlt: "Snowy Alpine mountain village with Matterhorn peak",
+    link: "#"
+  }
+];
+
+// EU Leaders Feature matching media_1793990467065_bdb49109
+export const euLeadersStory: Article = {
+  id: 'eu-leaders-1',
+  title: "EU leaders meet to discuss security and economic cooperation",
+  summary: "The summit focuses on regional security, trade and long-term economic stability across member states.",
+  category: "POLITICS",
+  time: "2 HOURS AGO",
+  imageUrl: "/politics-eu-flags.jpg",
+  imageAlt: "EU flags outside European Parliament building",
+  link: "#"
+};
+
+// Trending Now List matching media_1793990467065_bdb49109
+export interface TrendingItem {
+  number: string;
+  title: string;
+  time: string;
+}
+
+export const trendingNowArticles: TrendingItem[] = [
+  {
+    number: "01",
+    title: "Global oil prices shift as supply concerns resurface",
+    time: "1 HOUR AGO"
+  },
+  {
+    number: "02",
+    title: "New health guidelines aim to reduce chronic disease risk",
+    time: "2 HOURS AGO"
+  },
+  {
+    number: "03",
+    title: "Major sporting event set to return next year",
+    time: "3 HOURS AGO"
   }
 ];
 

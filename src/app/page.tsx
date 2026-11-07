@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 // Components
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
+import PoliticsAndTrendingSection from '../components/PoliticsAndTrendingSection';
 import WeekendReads from '../components/WeekendReads';
 import SportFeature from '../components/SportFeature';
 import AudioShelf from '../components/AudioShelf';
@@ -69,6 +70,11 @@ export default function BBCCloneHomePage() {
       <HeroSection
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}
+      />
+
+      {/* 2.5 Politics & Government (4 cards) + EU Leaders Feature & Trending Now matching media_1793990467065_bdb49109 */}
+      <PoliticsAndTrendingSection
+        onArticleClick={handleArticleClick}
       />
 
       {/* 3. Advertisement Banner above Weekend Reads matching Image 2 */}
