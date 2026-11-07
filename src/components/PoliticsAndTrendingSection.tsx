@@ -18,7 +18,10 @@ export default function PoliticsAndTrendingSection({
   onArticleClick
 }: PoliticsAndTrendingSectionProps) {
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-3 pb-8">
+    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-2 pb-8">
+      {/* Grey color line directly above Politics & Government */}
+      <div className="border-t border-neutral-200 w-full mb-6 sm:mb-7" />
+
       {/* 
         =======================================================
         SECTION 1: Politics & Government (4-Card Grid)
