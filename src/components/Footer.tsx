@@ -24,7 +24,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-white text-neutral-900 pt-8 pb-12 mt-6 border-t-2 border-neutral-900">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
+      <div className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8">
         {/* Row 1: BBC Logo */}
         <div className="flex items-center space-x-1 mb-5">
           <span className="w-7 h-7 bg-black text-white font-black flex items-center justify-center text-sm tracking-tighter">

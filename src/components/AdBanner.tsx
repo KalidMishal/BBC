@@ -26,7 +26,7 @@ export default function AdBanner({
     const displayText = sizeText || `${width} x ${height}`;
     return (
       <div className="w-full bg-white py-6 sm:py-8 overflow-x-hidden">
-        <div className="max-w-[1320px] mx-auto px-6 sm:px-10 flex items-center justify-center">
+        <div className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-center">
           {/* Centered Banner Wrapper with outer Advertisement label */}
           <div className="relative inline-flex items-center justify-center max-w-full">
             {/* Left Vertical Advertisement Label OUTSIDE the box matching reference image */}
@@ -53,7 +53,7 @@ export default function AdBanner({
 
   if (type === 'midterm') {
     return (
-      <div className="w-full my-6 max-w-[1280px] mx-auto px-4">
+      <div className="w-full my-6 max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8">
         <div className="text-[10px] tracking-wider uppercase text-neutral-400 font-semibold text-center mb-1">
           Advertisement
         </div>
@@ -86,7 +86,7 @@ export default function AdBanner({
 
   if (type === 'britbox') {
     return (
-      <div className="w-full my-6 max-w-[1280px] mx-auto px-4">
+      <div className="w-full my-6 max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8">
         <div className="text-[10px] tracking-wider uppercase text-neutral-400 font-semibold text-center mb-1">
           Advertisement
         </div>
@@ -111,7 +111,7 @@ export default function AdBanner({
   // Default Top Leaderboard / Shop banner
   return (
     <div className="w-full bg-[#fbf9f4] border-b border-neutral-200 py-3">
-      <div className="max-w-[1280px] mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+      <div className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center space-x-3 mb-2 md:mb-0 text-center md:text-left">
           <div className="w-10 h-7 bg-black text-white flex items-center justify-center font-bold text-xs tracking-widest rounded-sm">
             BBC

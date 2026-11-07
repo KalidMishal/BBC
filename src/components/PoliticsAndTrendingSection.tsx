@@ -18,7 +18,7 @@ export default function PoliticsAndTrendingSection({
   onArticleClick
 }: PoliticsAndTrendingSectionProps) {
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-2 pb-8">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-2 pb-8">
       {/* Grey color line directly above Politics & Government */}
       <div className="border-t border-neutral-200 w-full mb-6 sm:mb-7" />
 
@@ -29,7 +29,7 @@ export default function PoliticsAndTrendingSection({
         =======================================================
       */}
       <div className="flex items-center justify-between mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
           Politics &amp; Government
         </h2>
         <Link
@@ -82,14 +82,14 @@ export default function PoliticsAndTrendingSection({
         Matching media_1793990467065_bdb49109.jpg (bottom part)
         =======================================================
       */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 lg:gap-10 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px] gap-8 lg:gap-10 items-start">
         {/* Left Side: EU Leaders Horizontal Feature */}
         <article
           onClick={() => onArticleClick?.(euLeadersStory)}
           className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 items-start"
         >
           {euLeadersStory.imageUrl && (
-            <div className="relative aspect-[16/10] w-full sm:w-[280px] md:w-[320px] shrink-0 overflow-hidden bg-neutral-100">
+            <div className="relative aspect-[16/10] w-full sm:w-[280px] md:w-[320px] lg:w-[350px] shrink-0 overflow-hidden bg-neutral-100">
               <Image
                 src={euLeadersStory.imageUrl}
                 alt={euLeadersStory.imageAlt || euLeadersStory.title}
@@ -119,7 +119,7 @@ export default function PoliticsAndTrendingSection({
 
         {/* Right Side: Trending Now with Vertical Divider and 01, 02, 03 numbers */}
         <div className="lg:border-l lg:border-neutral-200 lg:pl-8 flex flex-col justify-start">
-          <h2 className="font-sans font-bold text-[20px] sm:text-[22px] text-neutral-900 mb-4 sm:mb-5 tracking-tight">
+          <h2 className="font-sans font-bold text-[28px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
             Trending Now
           </h2>
 

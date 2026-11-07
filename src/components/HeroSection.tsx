@@ -15,14 +15,14 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
   const eaglesNestStory = topStoriesSecondary[1];
 
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-5 sm:pt-6 pb-6">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 sm:pt-6 pb-6">
       {/* 
         3-Column Grid matching media_1793964793243_13742b80.jpg:
-        Left: ~270px (Meghan Markle & Eagle's Nest cards)
+        Left: ~280-320px (Meghan Markle & Eagle's Nest cards)
         Center: 1fr (Paris protests lead story with LIVE UPDATES)
-        Right: ~260px (LATEST UPDATES with amber square and clean headlines)
+        Right: ~270-300px (LATEST UPDATES with amber square and clean headlines)
       */}
-      <div className="grid grid-cols-1 lg:grid-cols-[270px_1fr_260px] xl:grid-cols-[290px_1fr_270px] gap-6 lg:gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_270px] xl:grid-cols-[300px_1fr_280px] 2xl:grid-cols-[320px_1fr_300px] gap-6 lg:gap-8 items-start">
         
         {/* Left Column: 2 Cards with image, bold sans-serif headline, uppercase metadata */}
         <div className="flex flex-col">

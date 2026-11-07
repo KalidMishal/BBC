@@ -13,7 +13,7 @@ export default function InDepthDrivingChangeSection({
   onArticleClick
 }: InDepthDrivingChangeSectionProps) {
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-3 pb-12">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-3 pb-12">
       {/* Grey divider line above section matching media_1794023369503_59369454.jpg */}
       <div className="border-t border-neutral-200 mb-6 sm:mb-8" />
 

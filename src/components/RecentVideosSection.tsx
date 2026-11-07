@@ -17,14 +17,14 @@ export default function RecentVideosSection({
   onArticleClick
 }: RecentVideosSectionProps) {
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-3 pb-8">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-3 pb-8">
       {/* 
         Header Row matching media_1794023283220_5d1dfc4e.jpg:
         "Recent Videos" title & subtitle on left, "All Videos →" on right
       */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-5 gap-2">
         <div>
-          <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+          <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
             Recent Videos
           </h2>
           <p className="font-sans text-[13px] sm:text-[14px] text-neutral-600 mt-0.5">

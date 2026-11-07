@@ -13,7 +13,7 @@ export default function FourCategoriesDigestSection({
   onArticleClick
 }: FourCategoriesDigestSectionProps) {
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-3 pb-12">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-3 pb-12">
       {/* Grey divider line above section matching media_1794035851083_5bb58673.jpg */}
       <div className="border-t border-neutral-200 mb-6 sm:mb-8" />
 
@@ -28,7 +28,7 @@ export default function FourCategoriesDigestSection({
         {fourCategoriesDigestData.map((col) => (
           <div key={col.title} className="flex flex-col">
             {/* Column Header */}
-            <h3 className="font-sans font-bold text-[18px] sm:text-[20px] text-neutral-900 mb-3 tracking-tight">
+            <h3 className="font-sans font-bold text-[28px] text-neutral-900 mb-3 tracking-tight leading-tight">
               {col.title}
             </h3>
 

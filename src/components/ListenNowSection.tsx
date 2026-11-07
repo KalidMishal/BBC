@@ -16,14 +16,14 @@ interface ListenNowSectionProps {
 
 export default function ListenNowSection({ onPlayPodcast }: ListenNowSectionProps) {
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-3 pb-8">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-3 pb-8">
       {/* 
         Header Row matching media_1794035802116_4ce202c6.jpg:
         "Listen Now" + subtitle on left, "Explore Audio →" on right
       */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-5 gap-2">
         <div>
-          <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+          <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
             Listen Now
           </h2>
           <p className="font-sans text-[13px] sm:text-[14px] text-neutral-600 mt-0.5">
@@ -72,10 +72,10 @@ export default function ListenNowSection({ onPlayPodcast }: ListenNowSectionProp
           {/* Right side background microphone graphic */}
           <div className="absolute top-0 right-0 bottom-0 w-[45%] pointer-events-none">
             <Image
-              src={listenNowFeaturedPodcast.imageUrl || '/listen-global-briefing.jpg'}
+              src="/listen-mic-only.jpg"
               alt={listenNowFeaturedPodcast.title}
               fill
-              className="object-cover object-right opacity-80 group-hover:opacity-100 transition-opacity"
+              className="object-cover object-right opacity-90 group-hover:opacity-100 transition-opacity"
             />
           </div>
         </div>

@@ -325,7 +325,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
       {/* 3. Category Title Banner */}
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-2 pb-6 w-full text-center">
+      <div className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-2 pb-6 w-full text-center">
         {/* Category Heading matching Image 5 slice 1 */}
         <h1 className="font-serif font-black text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
           {categoryTitle}
@@ -333,7 +333,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       </div>
 
       {/* 4. Section 1: Hero 5-Story Grid matching Image 1 */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 pb-10 w-full">
+      <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pb-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: 2 Stacked Stories (lg:col-span-3) */}
           <div className="lg:col-span-3 flex flex-col space-y-6">
@@ -444,7 +444,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
       {/* 6. Section 2: KEEPING TABS > matching Image 2 */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 w-full">
+      <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 py-8 w-full">
         {/* Section Header */}
         <div className="border-t-2 border-neutral-900 pt-2.5 mb-6 flex items-center justify-between">
           <h2 className="text-xs sm:text-[13px] font-black text-neutral-900 tracking-wider uppercase flex items-center">
@@ -476,7 +476,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       </section>
 
       {/* 7. Section 3: LISTEN Audio Shelf matching Image 3 */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6 w-full">
+      <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 py-6 w-full">
         <div className="border-t-2 border-neutral-900 pt-2.5 mb-5">
           <h2 className="text-xs sm:text-[13px] font-black text-neutral-900 tracking-wider uppercase">
             LISTEN
@@ -548,7 +548,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
       {/* 9. Section 4: WATCH Video Hero matching Image 5 slice 2-3 */}
       <section className="bg-neutral-950 text-white py-10 my-4">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+        <div className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8">
           <div className="border-t border-neutral-800 pt-3 mb-6">
             <h2 className="text-xs sm:text-[13px] font-black text-neutral-300 tracking-wider uppercase">
               WATCH
@@ -630,7 +630,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       </section>
 
       {/* 10. Sponsored MarketViews Grid matching Image 4 bottom */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6 w-full">
+      <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 py-6 w-full">
         <div className="flex items-center justify-between border-t border-neutral-300 pt-3 mb-4">
           <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-neutral-500">
             SPONSORED LINKS
@@ -656,7 +656,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       </section>
 
       {/* 11. Section 5: IN CASE YOU MISSED IT matching Image 4 */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 w-full">
+      <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 py-8 w-full">
         <div className="border-t-2 border-neutral-900 pt-2.5 mb-6">
           <h2 className="text-xs sm:text-[13px] font-black text-neutral-900 tracking-wider uppercase">
             IN CASE YOU MISSED IT
@@ -689,7 +689,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
       {/* 13. Section 6: MORE TECH (10 articles per page, centered pagination with next arrow matching Image 5) */}
-      <section ref={moreTechRef} className="max-w-[1040px] mx-auto px-4 sm:px-6 py-8 w-full scroll-mt-20">
+      <section ref={moreTechRef} className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 py-8 w-full scroll-mt-20">
         <div className="border-t-2 border-neutral-900 pt-2.5 mb-6">
           <h2 className="text-xs sm:text-[13px] font-black text-neutral-900 tracking-wider uppercase">
             MORE TECH

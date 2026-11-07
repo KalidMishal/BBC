@@ -13,10 +13,10 @@ export default function HumanRightsSection({ onArticleClick }: HumanRightsSectio
   const [story1, story2] = humanRightsArticles;
 
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-5 pb-8">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 pb-8">
       {/* Header matching media_1794016188879_d0c66188.jpg */}
       <div className="mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
           Human Rights &amp; Civil Liberties
         </h2>
       </div>

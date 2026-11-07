@@ -20,13 +20,13 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
   const [activeTab, setActiveTab] = useState('All');
 
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-5 pb-8">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 pb-8">
       {/* 
         Header Row matching media_1794016040137_b362a74d.jpg:
         "More News" on left, Category Tabs (All, World, Business, Technology, Health) on right
       */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-neutral-200 pb-3 mb-6 gap-3">
-        <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
           More News
         </h2>
 

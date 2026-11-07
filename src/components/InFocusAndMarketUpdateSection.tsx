@@ -17,14 +17,14 @@ export default function InFocusAndMarketUpdateSection({
   onArticleClick
 }: InFocusAndMarketUpdateSectionProps) {
   return (
-    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-3 pb-8">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-3 pb-8">
       {/* 
         =======================================================
         IN FOCUS THIS WEEK (Matching media_1794035586863_48a12b3e)
         =======================================================
       */}
       <div className="mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
           In Focus This Week
         </h2>
       </div>
@@ -106,7 +106,7 @@ export default function InFocusAndMarketUpdateSection({
       */}
       <div className="bg-[#f9f9f9] border border-neutral-100 p-4 sm:p-5 mt-8 sm:mt-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
         <div className="shrink-0">
-          <h3 className="font-sans font-bold text-[20px] sm:text-[22px] text-neutral-900 leading-tight">
+          <h3 className="font-sans font-bold text-[28px] text-neutral-900 leading-tight tracking-tight">
             Market Update
           </h3>
           <p className="font-sans text-[12px] sm:text-[12.5px] text-neutral-500 mt-0.5">
