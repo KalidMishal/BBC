@@ -10,7 +10,9 @@ import PoliticsAndTrendingSection from '../components/PoliticsAndTrendingSection
 import MoreNewsSection from '../components/MoreNewsSection';
 import HumanRightsSection from '../components/HumanRightsSection';
 import WatchHero from '../components/WatchHero';
+import RecentVideosSection from '../components/RecentVideosSection';
 import EditorsPicks from '../components/EditorsPicks';
+import InDepthDrivingChangeSection from '../components/InDepthDrivingChangeSection';
 import AdBanner from '../components/AdBanner';
 import Footer from '../components/Footer';
 
@@ -85,10 +87,21 @@ export default function BBCCloneHomePage() {
         onVideoClick={(video) => setActiveVideo(video)}
       />
 
+      {/* 7.5 Recent Videos Section (5 video cards matching Image 1) */}
+      <RecentVideosSection
+        onVideoClick={(video) => setActiveVideo(video)}
+        onArticleClick={handleArticleClick}
+      />
+
       {/* 8. Editor's Pick (US Capitol dome + 3 items matching Image 2) */}
       <EditorsPicks
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}
+      />
+
+      {/* 8.5 In-Depth The People Driving Change in 2026 + 4 Cards Grid matching Image 2 */}
+      <InDepthDrivingChangeSection
+        onArticleClick={handleArticleClick}
       />
 
       {/* 9. Global BBC Footer */}

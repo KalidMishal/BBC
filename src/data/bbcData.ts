@@ -813,6 +813,126 @@ export const fourColumnDigest2: ColumnSection[] = [
   }
 ];
 
+// Recent Videos matching media_1794023283220_5d1dfc4e
+export interface VideoCardItem extends Article {
+  duration?: string;
+}
+
+export const recentVideosList: VideoCardItem[] = [
+  {
+    id: 'rv-1',
+    title: "What really controls Trump's next move?",
+    summary: "A closer look at the political, legal and economic factors shaping Trump's strategy.",
+    category: "US & Canada",
+    time: "2 hours ago",
+    duration: "08:24",
+    imageUrl: "/video-trump.jpg",
+    imageAlt: "Donald Trump at podium with US flags",
+    isVideo: true,
+    link: "#"
+  },
+  {
+    id: 'rv-2',
+    title: "The enduring mystery of the Loch Ness Monster",
+    summary: "New research, old evidence and why the legend of Nessie still captivates the world.",
+    category: "Science",
+    time: "3 hours ago",
+    duration: "06:17",
+    imageUrl: "/video-orca.jpg",
+    imageAlt: "Orca dorsal fin slicing through water",
+    isVideo: true,
+    link: "#"
+  },
+  {
+    id: 'rv-3',
+    title: "Why are more women choosing to fly?",
+    summary: "Inside the rising number of women pilots and what's changing in the aviation industry.",
+    category: "Aviation",
+    time: "5 hours ago",
+    duration: "10:05",
+    imageUrl: "/video-pilot.jpg",
+    imageAlt: "Female pilot at cockpit controls during sunset",
+    isVideo: true,
+    link: "#"
+  },
+  {
+    id: 'rv-4',
+    title: "How climate change is reshaping wildlife",
+    summary: "From migration to survival, experts explain how a warmer planet is changing animal behaviour.",
+    category: "Environment",
+    time: "6 hours ago",
+    duration: "07:49",
+    imageUrl: "/video-snake.jpg",
+    imageAlt: "Coiled python in its natural habitat",
+    isVideo: true,
+    link: "#"
+  },
+  {
+    id: 'rv-5',
+    title: "CCTV footage shows moment of the explosion",
+    summary: "Newly released footage captures the moments before the blast, as investigators examine the cause.",
+    category: "World",
+    time: "8 hours ago",
+    duration: "04:36",
+    imageUrl: "/video-cctv.jpg",
+    imageAlt: "Street CCTV perspective showing pedestrian in mist",
+    isVideo: true,
+    link: "#"
+  }
+];
+
+// In-Depth Driving Change matching media_1794023369503_59369454
+export const inDepthChangeLead: Article = {
+  id: 'indepth-change-lead',
+  title: "The People Driving Change in 2026",
+  summary: "From innovation to sustainability, meet the leaders and visionaries shaping a better world.",
+  category: "IN-DEPTH",
+  time: "12 HOURS AGO",
+  imageUrl: "/indepth-nyc-skyline.jpg",
+  imageAlt: "New York City skyline panorama with Empire State Building",
+  link: "#"
+};
+
+export const inDepthChangeCards: Article[] = [
+  {
+    id: 'idc-1',
+    title: "Fresh talks begin as leaders seek new path to end the conflict",
+    category: "WORLD",
+    time: "3 HOURS AGO",
+    imageUrl: "/politics-war-ruins.jpg",
+    imageAlt: "Destroyed city buildings in conflict zone",
+    link: "#"
+  },
+  {
+    id: 'idc-2',
+    title: "Markets steady as investors weigh latest economic data",
+    category: "BUSINESS",
+    time: "4 HOURS AGO",
+    imageUrl: "/politics-stock-market.jpg",
+    imageAlt: "Financial stock market screens and charts",
+    link: "#"
+  },
+  {
+    id: 'idc-3',
+    title: "Next wave of AI innovation reshapes global industries",
+    category: "TECHNOLOGY",
+    time: "5 HOURS AGO",
+    imageUrl: "/politics-ai-robot.jpg",
+    imageAlt: "Humanoid robot head innovation",
+    link: "#"
+  },
+  {
+    id: 'idc-4',
+    title: "Europe's mountain towns see surge in winter travel demand",
+    category: "TRAVEL & LIFESTYLE",
+    time: "6 HOURS AGO",
+    imageUrl: "/politics-mountain-village.jpg",
+    imageAlt: "Snowy Alpine mountain village with Matterhorn peak",
+    link: "#"
+  }
+];
+
+// Watch Hero matching media_1794021619253_52337f93
 export const watchHeroCinema: Article = {
   id: 'watch-hero',
   title: "Using a macro lens to photograph spiders and snakes",
