@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { ChevronRight, ChevronLeft, Play } from 'lucide-react';
-import { editorsPicks } from '../data/bbcData';
+import { editorLeadStory, editorSideList } from '../data/bbcData';
 import { Article } from '../types';
 
 interface EditorsPicksProps {
@@ -11,89 +10,89 @@ interface EditorsPicksProps {
   onVideoClick?: (article: Article) => void;
 }
 
-export default function EditorsPicks({ onArticleClick, onVideoClick }: EditorsPicksProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const offset = direction === 'left' ? -350 : 350;
-      scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
-    }
-  };
-
+export default function EditorsPicks({ onArticleClick }: EditorsPicksProps) {
   return (
-    <section className="w-full bg-[#181818] text-white py-8">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
-        {/* Header matching Image 1: White border line + EDITOR'S PICKS > on left, arrows on right */}
-        <div className="border-t-2 border-white pt-3 mb-6 flex items-center justify-between">
-          <h2 className="text-base sm:text-lg font-black text-white tracking-tight uppercase flex items-center space-x-1 cursor-pointer hover:text-red-500 transition">
-            <span>EDITOR&apos;S PICKS</span>
-            <ChevronRight className="w-4 h-4 stroke-[3]" />
-          </h2>
+    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-5 pb-10">
+      {/* Header matching media_1794022061668_43bfc243.jpg */}
+      <div className="border-b border-neutral-200 pb-3 mb-6">
+        <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+          Editor&apos;s Pick
+        </h2>
+      </div>
 
-          <div className="flex items-center space-x-1">
-            <button
-              onClick={() => scroll('left')}
-              className="p-1 hover:bg-neutral-800 rounded-sm text-neutral-300 hover:text-white transition cursor-pointer"
-              aria-label="Previous"
-            >
-              <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              className="p-1 hover:bg-neutral-800 rounded-sm text-neutral-300 hover:text-white transition cursor-pointer"
-              aria-label="Next"
-            >
-              <ChevronRight className="w-5 h-5 stroke-[2.2]" />
-            </button>
-          </div>
-        </div>
-
-        {/* 5 Video Cards Row */}
-        <div
-          ref={scrollRef}
-          className="grid grid-flow-col auto-cols-[82%] sm:auto-cols-[45%] md:auto-cols-[30%] lg:grid-cols-5 gap-5 overflow-x-auto no-scrollbar scroll-smooth pb-2"
+      {/* 2-Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        
+        {/* Left Column (col-span-7): US Capitol Dome Story */}
+        <article
+          onClick={() => onArticleClick?.(editorLeadStory)}
+          className="lg:col-span-7 group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 items-start"
         >
-          {editorsPicks.map((story) => (
+          {editorLeadStory.imageUrl && (
+            <div className="w-full sm:w-[240px] md:w-[260px] aspect-[4/5] sm:aspect-auto sm:h-[285px] relative overflow-hidden bg-neutral-100 shrink-0">
+              <Image
+                src={editorLeadStory.imageUrl}
+                alt={editorLeadStory.imageAlt || editorLeadStory.title}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          )}
+
+          <div className="flex flex-col justify-start">
+            <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-2">
+              {editorLeadStory.category}
+            </div>
+            <h3 className="font-sans font-bold text-[22px] sm:text-[25px] leading-[1.18] text-neutral-900 group-hover:underline">
+              {editorLeadStory.title}
+            </h3>
+            {editorLeadStory.summary && (
+              <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 leading-relaxed font-normal mt-3">
+                {editorLeadStory.summary}
+              </p>
+            )}
+            <div className="font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-4">
+              {editorLeadStory.time}
+            </div>
+          </div>
+        </article>
+
+        {/* Right Column (col-span-5): 3 Stacked Items with Vertical Separator */}
+        <div className="lg:col-span-5 lg:border-l lg:border-neutral-200 lg:pl-8 flex flex-col justify-start">
+          {editorSideList.map((item, idx) => (
             <article
-              key={story.id}
-              onClick={() => onVideoClick ? onVideoClick(story) : onArticleClick?.(story)}
-              className="group cursor-pointer flex flex-col justify-between"
+              key={item.id}
+              onClick={() => onArticleClick?.(item)}
+              className={`group cursor-pointer flex items-start space-x-3.5 sm:space-x-4 ${
+                idx < editorSideList.length - 1 ? 'border-b border-neutral-200 pb-4 mb-4' : ''
+              }`}
             >
-              <div>
-                {/* Thumbnail with Play Icon overlay */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900 rounded-xs mb-3 shadow-xs">
+              {item.imageUrl && (
+                <div className="w-[115px] h-[76px] sm:w-[125px] sm:h-[82px] relative overflow-hidden shrink-0 bg-neutral-100">
                   <Image
-                    src={story.imageUrl || '/editor-starlink.jpg'}
-                    alt={story.title}
+                    src={item.imageUrl}
+                    alt={item.imageAlt || item.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute bottom-1.5 left-1.5 bg-black/85 text-white p-1 rounded-xs flex items-center justify-center">
-                    <Play className="w-3.5 h-3.5 fill-white text-white" />
-                  </div>
                 </div>
+              )}
 
-                {/* Title */}
-                <h3 className="font-serif font-bold text-[14.5px] sm:text-[15px] text-white group-hover:underline leading-snug">
-                  {story.title}
-                </h3>
-
-                {/* Summary */}
-                {story.summary && (
-                  <p className="font-serif text-[12px] sm:text-[12.5px] text-neutral-400 mt-1.5 leading-[1.38]">
-                    {story.summary}
-                  </p>
-                )}
-              </div>
-
-              {/* Category */}
-              <div className="mt-2.5 font-sans text-[11px] text-neutral-400 font-medium">
-                <span className="hover:underline">{story.category}</span>
+              <div className="flex flex-col justify-start">
+                <div className="font-sans font-bold text-[10.5px] sm:text-[11px] text-neutral-500 uppercase tracking-wider mb-0.5">
+                  {item.category}
+                </div>
+                <h4 className="font-sans font-bold text-[13.5px] sm:text-[14px] leading-snug text-neutral-900 group-hover:underline">
+                  {item.title}
+                </h4>
+                <div className="font-sans font-semibold text-[10.5px] text-neutral-400 uppercase tracking-wide mt-1.5">
+                  {item.time}
+                </div>
               </div>
             </article>
           ))}
         </div>
+
       </div>
     </section>
   );

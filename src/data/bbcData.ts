@@ -340,63 +340,49 @@ export const moreNewsFeatured: Article = moreNewsVanessa;
 export const moreNewsLeft: Article[] = [moreNewsBurnham];
 export const moreNewsRight: Article[] = moreNewsSideList;
 
-export const editorsPicks: Article[] = [
+// Editor's Pick matching media_1794022061668_43bfc243
+export const editorLeadStory: Article = {
+  id: 'ed-lead',
+  title: "What the new policy shift means for global stability",
+  summary: "A closer look at how the latest government move could reshape international relations and markets.",
+  category: "POLITICS",
+  time: "3 HOURS AGO",
+  imageUrl: "/editor-capitol.jpg",
+  imageAlt: "US Capitol dome at sunset",
+  link: "#"
+};
+
+export const editorSideList: Article[] = [
   {
-    id: 'ep-1',
-    title: "Who actually controls Ukraine's access to Starlink?",
-    summary: "President Zelensky says limits to the technology continue to affect Ukrainian forces, while US officials and Elon Musk offer conflicting accounts of who controls it.",
-    time: "10 hrs ago",
-    category: "US & Canada",
-    imageUrl: "/editor-starlink.jpg",
-    isVideo: true,
-    badge: "VIDEO",
+    id: 'ed-1',
+    title: "The next phase of AI: Opportunity, risk and regulation",
+    time: "4 HOURS AGO",
+    category: "TECHNOLOGY",
+    imageUrl: "/editor-ai-chip.jpg",
+    imageAlt: "Glowing AI computer microchip",
     link: "#"
   },
   {
-    id: 'ep-2',
-    title: "The enduring mystery of the Loch Ness Monster",
-    summary: "From sonar scans to eyewitness accounts, discover why the Loch Ness Monster mystery refuses to fade.",
-    time: "12 hrs ago",
-    category: "BBC Select",
-    imageUrl: "/editor-lochness.jpg",
-    isVideo: true,
-    badge: "VIDEO",
+    id: 'ed-2',
+    title: "How clean energy is reshaping the global economy",
+    time: "6 HOURS AGO",
+    category: "SUSTAINABILITY",
+    imageUrl: "/editor-wind-turbines.jpg",
+    imageAlt: "Wind turbines on scenic hills with sunset",
     link: "#"
   },
   {
-    id: 'ep-3',
-    title: "Why is John Travolta's old luxury jet in a small Australian town?",
-    summary: "The BBC goes on board Travolta's old Boeing 707 which is being reassembled in a small coastal town.",
-    time: "14 hrs ago",
-    category: "Australia",
-    imageUrl: "/editor-travolta.jpg",
-    isVideo: true,
-    badge: "VIDEO",
-    link: "#"
-  },
-  {
-    id: 'ep-4',
-    title: "Blue Planet III: Moment octopus escapes death after hunt gone wrong",
-    summary: "The sequence is part of the latest Blue Planet series from Sir David Attenborough.",
-    time: "16 hrs ago",
-    category: "Science & Environment",
-    imageUrl: "/editor-blueplanet.jpg",
-    isVideo: true,
-    badge: "VIDEO",
-    link: "#"
-  },
-  {
-    id: 'ep-5',
-    title: "Watch: CCTV footage shows gunmen near church",
-    summary: "Dozens of people gathered outside the church for a funeral when the shooting began, local media reported.",
-    time: "18 hrs ago",
-    category: "Middle East",
-    imageUrl: "/editor-cctv.jpg",
-    isVideo: true,
-    badge: "VIDEO",
+    id: 'ed-3',
+    title: "Luxury living trends to watch in 2026",
+    time: "8 HOURS AGO",
+    category: "REAL ESTATE",
+    imageUrl: "/editor-luxury-villa.jpg",
+    imageAlt: "Luxury modern home with swimming pool at dusk",
     link: "#"
   }
 ];
+
+export const editorsPicks: Article[] = [editorLeadStory, ...editorSideList];
 
 export const watchVideosDark: Article[] = [
   {
@@ -829,15 +815,15 @@ export const fourColumnDigest2: ColumnSection[] = [
 
 export const watchHeroCinema: Article = {
   id: 'watch-hero',
-  title: "Why the television refuses to die",
-  summary: "Do we still need televisions? Tech Now explores the future of TV in the modern home.",
-  tag: "BBC DOCUMENTARY",
+  title: "Using a macro lens to photograph spiders and snakes",
+  summary: "Join American photographer Hallie Cowan Barrera as she captures nature's smaller creatures.",
+  tag: "WATCH",
   badge: "VIDEO",
-  videoDuration: "08:24",
+  videoDuration: "05:12",
   time: "BBC In-Depth",
   category: "Watch",
-  imageUrl: "/watch-tvs.jpg",
-  imageAlt: "Vintage television sets glowing in dim room",
+  imageUrl: "/watch-snake-macro.jpg",
+  imageAlt: "Macro close-up photograph of a colorful snake",
   link: "#"
 };
 

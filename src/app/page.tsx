@@ -9,15 +9,8 @@ import HeroSection from '../components/HeroSection';
 import PoliticsAndTrendingSection from '../components/PoliticsAndTrendingSection';
 import MoreNewsSection from '../components/MoreNewsSection';
 import HumanRightsSection from '../components/HumanRightsSection';
-import AudioShelf from '../components/AudioShelf';
-import EditorsPicks from '../components/EditorsPicks';
-import TravelSpotlight from '../components/TravelSpotlight';
-import HistorySection from '../components/HistorySection';
-import EarthSpotlight from '../components/EarthSpotlight';
-import MultiColumnDigest from '../components/MultiColumnDigest';
-import SportAudioShelf from '../components/SportAudioShelf';
 import WatchHero from '../components/WatchHero';
-import DiscoverBBC from '../components/DiscoverBBC';
+import EditorsPicks from '../components/EditorsPicks';
 import AdBanner from '../components/AdBanner';
 import Footer from '../components/Footer';
 
@@ -29,12 +22,6 @@ import SignInModal from '../components/SignInModal';
 import VideoModal from '../components/VideoModal';
 import AudioPlayerBar from '../components/AudioPlayerBar';
 
-// Data
-import {
-  fourColumnDigest1,
-  fourColumnDigest2,
-  fourColumnDigest3
-} from '../data/bbcData';
 import { Article, PodcastItem } from '../types';
 
 export default function BBCCloneHomePage() {
@@ -58,20 +45,20 @@ export default function BBCCloneHomePage() {
 
   return (
     <main className="min-h-screen bg-white text-neutral-900 flex flex-col selection:bg-red-600 selection:text-white">
-      {/* 1. Primary Masthead & Sticky Navigation (No Ad section above navbar) */}
+      {/* 1. Primary Masthead & Sticky Navigation */}
       <Header
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenMenu={() => setIsMenuOpen(true)}
         onOpenSignIn={() => setIsSignInOpen(true)}
       />
 
-      {/* 2. Hero News Section (First Section matching screenshot) */}
+      {/* 2. Hero News Section (Top 3-column section) */}
       <HeroSection
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}
       />
 
-      {/* 2.5 Politics & Government (4 cards) + EU Leaders Feature & Trending Now matching media_1793990467065_bdb49109 */}
+      {/* 2.5 Politics & Government (4 cards) + EU Leaders Feature & Trending Now */}
       <PoliticsAndTrendingSection
         onArticleClick={handleArticleClick}
       />
@@ -85,93 +72,29 @@ export default function BBCCloneHomePage() {
         onVideoClick={(video) => setActiveVideo(video)}
       />
 
-      {/* 5. Human Rights & Civil Liberties (replaces Weekend Reads, matching Image 2) */}
+      {/* 5. Human Rights & Civil Liberties (matching Image 2) */}
       <HumanRightsSection
         onArticleClick={handleArticleClick}
       />
 
-      {/* 6. Best Audio of the Week (Horizontal Podcast Shelf) */}
-      <AudioShelf
-        onPlayPodcast={(podcast) => setActivePodcast(podcast)}
-      />
-
-      {/* 7. Advertisement Banner below Best Audio of the Week matching Image 2 */}
+      {/* 6. Advertisement Banner moved under Human Rights & Civil Liberties */}
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
-      {/* 8. Editor's Picks (Dark Carousel matching Image 1) */}
+      {/* 7. Watch Feature (Macro Snake Video Banner matching Image 1) */}
+      <WatchHero
+        onVideoClick={(video) => setActiveVideo(video)}
+      />
+
+      {/* 8. Editor's Pick (US Capitol dome + 3 items matching Image 2) */}
       <EditorsPicks
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}
       />
 
-      {/* 10. Advertisement Banner under Editor's Picks matching Image 2 */}
-      <AdBanner type="placeholder" sizeText="1000 x 350" />
-
-      {/* 11. Travel Feature Spotlight ("The unspoken rules of Japanese body language") */}
-      <TravelSpotlight
-        onArticleClick={handleArticleClick}
-      />
-
-      {/* 12. History Spotlight ("Crowns and Controversies" 3-Card Row) */}
-      <HistorySection
-        onArticleClick={handleArticleClick}
-      />
-
-      {/* 13. Earth Feature Spotlight ("Birdwatching rewires the brain") */}
-      <EarthSpotlight
-        onArticleClick={handleArticleClick}
-      />
-
-      {/* 14. Advertisement Banner under Earth Section matching Image 2 */}
-      <AdBanner type="placeholder" sizeText="1000 x 350" />
-
-      {/* 15. 4-Column News Digest 1 (US & Canada, More World News, Business, Technology) */}
-      <MultiColumnDigest
-        columns={fourColumnDigest1}
-        onArticleClick={handleArticleClick}
-        onVideoClick={(video) => setActiveVideo(video)}
-      />
-
-      {/* 16. Advertisement Banner under 4-Column Digest 1 */}
-      <AdBanner type="placeholder" sizeText="1000 x 350" />
-
-      {/* 17. Latest Sport Audio Shelf */}
-      <SportAudioShelf
-        onPlayPodcast={(podcast) => setActivePodcast(podcast)}
-      />
-
-      {/* 18. 4-Column News Digest 2 (Sport, Health, Culture, Travel) */}
-      <MultiColumnDigest
-        columns={fourColumnDigest2}
-        onArticleClick={handleArticleClick}
-        onVideoClick={(video) => setActiveVideo(video)}
-      />
-
-      {/* 19. Advertisement Banner under 4-Column Digest 2 */}
-      <AdBanner type="placeholder" sizeText="1000 x 350" />
-
-      {/* 20. Watch Feature ("Why the television refuses to die") */}
-      <WatchHero
-        onVideoClick={(video) => setActiveVideo(video)}
-      />
-
-      {/* 21. 4-Column News Digest 3 (Arts, Earth, Video, World's Table) */}
-      <MultiColumnDigest
-        columns={fourColumnDigest3}
-        onArticleClick={handleArticleClick}
-        onVideoClick={(video) => setActiveVideo(video)}
-      />
-
-      {/* 22. Discover More from the BBC (9 slots) */}
-      <DiscoverBBC />
-
-      {/* 23. Advertisement Banner under Discover More from the BBC */}
-      <AdBanner type="placeholder" sizeText="1000 x 350" />
-
-      {/* 24. Global BBC Footer */}
+      {/* 9. Global BBC Footer */}
       <Footer />
 
-      {/* 24. Interactive Modals & Floating Overlays */}
+      {/* Interactive Modals & Floating Overlays */}
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
