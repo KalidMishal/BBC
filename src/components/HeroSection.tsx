@@ -17,19 +17,19 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
   return (
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 sm:pt-6 pb-6">
       {/* 
-        3-Column Grid matching media_1793964793243_13742b80.jpg:
-        Left: ~280-320px (Meghan Markle & Eagle's Nest cards)
-        Center: 1fr (Paris protests lead story with LIVE UPDATES)
-        Right: ~270-300px (LATEST UPDATES with amber square and clean headlines)
+        3-Column Grid matching media_1794046839520_42a0686b.jpg (Image 1):
+        Left (~26%): Meghan Markle & Eagle's Nest cards (no divider between them)
+        Center (~48%): Paris protests lead story with LIVE UPDATES
+        Right (~26%): LATEST UPDATES with amber square and clean headlines
       */}
-      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_270px] xl:grid-cols-[300px_1fr_280px] 2xl:grid-cols-[320px_1fr_300px] gap-6 lg:gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.85fr_1fr] gap-6 lg:gap-8 items-start">
         
         {/* Left Column: 2 Cards with image, bold sans-serif headline, uppercase metadata */}
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-5">
           {/* Article 1: Meghan Markle */}
           <article
             onClick={() => onArticleClick?.(meghanStory)}
-            className="group cursor-pointer flex flex-col border-b border-neutral-200 pb-5 mb-5"
+            className="group cursor-pointer flex flex-col"
           >
             {meghanStory.imageUrl && (
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-2.5">
@@ -43,7 +43,7 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
             )}
 
             <div>
-              <h3 className="font-sans font-bold text-[16px] sm:text-[17px] text-neutral-900 group-hover:underline leading-[1.25]">
+              <h3 className="font-sans font-bold text-[15.5px] sm:text-[16.5px] text-neutral-900 group-hover:underline leading-[1.22]">
                 {meghanStory.title}
               </h3>
               <div className="flex items-center space-x-1.5 font-sans text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-2">
@@ -71,7 +71,7 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
             )}
 
             <div>
-              <h3 className="font-sans font-bold text-[16px] sm:text-[17px] text-neutral-900 group-hover:underline leading-[1.25]">
+              <h3 className="font-sans font-bold text-[15.5px] sm:text-[16.5px] text-neutral-900 group-hover:underline leading-[1.22]">
                 {eaglesNestStory.title}
               </h3>
               <div className="flex items-center space-x-1.5 font-sans text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-2">
@@ -102,7 +102,7 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
             )}
 
             <div>
-              <h2 className="text-[26px] sm:text-[32px] md:text-[36px] font-sans font-bold text-neutral-900 group-hover:underline leading-[1.12]">
+              <h2 className="text-[24px] sm:text-[28px] md:text-[30px] font-sans font-bold text-neutral-900 group-hover:underline leading-[1.15]">
                 {topStoryLead.title}
               </h2>
 
@@ -125,7 +125,7 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
         <div className="flex flex-col">
           <div className="flex items-center mb-3">
             <span className="w-2.5 h-2.5 bg-[#c9a62e] inline-block mr-2" />
-            <h2 className="font-sans font-black text-[15px] sm:text-[16px] uppercase tracking-wider text-neutral-900">
+            <h2 className="font-sans font-black text-[14px] sm:text-[15px] uppercase tracking-wider text-neutral-900">
               LATEST UPDATES
             </h2>
           </div>
@@ -139,7 +139,7 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
                   idx < topStoriesSideList.length - 1 ? 'border-b border-neutral-200 pb-3 mb-2.5' : 'pb-1'
                 }`}
               >
-                <h3 className="font-sans font-bold text-[14px] sm:text-[14.5px] text-neutral-900 group-hover:underline leading-snug">
+                <h3 className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-900 group-hover:underline leading-snug">
                   {story.title}
                 </h3>
                 <div className="flex items-center space-x-1.5 font-sans text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-2">

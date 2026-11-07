@@ -40,18 +40,18 @@ export default function HumanRightsSection({ onArticleClick }: HumanRightsSectio
               </div>
             )}
 
-            <h3 className="font-sans font-bold text-[19px] sm:text-[21.5px] leading-[1.22] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[18px] sm:text-[20px] leading-[1.22] text-neutral-900 group-hover:underline">
               {story1.title}
             </h3>
 
             {story1.summary && (
-              <p className="font-sans text-[13.5px] sm:text-[14px] text-neutral-600 leading-relaxed font-normal mt-2">
+              <p className="font-sans text-[12.5px] sm:text-[13px] text-neutral-600 leading-relaxed font-normal mt-2">
                 {story1.summary}
               </p>
             )}
           </div>
 
-          <div className="flex items-center space-x-2 font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
+          <div className="flex items-center space-x-2 font-sans font-semibold text-[10.5px] sm:text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
             <span>{story1.time}</span>
             <span>|</span>
             <span className="hover:underline">{story1.category}</span>
@@ -75,18 +75,18 @@ export default function HumanRightsSection({ onArticleClick }: HumanRightsSectio
               </div>
             )}
 
-            <h3 className="font-sans font-bold text-[19px] sm:text-[21.5px] leading-[1.22] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[18px] sm:text-[20px] leading-[1.22] text-neutral-900 group-hover:underline">
               {story2.title}
             </h3>
 
             {story2.summary && (
-              <p className="font-sans text-[13.5px] sm:text-[14px] text-neutral-600 leading-relaxed font-normal mt-2">
+              <p className="font-sans text-[12.5px] sm:text-[13px] text-neutral-600 leading-relaxed font-normal mt-2">
                 {story2.summary}
               </p>
             )}
           </div>
 
-          <div className="flex items-center space-x-2 font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
+          <div className="flex items-center space-x-2 font-sans font-semibold text-[10.5px] sm:text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
             <span>{story2.time}</span>
             <span>|</span>
             <span className="hover:underline">{story2.category}</span>

@@ -66,7 +66,7 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
             className="group cursor-pointer flex flex-col sm:flex-row gap-5 items-start"
           >
             {moreNewsVanessa.imageUrl && (
-              <div className="w-full sm:w-[250px] md:w-[270px] aspect-[4/3] sm:aspect-square relative overflow-hidden bg-neutral-100 shrink-0">
+              <div className="w-full sm:w-[240px] md:w-[260px] aspect-[4/3] relative overflow-hidden bg-neutral-100 shrink-0">
                 <Image
                   src={moreNewsVanessa.imageUrl}
                   alt={moreNewsVanessa.imageAlt || moreNewsVanessa.title}
@@ -77,18 +77,18 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
             )}
 
             <div className="flex flex-col justify-start">
-              <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-1.5">
+              <div className="font-sans font-bold text-[10.5px] sm:text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
                 {moreNewsVanessa.category}
               </div>
-              <h3 className="font-sans font-bold text-[21px] sm:text-[24px] leading-[1.18] text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[19px] sm:text-[21px] leading-[1.2] text-neutral-900 group-hover:underline">
                 {moreNewsVanessa.title}
               </h3>
               {moreNewsVanessa.summary && (
-                <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 leading-relaxed font-normal mt-2.5">
+                <p className="font-sans text-[12.5px] sm:text-[13px] text-neutral-600 leading-relaxed font-normal mt-2">
                   {moreNewsVanessa.summary}
                 </p>
               )}
-              <div className="flex items-center space-x-2 font-sans font-semibold text-[11px] text-neutral-500 uppercase tracking-wide mt-3.5">
+              <div className="flex items-center space-x-2 font-sans font-semibold text-[10.5px] sm:text-[11px] text-neutral-500 uppercase tracking-wide mt-3">
                 <span>{moreNewsVanessa.time}</span>
                 <span>|</span>
                 <span className="hover:underline">{moreNewsVanessa.category}</span>
@@ -99,10 +99,10 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
           {/* Bottom Card: Andy Burnham InDepth Card in light grey container */}
           <article
             onClick={() => onArticleClick?.(moreNewsBurnham)}
-            className="group cursor-pointer flex flex-col sm:flex-row gap-4 sm:gap-5 items-center bg-[#f8f8f8] p-3 sm:p-4 transition hover:bg-[#f2f2f2]"
+            className="group cursor-pointer flex flex-col sm:flex-row gap-4 sm:gap-5 items-center bg-[#f8f8f8] p-3 sm:p-3.5 transition hover:bg-[#f2f2f2]"
           >
             {moreNewsBurnham.imageUrl && (
-              <div className="w-full sm:w-[210px] md:w-[230px] aspect-[16/10] relative overflow-hidden bg-white shrink-0">
+              <div className="w-full sm:w-[170px] md:w-[185px] aspect-[16/10] relative overflow-hidden bg-white shrink-0">
                 <Image
                   src={moreNewsBurnham.imageUrl}
                   alt={moreNewsBurnham.imageAlt || moreNewsBurnham.title}
@@ -113,13 +113,13 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
             )}
 
             <div className="flex flex-col justify-center w-full">
-              <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
+              <div className="font-sans font-bold text-[10.5px] sm:text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
                 {moreNewsBurnham.category}
               </div>
-              <h3 className="font-sans font-bold text-[17px] sm:text-[19px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[16px] sm:text-[17px] leading-snug text-neutral-900 group-hover:underline">
                 {moreNewsBurnham.title}
               </h3>
-              <div className="font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-2">
+              <div className="font-sans font-semibold text-[10.5px] text-neutral-400 uppercase tracking-wide mt-2">
                 {moreNewsBurnham.time}
               </div>
             </div>

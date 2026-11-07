@@ -62,11 +62,11 @@ export default function PoliticsAndTrendingSection({
               <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
                 {article.category}
               </div>
-              <h3 className="font-sans font-bold text-[15px] sm:text-[15.5px] leading-[1.3] text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[14px] sm:text-[14.5px] leading-snug text-neutral-900 group-hover:underline">
                 {article.title}
               </h3>
             </div>
-            <div className="font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-2">
+            <div className="font-sans font-semibold text-[10.5px] sm:text-[11px] text-neutral-400 uppercase tracking-wide mt-2">
               {article.time}
             </div>
           </article>
@@ -103,15 +103,15 @@ export default function PoliticsAndTrendingSection({
             <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
               {euLeadersStory.category}
             </div>
-            <h3 className="font-sans font-bold text-[22px] sm:text-[25px] leading-[1.18] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[22px] sm:text-[24px] leading-[1.2] text-neutral-900 group-hover:underline">
               {euLeadersStory.title}
             </h3>
             {euLeadersStory.summary && (
-              <p className="font-sans text-[13.5px] sm:text-[14px] text-neutral-600 leading-relaxed mt-2.5">
+              <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 leading-relaxed mt-2.5">
                 {euLeadersStory.summary}
               </p>
             )}
-            <div className="font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
+            <div className="font-sans font-semibold text-[10.5px] sm:text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
               {euLeadersStory.time}
             </div>
           </div>
