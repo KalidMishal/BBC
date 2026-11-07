@@ -19,8 +19,8 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
         </h2>
       </div>
 
-      {/* 4 Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+      {/* 4 Cards Grid matching media_1794047236112_f256d59b.jpg */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         {sportsSectionArticles.map((card) => (
           <article
             key={card.id}
@@ -29,7 +29,7 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
           >
             <div>
               {card.imageUrl && (
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-2.5">
+                <div className="relative aspect-[16/11] w-full overflow-hidden bg-neutral-100 mb-2">
                   <Image
                     src={card.imageUrl}
                     alt={card.imageAlt || card.title}
@@ -38,14 +38,14 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
                   />
                 </div>
               )}
-              <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
+              <div className="font-sans font-bold text-[10.5px] text-neutral-500 uppercase tracking-wider mb-1">
                 {card.category}
               </div>
-              <h3 className="font-sans font-bold text-[15px] sm:text-[15.5px] leading-[1.3] text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[14.5px] sm:text-[15px] leading-snug text-neutral-900 group-hover:underline">
                 {card.title}
               </h3>
               {card.summary && (
-                <p className="font-sans text-[12px] sm:text-[12.5px] text-neutral-600 leading-relaxed font-normal mt-1.5">
+                <p className="font-sans text-[11.5px] sm:text-[12px] text-neutral-600 leading-snug font-normal mt-1.5">
                   {card.summary}
                 </p>
               )}

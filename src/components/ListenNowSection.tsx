@@ -40,31 +40,31 @@ export default function ListenNowSection({ onPlayPodcast }: ListenNowSectionProp
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch mt-4">
-        {/* Left Column (col-span-7): Featured Podcast Card */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch mt-4">
+        {/* Left Column (col-span-7): Featured Podcast Card matching media_1794047249424_5dc9ace4.jpg */}
         <div
           onClick={() => onPlayPodcast?.(listenNowFeaturedPodcast)}
-          className="lg:col-span-7 bg-[#1c1a1a] text-white p-6 sm:p-8 flex flex-col justify-between group cursor-pointer relative overflow-hidden shadow-xs min-h-[250px]"
+          className="lg:col-span-7 bg-[#141416] text-white p-5 sm:p-7 md:p-8 flex flex-col justify-between group cursor-pointer relative overflow-hidden shadow-xs min-h-[260px]"
         >
           <div className="relative z-10 max-w-[65%]">
-            <div className="font-sans font-bold text-[10.5px] text-neutral-400 uppercase tracking-widest mb-2">
+            <div className="font-sans font-bold text-[10px] text-neutral-400 uppercase tracking-widest mb-2">
               {listenNowFeaturedPodcast.category}
             </div>
-            <h3 className="font-sans font-bold text-[26px] sm:text-[32px] leading-tight text-white group-hover:underline">
+            <h3 className="font-sans font-bold text-[24px] sm:text-[28px] leading-tight text-white group-hover:underline">
               {listenNowFeaturedPodcast.title}
             </h3>
             {listenNowFeaturedPodcast.summary && (
-              <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-300 leading-relaxed mt-2.5">
+              <p className="font-sans text-[12px] sm:text-[12.5px] text-neutral-300 leading-relaxed mt-2.5 max-w-[250px]">
                 {listenNowFeaturedPodcast.summary}
               </p>
             )}
           </div>
 
-          <div className="relative z-10 flex items-center space-x-3 mt-6 sm:mt-8">
-            <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <Play className="w-3.5 h-3.5 fill-black text-black ml-0.5" />
+          <div className="relative z-10 flex items-center space-x-2.5 mt-6 sm:mt-8">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Play className="w-3 h-3 fill-black text-black ml-0.5" />
             </div>
-            <span className="font-sans font-bold text-xs sm:text-[13px] text-white">
+            <span className="font-sans font-bold text-xs sm:text-[12.5px] text-white">
               Listen Now | {listenNowFeaturedPodcast.episodeDuration || '27 mins'}
             </span>
           </div>
@@ -81,15 +81,15 @@ export default function ListenNowSection({ onPlayPodcast }: ListenNowSectionProp
         </div>
 
         {/* Right Column (col-span-5): 3 Stacked Episodes */}
-        <div className="lg:col-span-5 flex flex-col space-y-4 sm:space-y-5 justify-between">
+        <div className="lg:col-span-5 flex flex-col justify-between space-y-3.5 sm:space-y-4">
           {listenNowEpisodes.map((ep) => (
             <article
               key={ep.id}
               onClick={() => onPlayPodcast?.(ep)}
-              className="group cursor-pointer flex items-center space-x-4"
+              className="group cursor-pointer flex items-center space-x-3.5"
             >
               {ep.imageUrl && (
-                <div className="w-[120px] h-[75px] sm:w-[130px] sm:h-[80px] relative overflow-hidden shrink-0 bg-neutral-100">
+                <div className="w-[115px] h-[72px] sm:w-[122px] sm:h-[76px] relative overflow-hidden shrink-0 bg-neutral-100">
                   <Image
                     src={ep.imageUrl}
                     alt={ep.title}
@@ -100,18 +100,18 @@ export default function ListenNowSection({ onPlayPodcast }: ListenNowSectionProp
               )}
 
               <div className="flex flex-col justify-start">
-                <div className="font-sans font-bold text-[10.5px] text-neutral-500 uppercase tracking-wider mb-1">
+                <div className="font-sans font-bold text-[10px] sm:text-[10.5px] text-neutral-500 uppercase tracking-wider mb-0.5">
                   {ep.category}
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-5 h-5 rounded-full border border-neutral-700 flex items-center justify-center shrink-0">
                     <Play className="w-2.5 h-2.5 fill-neutral-800 text-neutral-800 ml-0.5" />
                   </div>
-                  <h4 className="font-sans font-bold text-[13.5px] sm:text-[14px] leading-snug text-neutral-900 group-hover:underline">
+                  <h4 className="font-sans font-bold text-[13px] sm:text-[13.5px] leading-snug text-neutral-900 group-hover:underline">
                     {ep.title}
                   </h4>
                 </div>
-                <div className="font-sans text-[11px] text-neutral-400 mt-1 pl-7">
+                <div className="font-sans text-[11px] text-neutral-400 mt-0.5 pl-7">
                   {ep.episodeDuration}
                 </div>
               </div>
