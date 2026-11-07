@@ -7,10 +7,9 @@ import { useRouter } from 'next/navigation';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import PoliticsAndTrendingSection from '../components/PoliticsAndTrendingSection';
-import WeekendReads from '../components/WeekendReads';
-import SportFeature from '../components/SportFeature';
-import AudioShelf from '../components/AudioShelf';
 import MoreNewsSection from '../components/MoreNewsSection';
+import HumanRightsSection from '../components/HumanRightsSection';
+import AudioShelf from '../components/AudioShelf';
 import EditorsPicks from '../components/EditorsPicks';
 import TravelSpotlight from '../components/TravelSpotlight';
 import HistorySection from '../components/HistorySection';
@@ -77,16 +76,17 @@ export default function BBCCloneHomePage() {
         onArticleClick={handleArticleClick}
       />
 
-      {/* 3. Advertisement Banner above Weekend Reads matching Image 2 */}
+      {/* 3. Advertisement Banner */}
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
-      {/* 4. Weekend Reads (2 High-Impact Landscape Cards) */}
-      <WeekendReads
+      {/* 4. More News (under Advertisement, matching Image 1) */}
+      <MoreNewsSection
         onArticleClick={handleArticleClick}
+        onVideoClick={(video) => setActiveVideo(video)}
       />
 
-      {/* 5. Sport Premier League Feature (Cole Palmer / Match Action) */}
-      <SportFeature
+      {/* 5. Human Rights & Civil Liberties (replaces Weekend Reads, matching Image 2) */}
+      <HumanRightsSection
         onArticleClick={handleArticleClick}
       />
 
@@ -98,13 +98,7 @@ export default function BBCCloneHomePage() {
       {/* 7. Advertisement Banner below Best Audio of the Week matching Image 2 */}
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
-      {/* 8. More News (Featured Story + Multi-tier Grid) */}
-      <MoreNewsSection
-        onArticleClick={handleArticleClick}
-        onVideoClick={(video) => setActiveVideo(video)}
-      />
-
-      {/* 9. Editor's Picks (Dark Carousel matching Image 1) */}
+      {/* 8. Editor's Picks (Dark Carousel matching Image 1) */}
       <EditorsPicks
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}

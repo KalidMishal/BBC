@@ -251,80 +251,94 @@ export const podcastsWeek: PodcastItem[] = [
 export const moreNewsVanessa: Article = {
   id: 'mn-vanessa',
   title: "Vanessa Trump says she is cancer-free six months after revealing diagnosis",
-  summary: "The ex-wife of Donald Trump Jr, with whom she shares five children, announced in May that she had been diagnosed with breast cancer.",
-  time: "2 days ago",
-  category: "US & Canada",
-  imageUrl: "/morenews-vanessa.jpg",
-  imageAlt: "Vanessa Trump smiling with daughter",
+  summary: "The ex-wife of Donald Trump Jr., with whom she shares five children, announced in May that she had been diagnosed with breast cancer.",
+  time: "2 DAYS AGO",
+  category: "US & CANADA",
+  imageUrl: "/morenews-white-house.jpg",
+  imageAlt: "White House exterior with US flag and fountain",
   link: "#"
 };
 
 export const moreNewsBurnham: Article = {
   id: 'mn-burnham',
   title: "Between quick wins and big dreams lies Burnham's biggest test",
-  summary: "The prime minister might be dreaming of gold medals in 2040, but he must first navigate the difficult years in between, writes Laura Kuenssberg.",
-  time: "2 days ago",
-  category: "BBC InDepth",
+  summary: "The prime minister might be dreaming of gold medals in 2040, but he must first navigate the difficult years in between.",
+  time: "2 DAYS AGO",
+  category: "BBC INDEPTH",
   badge: "BBC INDEPTH",
   imageUrl: "/morenews-burnham.jpg",
-  imageAlt: "Andy Burnham and politicians",
+  imageAlt: "Andy Burnham and politicians portrait",
   link: "#"
 };
 
-export const moreNewsBottomRow: Article[] = [
+export const moreNewsSideList: Article[] = [
   {
     id: 'mn-ai',
     title: "The rise of AI election ads in US midterms campaign",
-    summary: "BBC Verify has tracked dozens of AI ads to assess how they are being used by campaigns in the midterms.",
-    time: "2 days ago",
-    category: "BBC Verify",
-    badge: "BBC VERIFY",
-    imageUrl: "/morenews-ai.jpg",
-    isVideo: true,
-    link: "#"
-  },
-  {
-    id: 'mn-bovino',
-    title: "Minneapolis withdrawal was 'surrender', Trump's ex-border patrol chief tells BBC",
-    summary: "Greg Bovino was the public face of the controversial immigration enforcement operation in the city earlier this year.",
-    time: "2 days ago",
-    category: "US & Canada",
-    imageUrl: "/morenews-bovino.jpg",
+    time: "2 DAYS AGO",
+    category: "TECHNOLOGY",
+    imageUrl: "/morenews-ai-chip.jpg",
+    imageAlt: "Blue glowing AI silicon microchip",
     link: "#"
   },
   {
     id: 'mn-nairobi',
     title: "Two rescued after Nairobi building collapse with five still missing",
-    summary: "Police have launched a manhunt for the building's owner and contractor after the multi-storey building collapsed while still under construction.",
-    time: "2 days ago",
-    category: "Africa",
-    imageUrl: "/morenews-nairobi.jpg",
-    link: "#"
-  }
-];
-
-export const moreNewsTextOnly: Article[] = [
-  {
-    id: 'mn-schools',
-    title: "Britain's posh schools are heading to India for students and profits",
-    summary: "Half a dozen elite British schools are chasing growth in India amid a boom in its wealthy population.",
-    time: "2 days ago",
-    category: "Asia",
+    time: "2 DAYS AGO",
+    category: "AFRICA",
+    imageUrl: "/morenews-nairobi-rubble.jpg",
+    imageAlt: "Emergency rescuers in helmets at Nairobi building collapse",
     link: "#"
   },
   {
     id: 'mn-biosecurity',
     title: "UK to invest £100m in 'world first' AI Biosecurity Lab",
-    summary: "The chancellor will unveil AI spending aimed at shoring up the UK's defences in Wednesday's Budget.",
-    time: "2 days ago",
-    category: "Technology",
+    time: "2 DAYS AGO",
+    category: "TECHNOLOGY",
+    imageUrl: "/morenews-biosecurity-lab.jpg",
+    imageAlt: "Female scientist looking into a laboratory microscope",
+    link: "#"
+  },
+  {
+    id: 'mn-schools',
+    title: "Britain's posh schools are heading to India for students and profits",
+    time: "2 DAYS AGO",
+    category: "ASIA",
+    imageUrl: "/morenews-posh-schools.jpg",
+    imageAlt: "British historic school with Union Jack flags",
     link: "#"
   }
 ];
 
+// Human Rights & Civil Liberties matching media_1794016188879_d0c66188
+export const humanRightsArticles: Article[] = [
+  {
+    id: 'hr-1',
+    title: "Excuse my French? The swear words that used to be illegal in Canada",
+    summary: "Quebec has passed such a vast variety of profanity that it's been called the Amazon rainforest of swear words.",
+    time: "2 DAYS AGO",
+    category: "CULTURE",
+    imageUrl: "/humanrights-language-act.jpg",
+    imageAlt: "Pop art collage illustration with lips and Language Act cutouts",
+    link: "#"
+  },
+  {
+    id: 'hr-2',
+    title: "Why filming The Worst Person in the World stopped Renate Reinsve from quitting acting",
+    summary: "In an exclusive interview, Renate Reinsve reflects on how the film reshaped her career, creativity and perspective on life.",
+    time: "2 DAYS AGO",
+    category: "ENTERTAINMENT",
+    imageUrl: "/humanrights-renate-reinsve.jpg",
+    imageAlt: "Black and white portrait of actress Renate Reinsve",
+    link: "#"
+  }
+];
+
+export const moreNewsBottomRow: Article[] = moreNewsSideList;
+export const moreNewsTextOnly: Article[] = moreNewsSideList.slice(2);
 export const moreNewsFeatured: Article = moreNewsVanessa;
 export const moreNewsLeft: Article[] = [moreNewsBurnham];
-export const moreNewsRight: Article[] = moreNewsTextOnly;
+export const moreNewsRight: Article[] = moreNewsSideList;
 
 export const editorsPicks: Article[] = [
   {

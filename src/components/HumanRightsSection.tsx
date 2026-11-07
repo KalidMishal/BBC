@@ -1,0 +1,98 @@
+'use client';
+
+import React from 'react';
+import Image from 'next/image';
+import { humanRightsArticles } from '../data/bbcData';
+import { Article } from '../types';
+
+interface HumanRightsSectionProps {
+  onArticleClick?: (article: Article) => void;
+}
+
+export default function HumanRightsSection({ onArticleClick }: HumanRightsSectionProps) {
+  const [story1, story2] = humanRightsArticles;
+
+  return (
+    <section className="max-w-[1320px] mx-auto px-4 sm:px-6 pt-5 pb-8">
+      {/* Header matching media_1794016188879_d0c66188.jpg */}
+      <div className="mb-4 sm:mb-5">
+        <h2 className="font-sans font-bold text-[24px] sm:text-[28px] text-neutral-900 tracking-tight">
+          Human Rights &amp; Civil Liberties
+        </h2>
+      </div>
+
+      {/* 2 High-Impact Landscape Cards side by side */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {/* Card 1: Language Act in Canada */}
+        <article
+          onClick={() => onArticleClick?.(story1)}
+          className="group cursor-pointer flex flex-col justify-between"
+        >
+          <div>
+            {story1.imageUrl && (
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-2.5">
+                <Image
+                  src={story1.imageUrl}
+                  alt={story1.imageAlt || story1.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+
+            <h3 className="font-sans font-bold text-[19px] sm:text-[21.5px] leading-[1.22] text-neutral-900 group-hover:underline">
+              {story1.title}
+            </h3>
+
+            {story1.summary && (
+              <p className="font-sans text-[13.5px] sm:text-[14px] text-neutral-600 leading-relaxed font-normal mt-2">
+                {story1.summary}
+              </p>
+            )}
+          </div>
+
+          <div className="flex items-center space-x-2 font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
+            <span>{story1.time}</span>
+            <span>|</span>
+            <span className="hover:underline">{story1.category}</span>
+          </div>
+        </article>
+
+        {/* Card 2: Renate Reinsve */}
+        <article
+          onClick={() => onArticleClick?.(story2)}
+          className="group cursor-pointer flex flex-col justify-between"
+        >
+          <div>
+            {story2.imageUrl && (
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-2.5">
+                <Image
+                  src={story2.imageUrl}
+                  alt={story2.imageAlt || story2.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+
+            <h3 className="font-sans font-bold text-[19px] sm:text-[21.5px] leading-[1.22] text-neutral-900 group-hover:underline">
+              {story2.title}
+            </h3>
+
+            {story2.summary && (
+              <p className="font-sans text-[13.5px] sm:text-[14px] text-neutral-600 leading-relaxed font-normal mt-2">
+                {story2.summary}
+              </p>
+            )}
+          </div>
+
+          <div className="flex items-center space-x-2 font-sans font-semibold text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
+            <span>{story2.time}</span>
+            <span>|</span>
+            <span className="hover:underline">{story2.category}</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
