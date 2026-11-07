@@ -25,8 +25,8 @@ export default function WatchHero({ onVideoClick }: WatchHeroProps) {
         onClick={() => onVideoClick?.(watchHeroCinema)}
         className="group cursor-pointer grid grid-cols-1 md:grid-cols-12 bg-black overflow-hidden shadow-xs"
       >
-        {/* Left: Macro Snake Image (~65% width) */}
-        <div className="md:col-span-8 relative aspect-[16/10] sm:aspect-[16/9] md:aspect-auto md:min-h-[320px] w-full overflow-hidden bg-neutral-900">
+        {/* Left: Macro Snake Image (2/3 width) */}
+        <div className="md:col-span-8 relative aspect-[16/9] w-full overflow-hidden bg-neutral-900">
           <Image
             src={watchHeroCinema.imageUrl || '/watch-snake-macro.jpg'}
             alt={watchHeroCinema.imageAlt || watchHeroCinema.title}
@@ -39,13 +39,13 @@ export default function WatchHero({ onVideoClick }: WatchHeroProps) {
           </div>
         </div>
 
-        {/* Right: Black content box (~35% width) */}
-        <div className="md:col-span-4 bg-black text-white p-6 sm:p-8 flex flex-col justify-center items-start">
-          <h3 className="font-serif font-bold text-[20px] sm:text-[23px] text-white leading-snug group-hover:underline">
+        {/* Right: Black content box (1/3 width) */}
+        <div className="md:col-span-4 bg-black text-white p-6 sm:p-7 md:p-8 flex flex-col justify-center items-start">
+          <h3 className="font-serif font-bold text-[18px] sm:text-[21px] text-white leading-snug group-hover:underline">
             {watchHeroCinema.title}
           </h3>
           {watchHeroCinema.summary && (
-            <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-300 leading-relaxed mt-3">
+            <p className="font-serif text-[12px] sm:text-[12.5px] text-neutral-300 leading-relaxed mt-3">
               {watchHeroCinema.summary}
             </p>
           )}
@@ -54,7 +54,7 @@ export default function WatchHero({ onVideoClick }: WatchHeroProps) {
               e.stopPropagation();
               onVideoClick?.(watchHeroCinema);
             }}
-            className="border border-white text-white font-sans text-xs font-semibold px-4 py-1.5 mt-5 hover:bg-white hover:text-black transition cursor-pointer"
+            className="border border-white text-white font-sans text-[11px] sm:text-xs font-semibold px-3.5 py-1.5 mt-4 hover:bg-white hover:text-black transition cursor-pointer"
           >
             See more
           </button>

@@ -27,7 +27,7 @@ export default function RecentVideosSection({
           <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
             Recent Videos
           </h2>
-          <p className="font-sans text-[13px] sm:text-[14px] text-neutral-600 mt-0.5">
+          <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 mt-0.5">
             Watch the latest reports, analyses and exclusive coverage from our newsroom.
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function RecentVideosSection({
       </div>
 
       {/* 5 Video Cards Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 lg:gap-3.5">
         {recentVideosList.map((video) => (
           <article
             key={video.id}
@@ -54,7 +54,7 @@ export default function RecentVideosSection({
           >
             <div>
               {video.imageUrl && (
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-2">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100 mb-2">
                   <Image
                     src={video.imageUrl}
                     alt={video.imageAlt || video.title}
@@ -74,18 +74,18 @@ export default function RecentVideosSection({
                 </div>
               )}
 
-              <h3 className="font-sans font-bold text-[13.5px] sm:text-[14px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[13px] sm:text-[13.5px] leading-snug text-neutral-900 group-hover:underline">
                 {video.title}
               </h3>
 
               {video.summary && (
-                <p className="font-sans text-[12px] sm:text-[12.5px] text-neutral-600 leading-relaxed font-normal mt-1.5 line-clamp-3">
+                <p className="font-sans text-[11px] sm:text-[11.5px] text-neutral-600 leading-snug font-normal mt-1.5 line-clamp-3">
                   {video.summary}
                 </p>
               )}
             </div>
 
-            <div className="flex items-center space-x-1.5 font-sans font-semibold text-[11px] text-neutral-400 tracking-wide mt-2.5">
+            <div className="flex items-center space-x-1.5 font-sans font-semibold text-[10px] sm:text-[10.5px] text-neutral-500 tracking-wide mt-2.5">
               <span>{video.category}</span>
               <span>|</span>
               <span>{video.time}</span>
