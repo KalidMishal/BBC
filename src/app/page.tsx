@@ -13,6 +13,10 @@ import WatchHero from '../components/WatchHero';
 import RecentVideosSection from '../components/RecentVideosSection';
 import EditorsPicks from '../components/EditorsPicks';
 import InDepthDrivingChangeSection from '../components/InDepthDrivingChangeSection';
+import InFocusAndMarketUpdateSection from '../components/InFocusAndMarketUpdateSection';
+import SportsCardsSection from '../components/SportsCardsSection';
+import ListenNowSection from '../components/ListenNowSection';
+import FourCategoriesDigestSection from '../components/FourCategoriesDigestSection';
 import AdBanner from '../components/AdBanner';
 import Footer from '../components/Footer';
 
@@ -104,7 +108,30 @@ export default function BBCCloneHomePage() {
         onArticleClick={handleArticleClick}
       />
 
-      {/* 9. Global BBC Footer */}
+      {/* 9. In Focus This Week & Market Update matching media_1794035586863_48a12b3e */}
+      <InFocusAndMarketUpdateSection
+        onArticleClick={handleArticleClick}
+      />
+
+      {/* 10. Advertisement Banner under Market Update */}
+      <AdBanner type="placeholder" sizeText="1000 x 350" />
+
+      {/* 11. Sports (4 Cards Grid) matching media_1794035724019_9e85fb91 */}
+      <SportsCardsSection
+        onArticleClick={handleArticleClick}
+      />
+
+      {/* 12. Listen Now matching media_1794035802116_4ce202c6 */}
+      <ListenNowSection
+        onPlayPodcast={(podcast) => setActivePodcast(podcast)}
+      />
+
+      {/* 13. Education, Travel & Lifestyle, Energy & Infrastructure, Opinions matching media_1794035851083_5bb58673 */}
+      <FourCategoriesDigestSection
+        onArticleClick={handleArticleClick}
+      />
+
+      {/* 14. Global BBC Footer */}
       <Footer />
 
       {/* Interactive Modals & Floating Overlays */}

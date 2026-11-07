@@ -19,7 +19,8 @@ export interface Article {
 export interface PodcastItem {
   id: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
+  summary?: string;
   imageUrl: string;
   episodeDuration?: string;
   category?: string;

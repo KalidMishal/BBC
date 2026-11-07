@@ -881,6 +881,279 @@ export const recentVideosList: VideoCardItem[] = [
   }
 ];
 
+// In Focus This Week & Market Update matching media_1794035586863_48a12b3e
+export const inFocusLeadStory: Article = {
+  id: 'infocus-lead',
+  title: "Global growth outlook: Key trends shaping markets in 2026",
+  summary: "From interest rates to investment shifts, here's what to watch in the months ahead.",
+  category: "ECONOMY",
+  time: "5 HOURS AGO",
+  imageUrl: "/infocus-city.jpg",
+  imageAlt: "Futuristic illuminated city skyline at sunset",
+  link: "#"
+};
+
+export const inFocusSideList: Article[] = [
+  {
+    id: 'if-1',
+    title: "How advanced AI is reshaping daily life",
+    category: "TECHNOLOGY",
+    time: "6 HOURS AGO",
+    imageUrl: "/infocus-ai-robot.jpg",
+    imageAlt: "White humanoid robot head profile",
+    link: "#"
+  },
+  {
+    id: 'if-2',
+    title: "The next chapter in climate-smart agriculture",
+    category: "SUSTAINABILITY",
+    time: "7 HOURS AGO",
+    imageUrl: "/infocus-drone-farm.jpg",
+    imageAlt: "Agricultural drone flying over terraced green hills",
+    link: "#"
+  },
+  {
+    id: 'if-3',
+    title: "Top destinations to watch for in 2026",
+    category: "TRAVEL",
+    time: "9 HOURS AGO",
+    imageUrl: "/infocus-bullet-train.jpg",
+    imageAlt: "Modern high-speed bullet train on tracks",
+    link: "#"
+  }
+];
+
+export interface MarketMetric {
+  name: string;
+  value: string;
+  change: string;
+  isPositive: boolean;
+}
+
+export const marketUpdateMetrics: MarketMetric[] = [
+  { name: "S&P 500", value: "6,120.18", change: "+0.64%", isPositive: true },
+  { name: "Nasdaq", value: "19,234.67", change: "+0.72%", isPositive: true },
+  { name: "Dow Jones", value: "43,289.12", change: "+0.48%", isPositive: true },
+  { name: "Gold", value: "2,045.30", change: "+0.36%", isPositive: true },
+  { name: "Oil (Brent)", value: "78.21", change: "-0.28%", isPositive: false }
+];
+
+// Sports (4 Cards Grid) matching media_1794035724019_9e85fb91
+export const sportsSectionArticles: Article[] = [
+  {
+    id: 'sports-1',
+    title: "Can the world still meet its net-zero goals?",
+    summary: "A reality check on progress, challenges and what must happen next.",
+    category: "CLIMATE",
+    imageUrl: "/sports-smokestacks.jpg",
+    imageAlt: "Industrial smokestacks emitting steam at sunset",
+    link: "#"
+  },
+  {
+    id: 'sports-2',
+    title: "A new era for global trade and supply chains",
+    summary: "How shifting alliances and market pressures are reshaping global commerce.",
+    category: "GLOBAL TRADE",
+    imageUrl: "/sports-container-ship.jpg",
+    imageAlt: "Loaded container ship sailing in deep blue water",
+    link: "#"
+  },
+  {
+    id: 'sports-3',
+    title: "US–China relations: What comes next?",
+    summary: "Key signals to watch as both powers navigate a more complex relationship.",
+    category: "GEOPOLITICS",
+    imageUrl: "/sports-us-china-flags.jpg",
+    imageAlt: "US and Chinese flags flying together",
+    link: "#"
+  },
+  {
+    id: 'sports-4',
+    title: "The cities leading the next decade of growth",
+    summary: "From innovation to sustainability, the urban models shaping tomorrow.",
+    category: "CITIES",
+    imageUrl: "/sports-dubai-skyline.jpg",
+    imageAlt: "Dubai skyline featuring the Burj Khalifa",
+    link: "#"
+  }
+];
+
+// Listen Now matching media_1794035802116_4ce202c6
+export const listenNowFeaturedPodcast: PodcastItem = {
+  id: 'listen-featured',
+  title: "The Global Briefing",
+  summary: "A weekly conversation on the big stories shaping our world.",
+  category: "FEATURED PODCAST",
+  episodeDuration: "27 mins",
+  imageUrl: "/listen-global-briefing.jpg"
+};
+
+export const listenNowEpisodes: PodcastItem[] = [
+  {
+    id: 'ln-1',
+    title: "US elections: What to watch next",
+    category: "GLOBAL NEWS PODCAST",
+    episodeDuration: "27 mins",
+    imageUrl: "/listen-capitol.jpg"
+  },
+  {
+    id: 'ln-2',
+    title: "The next chapter in clean energy",
+    category: "CLIMATE PODCAST",
+    episodeDuration: "23 mins",
+    imageUrl: "/listen-wind-turbines.jpg"
+  },
+  {
+    id: 'ln-3',
+    title: "How AI is changing work and daily life",
+    category: "TECHNOLOGY PODCAST",
+    episodeDuration: "19 mins",
+    imageUrl: "/listen-ai-chip.jpg"
+  }
+];
+
+// 4 Category Columns Digest matching media_1794035851083_5bb58673
+export interface DigestColumnData {
+  title: string;
+  leadArticle: Article;
+  articles: Article[];
+}
+
+export const fourCategoriesDigestData: DigestColumnData[] = [
+  {
+    title: "Education",
+    leadArticle: {
+      id: 'edu-lead',
+      title: "California governor commutes sentences for state's 548 death row inmates",
+      category: "Education",
+      imageUrl: "/digest-newsom.jpg",
+      link: "#"
+    },
+    articles: [
+      {
+        id: 'edu-1',
+        title: "Canada's federal budget includes billions for sovereignty and tackling homelessness",
+        category: "Canada",
+        imageUrl: "/digest-canada-flag.jpg",
+        link: "#"
+      },
+      {
+        id: 'edu-2',
+        title: "Six dead and others injured in fire at New York City building",
+        category: "US",
+        imageUrl: "/digest-nyc-fire.jpg",
+        link: "#"
+      },
+      {
+        id: 'edu-3',
+        title: "Four investigations Democrats could launch after winning control of Congress",
+        category: "Politics",
+        imageUrl: "/digest-capitol-small.jpg",
+        link: "#"
+      }
+    ]
+  },
+  {
+    title: "Travel & Lifestyle",
+    leadArticle: {
+      id: 'trav-lead',
+      title: "Somalia's top court rejects president's term extension amid political crisis",
+      category: "Travel & Lifestyle",
+      imageUrl: "/digest-somalia-pres.jpg",
+      link: "#"
+    },
+    articles: [
+      {
+        id: 'trav-1',
+        title: "Melania Trump calls for lasting Ukraine truce as she hosts Russian and Ukrainian officials",
+        category: "World",
+        imageUrl: "/digest-melania.jpg",
+        link: "#"
+      },
+      {
+        id: 'trav-2',
+        title: "Major construction ongoing near Iran missile bases, satellite images suggest",
+        category: "Middle East",
+        imageUrl: "/digest-iran-missile.jpg",
+        link: "#"
+      },
+      {
+        id: 'trav-3',
+        title: "Macau jails pro-democracy campaigner in city's first national security case",
+        category: "Asia",
+        imageUrl: "/digest-macau.jpg",
+        link: "#"
+      }
+    ]
+  },
+  {
+    title: "Energy & Infrastructure",
+    leadArticle: {
+      id: 'energy-lead',
+      title: "The engine parts that 'fight the laws of the universe'",
+      category: "Energy & Infrastructure",
+      imageUrl: "/digest-stone-columns.jpg",
+      link: "#"
+    },
+    articles: [
+      {
+        id: 'energy-1',
+        title: "UK interest rates hiked to 4% - first increase in over three years",
+        category: "Business",
+        imageUrl: "/digest-gold-coins.jpg",
+        link: "#"
+      },
+      {
+        id: 'energy-2',
+        title: "Three ways the UK interest rate rise could affect you",
+        category: "Economy",
+        imageUrl: "/digest-glass-buildings.jpg",
+        link: "#"
+      },
+      {
+        id: 'energy-3',
+        title: "Food, fuel and taxes - can the Democrats actually make life cheaper in the US?",
+        category: "US",
+        imageUrl: "/digest-gas-pump.jpg",
+        link: "#"
+      }
+    ]
+  },
+  {
+    title: "Opinions",
+    leadArticle: {
+      id: 'op-lead',
+      title: "Elon Musk's millions failed to deliver Republican wins in fierce midterms",
+      category: "Opinions",
+      imageUrl: "/digest-elon-musk.jpg",
+      link: "#"
+    },
+    articles: [
+      {
+        id: 'op-1',
+        title: "French blood storage impacted by freezer hacks as theories swirl about culprits",
+        category: "Health",
+        imageUrl: "/digest-test-tubes.jpg",
+        link: "#"
+      },
+      {
+        id: 'op-2',
+        title: "Graduates are managing AI - but are they learning much else?",
+        category: "Technology",
+        imageUrl: "/digest-ai-small.jpg",
+        link: "#"
+      },
+      {
+        id: 'op-3',
+        title: "Binance says fake job interviews used as part of $6.3bn crypto hack",
+        category: "Crypto",
+        imageUrl: "/digest-bitcoin.jpg",
+        link: "#"
+      }
+    ]
+  }
+];
+
 // In-Depth Driving Change matching media_1794023369503_59369454
 export const inDepthChangeLead: Article = {
   id: 'indepth-change-lead',
