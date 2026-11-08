@@ -25,7 +25,7 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.85fr_1fr] gap-6 lg:gap-8 items-start">
         
         {/* Left Column: 2 Cards with image, bold sans-serif headline, uppercase metadata */}
-        <div className="flex flex-col space-y-5">
+        <div className="flex flex-col space-y-6 sm:space-y-7">
           {/* Article 1: Meghan Markle */}
           <article
             onClick={() => onArticleClick?.(meghanStory)}
@@ -43,10 +43,10 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
             )}
 
             <div>
-              <h3 className="font-sans font-bold text-[15.5px] sm:text-[16.5px] text-neutral-900 group-hover:underline leading-[1.22]">
+              <h3 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] md:text-[19.5px] text-neutral-900 group-hover:underline leading-[1.22]">
                 {meghanStory.title}
               </h3>
-              <div className="flex items-center space-x-1.5 font-sans text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-2">
+              <div className="flex items-center space-x-1.5 font-sans text-[12.5px] sm:text-[13px] text-neutral-600 font-bold uppercase tracking-wider mt-2.5">
                 <span>{meghanStory.category}</span>
                 <span>•</span>
                 <span>{meghanStory.time}</span>
@@ -71,10 +71,10 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
             )}
 
             <div>
-              <h3 className="font-sans font-bold text-[15.5px] sm:text-[16.5px] text-neutral-900 group-hover:underline leading-[1.22]">
+              <h3 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] md:text-[19.5px] text-neutral-900 group-hover:underline leading-[1.22]">
                 {eaglesNestStory.title}
               </h3>
-              <div className="flex items-center space-x-1.5 font-sans text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-2">
+              <div className="flex items-center space-x-1.5 font-sans text-[12.5px] sm:text-[13px] text-neutral-600 font-bold uppercase tracking-wider mt-2.5">
                 <span>{eaglesNestStory.category}</span>
                 <span>•</span>
                 <span>{eaglesNestStory.time}</span>
@@ -102,18 +102,18 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
             )}
 
             <div>
-              <h2 className="text-[24px] sm:text-[28px] md:text-[30px] font-sans font-bold text-neutral-900 group-hover:underline leading-[1.15]">
+              <h2 className="text-[28px] sm:text-[33px] md:text-[36px] font-sans font-bold text-neutral-900 group-hover:underline leading-[1.12]">
                 {topStoryLead.title}
               </h2>
 
               {topStoryLead.summary && (
-                <p className="font-sans text-[13.5px] sm:text-[14px] text-neutral-600 leading-relaxed font-normal mt-2.5">
+                <p className="font-sans text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal mt-3">
                   {topStoryLead.summary}
                 </p>
               )}
 
-              <div className="flex items-center space-x-1.5 font-sans text-[11px] font-bold tracking-wider mt-3 uppercase">
-                <span className="text-neutral-500">WORLD</span>
+              <div className="flex items-center space-x-1.5 font-sans text-[13px] font-bold tracking-wider mt-3.5 uppercase">
+                <span className="text-neutral-600">WORLD</span>
                 <span className="text-neutral-400">•</span>
                 <span className="text-[#b4982d]">LIVE UPDATES</span>
               </div>
@@ -136,13 +136,13 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
                 key={story.id}
                 onClick={() => onArticleClick?.(story)}
                 className={`group cursor-pointer flex flex-col justify-between py-1.5 ${
-                  idx < topStoriesSideList.length - 1 ? 'border-b border-neutral-200 pb-3.5 mb-3' : 'pb-1'
+                  idx < topStoriesSideList.length - 1 ? 'border-b border-neutral-200 pb-4 mb-3.5' : 'pb-1'
                 }`}
               >
-                <h3 className="font-sans font-bold text-[17px] sm:text-[17.5px] md:text-[18px] text-neutral-900 group-hover:underline leading-snug">
+                <h3 className="font-sans font-bold text-[18px] sm:text-[19px] md:text-[20px] text-neutral-900 group-hover:underline leading-[1.24]">
                   {story.title}
                 </h3>
-                <div className="flex items-center space-x-1.5 font-sans text-[13px] text-neutral-500 font-bold uppercase tracking-wider mt-2">
+                <div className="flex items-center space-x-1.5 font-sans text-[13px] sm:text-[13.5px] text-neutral-600 font-bold uppercase tracking-wider mt-2.5">
                   <span>{story.category}</span>
                   <span>•</span>
                   <span>{story.time}</span>
