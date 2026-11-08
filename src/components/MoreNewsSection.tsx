@@ -26,7 +26,7 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
         "More News" on left, Category Tabs (All, World, Business, Technology, Health) on right
       */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-neutral-200 pb-3 mb-6 gap-3">
-        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
           More News
         </h2>
 

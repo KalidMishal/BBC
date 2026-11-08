@@ -15,7 +15,7 @@ export default function EditorsPicks({ onArticleClick }: EditorsPicksProps) {
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 pb-10">
       {/* Header matching media_1794022061668_43bfc243.jpg */}
       <div className="border-b border-neutral-200 pb-3 mb-6">
-        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
           Editor&apos;s Pick
         </h2>
       </div>

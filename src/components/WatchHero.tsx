@@ -15,7 +15,7 @@ export default function WatchHero({ onVideoClick }: WatchHeroProps) {
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 pb-8">
       {/* Header matching media_1794021619253_52337f93.jpg */}
       <div className="mb-4">
-        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
           Watch
         </h2>
       </div>

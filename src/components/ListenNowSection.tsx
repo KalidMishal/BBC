@@ -23,7 +23,7 @@ export default function ListenNowSection({ onPlayPodcast }: ListenNowSectionProp
       */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-5 gap-2">
         <div>
-          <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
+          <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
             Listen Now
           </h2>
           <p className="font-sans text-[13px] sm:text-[14px] text-neutral-600 mt-0.5">

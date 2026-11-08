@@ -24,7 +24,7 @@ export default function InFocusAndMarketUpdateSection({
         =======================================================
       */}
       <div className="mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
           In Focus This Week
         </h2>
       </div>
@@ -106,7 +106,7 @@ export default function InFocusAndMarketUpdateSection({
       */}
       <div className="bg-[#f9f9f9] border border-neutral-100 p-4 sm:p-5 mt-8 sm:mt-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
         <div className="shrink-0">
-          <h3 className="font-sans font-bold text-[28px] text-neutral-900 leading-tight tracking-tight">
+          <h3 className="font-sans font-bold text-[30px] text-neutral-900 leading-tight tracking-tight">
             Market Update
           </h3>
           <p className="font-sans text-[12px] sm:text-[12.5px] text-neutral-500 mt-0.5">

@@ -28,7 +28,7 @@ export default function FourCategoriesDigestSection({
         {fourCategoriesDigestData.map((col) => (
           <div key={col.title} className="flex flex-col">
             {/* Column Header */}
-            <h3 className="font-sans font-bold text-[28px] text-neutral-900 mb-2.5 tracking-tight leading-tight">
+            <h3 className="font-sans font-bold text-[30px] text-neutral-900 mb-2.5 tracking-tight leading-tight">
               {col.title}
             </h3>
 

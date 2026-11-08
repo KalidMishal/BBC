@@ -123,9 +123,9 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
 
         {/* Right Column: ■ LATEST UPDATES with 4 headline-only articles */}
         <div className="flex flex-col">
-          <div className="flex items-center mb-3">
-            <span className="w-2.5 h-2.5 bg-[#c9a62e] inline-block mr-2" />
-            <h2 className="font-sans font-black text-[14px] sm:text-[15px] uppercase tracking-wider text-neutral-900">
+          <div className="flex items-center mb-3.5 sm:mb-4">
+            <span className="w-3.5 h-3.5 bg-[#c9a62e] inline-block mr-2.5 shrink-0" />
+            <h2 className="font-sans font-bold text-[30px] uppercase tracking-tight leading-tight text-neutral-900">
               LATEST UPDATES
             </h2>
           </div>
@@ -136,13 +136,13 @@ export default function HeroSection({ onArticleClick, onVideoClick }: HeroSectio
                 key={story.id}
                 onClick={() => onArticleClick?.(story)}
                 className={`group cursor-pointer flex flex-col justify-between py-1.5 ${
-                  idx < topStoriesSideList.length - 1 ? 'border-b border-neutral-200 pb-3 mb-2.5' : 'pb-1'
+                  idx < topStoriesSideList.length - 1 ? 'border-b border-neutral-200 pb-3.5 mb-3' : 'pb-1'
                 }`}
               >
-                <h3 className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-900 group-hover:underline leading-snug">
+                <h3 className="font-sans font-bold text-[17px] sm:text-[17.5px] md:text-[18px] text-neutral-900 group-hover:underline leading-snug">
                   {story.title}
                 </h3>
-                <div className="flex items-center space-x-1.5 font-sans text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-2">
+                <div className="flex items-center space-x-1.5 font-sans text-[13px] text-neutral-500 font-bold uppercase tracking-wider mt-2">
                   <span>{story.category}</span>
                   <span>•</span>
                   <span>{story.time}</span>

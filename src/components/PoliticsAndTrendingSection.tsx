@@ -29,7 +29,7 @@ export default function PoliticsAndTrendingSection({
         =======================================================
       */}
       <div className="flex items-center justify-between mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
           Politics &amp; Government
         </h2>
         <Link
@@ -119,7 +119,7 @@ export default function PoliticsAndTrendingSection({
 
         {/* Right Side: Trending Now with Vertical Divider and 01, 02, 03 numbers */}
         <div className="lg:border-l lg:border-neutral-200 lg:pl-8 flex flex-col justify-start">
-          <h2 className="font-sans font-bold text-[28px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
+          <h2 className="font-sans font-bold text-[30px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
             Trending Now
           </h2>
 

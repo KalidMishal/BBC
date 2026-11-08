@@ -14,7 +14,7 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-3 pb-8">
       {/* Header matching media_1794035724019_9e85fb91.jpg */}
       <div className="mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[28px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
           Sports
         </h2>
       </div>
