@@ -29,19 +29,19 @@ export default function PoliticsAndTrendingSection({
         =======================================================
       */}
       <div className="flex items-center justify-between mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[34px] sm:text-[34px] md:text-[35px] text-neutral-900 tracking-tight leading-tight">
           Politics &amp; Government
         </h2>
         <Link
           href="/Politics & Government"
-          className="font-sans font-bold text-[13px] text-neutral-900 hover:text-black hover:underline flex items-center gap-1 transition"
+          className="font-sans font-bold text-[14px] sm:text-[14.5px] text-neutral-900 hover:text-black hover:underline flex items-center gap-1 transition"
         >
           More Global News
-          <span className="text-sm font-normal">→</span>
+          <span className="text-base font-normal">→</span>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 sm:gap-8 lg:gap-9 xl:gap-10">
         {politicsGridArticles.map((article) => (
           <article
             key={article.id}
@@ -50,7 +50,7 @@ export default function PoliticsAndTrendingSection({
           >
             <div>
               {article.imageUrl && (
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-2.5">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100 mb-2.5">
                   <Image
                     src={article.imageUrl}
                     alt={article.imageAlt || article.title}
@@ -59,14 +59,14 @@ export default function PoliticsAndTrendingSection({
                   />
                 </div>
               )}
-              <div className="font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wider mb-1.5">
+              <div className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wider mb-1.5">
                 {article.category}
               </div>
-              <h3 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[19px] sm:text-[20px] md:text-[20.5px] leading-[1.25] text-neutral-900 group-hover:underline">
                 {article.title}
               </h3>
             </div>
-            <div className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-2">
+            <div className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-2.5">
               {article.time}
             </div>
           </article>
@@ -100,18 +100,18 @@ export default function PoliticsAndTrendingSection({
           )}
 
           <div className="flex flex-col justify-start">
-            <div className="font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wider mb-1.5">
+            <div className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wider mb-1.5">
               {euLeadersStory.category}
             </div>
-            <h3 className="font-sans font-bold text-[24px] sm:text-[26px] md:text-[28px] leading-[1.18] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[25px] sm:text-[27px] md:text-[29px] leading-[1.18] text-neutral-900 group-hover:underline">
               {euLeadersStory.title}
             </h3>
             {euLeadersStory.summary && (
-              <p className="font-sans text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed mt-3">
+              <p className="font-sans text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-relaxed mt-3">
                 {euLeadersStory.summary}
               </p>
             )}
-            <div className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-3">
+            <div className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-3">
               {euLeadersStory.time}
             </div>
           </div>
@@ -142,10 +142,10 @@ export default function PoliticsAndTrendingSection({
                   {item.number}
                 </span>
                 <div className="flex flex-col">
-                  <h4 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] leading-snug text-neutral-900 group-hover:underline">
+                  <h4 className="font-sans font-bold text-[18.5px] sm:text-[19.5px] leading-snug text-neutral-900 group-hover:underline">
                     {item.title}
                   </h4>
-                  <span className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-1.5">
+                  <span className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-1.5">
                     {item.time}
                   </span>
                 </div>
