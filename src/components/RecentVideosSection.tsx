@@ -27,22 +27,22 @@ export default function RecentVideosSection({
           <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
             Recent Videos
           </h2>
-          <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 mt-0.5">
+          <p className="font-sans text-[14px] sm:text-[15px] text-neutral-600 mt-1">
             Watch the latest reports, analyses and exclusive coverage from our newsroom.
           </p>
         </div>
 
         <Link
           href="/news"
-          className="font-sans font-bold text-[13px] text-neutral-900 hover:text-black hover:underline flex items-center gap-1 transition shrink-0"
+          className="font-sans font-bold text-[14px] sm:text-[14.5px] text-neutral-900 hover:text-black hover:underline flex items-center gap-1 transition shrink-0"
         >
           All Videos
-          <span className="text-sm font-normal">→</span>
+          <span className="text-base font-normal">→</span>
         </Link>
       </div>
 
       {/* 5 Video Cards Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 lg:gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 lg:gap-4">
         {recentVideosList.map((video) => (
           <article
             key={video.id}
@@ -67,25 +67,25 @@ export default function RecentVideosSection({
                   </div>
                   {/* Duration Badge anchored at bottom-right */}
                   {video.duration && (
-                    <div className="absolute bottom-1.5 right-1.5 bg-black/85 text-white font-mono text-[10px] font-bold px-1.5 py-0.5 leading-none">
+                    <div className="absolute bottom-1.5 right-1.5 bg-black/85 text-white font-mono text-[10.5px] font-bold px-1.5 py-0.5 leading-none">
                       {video.duration}
                     </div>
                   )}
                 </div>
               )}
 
-              <h3 className="font-sans font-bold text-[13px] sm:text-[13.5px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[16px] sm:text-[17px] leading-snug text-neutral-900 group-hover:underline">
                 {video.title}
               </h3>
 
               {video.summary && (
-                <p className="font-sans text-[11px] sm:text-[11.5px] text-neutral-600 leading-snug font-normal mt-1.5 line-clamp-3">
+                <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 leading-snug font-normal mt-1.5 line-clamp-3">
                   {video.summary}
                 </p>
               )}
             </div>
 
-            <div className="flex items-center space-x-1.5 font-sans font-semibold text-[10px] sm:text-[10.5px] text-neutral-500 tracking-wide mt-2.5">
+            <div className="flex items-center space-x-1.5 font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-600 tracking-wide mt-2.5">
               <span>{video.category}</span>
               <span>|</span>
               <span>{video.time}</span>

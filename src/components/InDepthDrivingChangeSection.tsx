@@ -27,18 +27,18 @@ export default function InDepthDrivingChangeSection({
         className="group cursor-pointer border border-neutral-200/80 rounded-xs overflow-hidden bg-white shadow-xs grid grid-cols-1 md:grid-cols-12 items-stretch"
       >
         <div className="md:col-span-6 p-5 sm:p-7 md:p-8 flex flex-col justify-center">
-          <div className="font-sans font-bold text-[10.5px] text-neutral-500 uppercase tracking-wider mb-2">
+          <div className="font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wider mb-2">
             {inDepthChangeLead.category}
           </div>
-          <h2 className="font-sans font-bold text-[22px] sm:text-[26px] md:text-[28px] leading-[1.15] text-neutral-900 group-hover:underline">
+          <h2 className="font-sans font-bold text-[26px] sm:text-[30px] md:text-[32px] leading-[1.15] text-neutral-900 group-hover:underline">
             {inDepthChangeLead.title}
           </h2>
           {inDepthChangeLead.summary && (
-            <p className="font-sans text-[12.5px] sm:text-[13px] text-neutral-600 leading-relaxed mt-2.5 max-w-lg">
+            <p className="font-sans text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed mt-3 max-w-lg">
               {inDepthChangeLead.summary}
             </p>
           )}
-          <div className="font-sans font-semibold text-[10.5px] text-neutral-400 uppercase tracking-wide mt-3">
+          <div className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-3.5">
             {inDepthChangeLead.time}
           </div>
         </div>
@@ -79,14 +79,14 @@ export default function InDepthDrivingChangeSection({
                   />
                 </div>
               )}
-              <div className="font-sans font-bold text-[10.5px] text-neutral-500 uppercase tracking-wider mb-1">
+              <div className="font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wider mb-1.5">
                 {card.category}
               </div>
-              <h3 className="font-sans font-bold text-[14px] sm:text-[14.5px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] leading-snug text-neutral-900 group-hover:underline">
                 {card.title}
               </h3>
             </div>
-            <div className="font-sans font-semibold text-[10.5px] text-neutral-400 uppercase tracking-wide mt-2">
+            <div className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-2.5">
               {card.time}
             </div>
           </article>

@@ -38,14 +38,14 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
                   />
                 </div>
               )}
-              <div className="font-sans font-bold text-[10.5px] text-neutral-500 uppercase tracking-wider mb-1">
+              <div className="font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wider mb-1.5">
                 {card.category}
               </div>
-              <h3 className="font-sans font-bold text-[14.5px] sm:text-[15px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] leading-snug text-neutral-900 group-hover:underline">
                 {card.title}
               </h3>
               {card.summary && (
-                <p className="font-sans text-[11.5px] sm:text-[12px] text-neutral-600 leading-snug font-normal mt-1.5">
+                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-neutral-600 leading-relaxed font-normal mt-2">
                   {card.summary}
                 </p>
               )}

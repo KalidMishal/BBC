@@ -59,14 +59,14 @@ export default function PoliticsAndTrendingSection({
                   />
                 </div>
               )}
-              <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
+              <div className="font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wider mb-1.5">
                 {article.category}
               </div>
-              <h3 className="font-sans font-bold text-[14px] sm:text-[14.5px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] leading-snug text-neutral-900 group-hover:underline">
                 {article.title}
               </h3>
             </div>
-            <div className="font-sans font-semibold text-[10.5px] sm:text-[11px] text-neutral-400 uppercase tracking-wide mt-2">
+            <div className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-2">
               {article.time}
             </div>
           </article>
@@ -100,18 +100,18 @@ export default function PoliticsAndTrendingSection({
           )}
 
           <div className="flex flex-col justify-start">
-            <div className="font-sans font-bold text-[11px] text-neutral-500 uppercase tracking-wider mb-1">
+            <div className="font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wider mb-1.5">
               {euLeadersStory.category}
             </div>
-            <h3 className="font-sans font-bold text-[22px] sm:text-[24px] leading-[1.2] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[24px] sm:text-[26px] md:text-[28px] leading-[1.18] text-neutral-900 group-hover:underline">
               {euLeadersStory.title}
             </h3>
             {euLeadersStory.summary && (
-              <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 leading-relaxed mt-2.5">
+              <p className="font-sans text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed mt-3">
                 {euLeadersStory.summary}
               </p>
             )}
-            <div className="font-sans font-semibold text-[10.5px] sm:text-[11px] text-neutral-400 uppercase tracking-wide mt-3">
+            <div className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-3">
               {euLeadersStory.time}
             </div>
           </div>
@@ -138,14 +138,14 @@ export default function PoliticsAndTrendingSection({
                 }
                 className="group cursor-pointer flex items-start space-x-3.5"
               >
-                <span className="font-sans font-bold text-[22px] sm:text-[24px] text-neutral-400 leading-none shrink-0 min-w-[32px]">
+                <span className="font-sans font-bold text-[24px] sm:text-[26px] text-neutral-400 leading-none shrink-0 min-w-[34px]">
                   {item.number}
                 </span>
                 <div className="flex flex-col">
-                  <h4 className="font-sans font-bold text-[13.5px] sm:text-[14px] leading-snug text-neutral-900 group-hover:underline">
+                  <h4 className="font-sans font-bold text-[17.5px] sm:text-[18.5px] leading-snug text-neutral-900 group-hover:underline">
                     {item.title}
                   </h4>
-                  <span className="font-sans font-semibold text-[10.5px] text-neutral-400 uppercase tracking-wide mt-1">
+                  <span className="font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-500 uppercase tracking-wide mt-1.5">
                     {item.time}
                   </span>
                 </div>
