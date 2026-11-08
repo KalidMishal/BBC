@@ -14,9 +14,9 @@ export default function HumanRightsSection({ onArticleClick }: HumanRightsSectio
 
   return (
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 pb-8">
-      {/* Header matching media_1794016188879_d0c66188.jpg */}
+      {/* Header matching media_1794016188879_d0c66188.jpg & media_1794154767970_70c1d6c7.jpg */}
       <div className="mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
+        <h2 className="font-sans font-bold text-[34px] sm:text-[34px] md:text-[35px] text-neutral-900 tracking-tight leading-tight">
           Human Rights &amp; Civil Liberties
         </h2>
       </div>
@@ -40,18 +40,18 @@ export default function HumanRightsSection({ onArticleClick }: HumanRightsSectio
               </div>
             )}
 
-            <h3 className="font-sans font-bold text-[20px] sm:text-[22px] md:text-[23px] leading-[1.2] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[22px] sm:text-[24px] md:text-[25px] leading-[1.2] text-neutral-900 group-hover:underline">
               {story1.title}
             </h3>
 
             {story1.summary && (
-              <p className="font-sans text-[14.5px] sm:text-[15.5px] text-neutral-600 leading-relaxed font-normal mt-2.5">
+              <p className="font-sans text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-relaxed font-normal mt-3">
                 {story1.summary}
               </p>
             )}
           </div>
 
-          <div className="flex items-center space-x-2 font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wide mt-3.5">
+          <div className="flex items-center space-x-2 font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wide mt-4">
             <span>{story1.time}</span>
             <span>|</span>
             <span className="hover:underline">{story1.category}</span>
@@ -75,18 +75,18 @@ export default function HumanRightsSection({ onArticleClick }: HumanRightsSectio
               </div>
             )}
 
-            <h3 className="font-sans font-bold text-[20px] sm:text-[22px] md:text-[23px] leading-[1.2] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[22px] sm:text-[24px] md:text-[25px] leading-[1.2] text-neutral-900 group-hover:underline">
               {story2.title}
             </h3>
 
             {story2.summary && (
-              <p className="font-sans text-[14.5px] sm:text-[15.5px] text-neutral-600 leading-relaxed font-normal mt-2.5">
+              <p className="font-sans text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-relaxed font-normal mt-3">
                 {story2.summary}
               </p>
             )}
           </div>
 
-          <div className="flex items-center space-x-2 font-sans font-bold text-[12.5px] sm:text-[13px] text-neutral-600 uppercase tracking-wide mt-3.5">
+          <div className="flex items-center space-x-2 font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wide mt-4">
             <span>{story2.time}</span>
             <span>|</span>
             <span className="hover:underline">{story2.category}</span>
