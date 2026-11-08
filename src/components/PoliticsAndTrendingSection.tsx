@@ -82,14 +82,14 @@ export default function PoliticsAndTrendingSection({
         Matching media_1793990467065_bdb49109.jpg (bottom part)
         =======================================================
       */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px] gap-8 lg:gap-10 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px] gap-8 lg:gap-10 items-stretch">
         {/* Left Side: EU Leaders Horizontal Feature */}
         <article
           onClick={() => onArticleClick?.(euLeadersStory)}
-          className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 items-start"
+          className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 lg:gap-7 items-stretch h-full"
         >
           {euLeadersStory.imageUrl && (
-            <div className="relative aspect-[16/10] w-full sm:w-[280px] md:w-[320px] lg:w-[350px] shrink-0 overflow-hidden bg-neutral-100">
+            <div className="relative w-full sm:w-[360px] md:w-[400px] lg:w-[440px] xl:w-[460px] shrink-0 overflow-hidden bg-neutral-100 min-h-[240px] sm:min-h-full">
               <Image
                 src={euLeadersStory.imageUrl}
                 alt={euLeadersStory.imageAlt || euLeadersStory.title}
@@ -99,58 +99,62 @@ export default function PoliticsAndTrendingSection({
             </div>
           )}
 
-          <div className="flex flex-col justify-start">
-            <div className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wider mb-1.5">
-              {euLeadersStory.category}
+          <div className="flex flex-col justify-between py-0.5 sm:py-1 h-full">
+            <div>
+              <div className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wider mb-1.5">
+                {euLeadersStory.category}
+              </div>
+              <h3 className="font-sans font-bold text-[25px] sm:text-[27px] md:text-[29px] leading-[1.18] text-neutral-900 group-hover:underline">
+                {euLeadersStory.title}
+              </h3>
+              {euLeadersStory.summary && (
+                <p className="font-sans text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-relaxed mt-3">
+                  {euLeadersStory.summary}
+                </p>
+              )}
             </div>
-            <h3 className="font-sans font-bold text-[25px] sm:text-[27px] md:text-[29px] leading-[1.18] text-neutral-900 group-hover:underline">
-              {euLeadersStory.title}
-            </h3>
-            {euLeadersStory.summary && (
-              <p className="font-sans text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-relaxed mt-3">
-                {euLeadersStory.summary}
-              </p>
-            )}
-            <div className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-3">
+            <div className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-3.5">
               {euLeadersStory.time}
             </div>
           </div>
         </article>
 
         {/* Right Side: Trending Now with Vertical Divider and 01, 02, 03 numbers */}
-        <div className="lg:border-l lg:border-neutral-200 lg:pl-8 flex flex-col justify-start">
-          <h2 className="font-sans font-bold text-[30px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
-            Trending Now
-          </h2>
+        <div className="lg:border-l lg:border-neutral-200 lg:pl-8 flex flex-col justify-between h-full">
+          <div>
+            <h2 className="font-sans font-bold text-[30px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
+              Trending Now
+            </h2>
 
-          <div className="flex flex-col space-y-4 sm:space-y-5">
-            {trendingNowArticles.map((item) => (
-              <div
-                key={item.number}
-                onClick={() =>
-                  onArticleClick?.({
-                    id: `trend-${item.number}`,
-                    title: item.title,
-                    time: item.time,
-                    category: 'Trending',
-                    link: '#'
-                  })
-                }
-                className="group cursor-pointer flex items-start space-x-3.5"
-              >
-                <span className="font-sans font-bold text-[24px] sm:text-[26px] text-neutral-400 leading-none shrink-0 min-w-[34px]">
-                  {item.number}
-                </span>
-                <div className="flex flex-col">
-                  <h4 className="font-sans font-bold text-[18.5px] sm:text-[19.5px] leading-snug text-neutral-900 group-hover:underline">
-                    {item.title}
-                  </h4>
-                  <span className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-1.5">
-                    {item.time}
+            <div className="flex flex-col space-y-4 sm:space-y-5">
+              {trendingNowArticles.map((item) => (
+                <div
+                  key={item.number}
+                  onClick={() =>
+                    onArticleClick?.({
+                      id: `trend-${item.number}`,
+                      title: item.title,
+                      time: item.time,
+                      category: 'Trending',
+                      link: '#'
+                    })
+                  }
+                  className="group cursor-pointer flex items-start space-x-3.5"
+                >
+                  <span className="font-sans font-bold text-[24px] sm:text-[26px] text-neutral-400 leading-none shrink-0 min-w-[34px]">
+                    {item.number}
                   </span>
+                  <div className="flex flex-col">
+                    <h4 className="font-sans font-bold text-[18.5px] sm:text-[19.5px] leading-snug text-neutral-900 group-hover:underline">
+                      {item.title}
+                    </h4>
+                    <span className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-1.5">
+                      {item.time}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
