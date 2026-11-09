@@ -82,14 +82,14 @@ export default function PoliticsAndTrendingSection({
         Matching media_1793990467065_bdb49109.jpg (bottom part)
         =======================================================
       */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px] gap-8 lg:gap-10 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_390px] xl:grid-cols-[1fr_475px] gap-6 lg:gap-8 xl:gap-9 items-stretch">
         {/* Left Side: EU Leaders Horizontal Feature */}
         <article
           onClick={() => onArticleClick?.(euLeadersStory)}
-          className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 lg:gap-7 items-stretch h-full"
+          className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 lg:gap-8 items-stretch h-full"
         >
           {euLeadersStory.imageUrl && (
-            <div className="relative w-full sm:w-[360px] md:w-[400px] lg:w-[440px] xl:w-[460px] shrink-0 overflow-hidden bg-neutral-100 min-h-[240px] sm:min-h-full">
+            <div className="relative w-full sm:w-[320px] md:w-[360px] lg:flex-1 shrink-0 overflow-hidden bg-neutral-100 min-h-[250px] sm:min-h-full">
               <Image
                 src={euLeadersStory.imageUrl}
                 alt={euLeadersStory.imageAlt || euLeadersStory.title}
@@ -99,30 +99,30 @@ export default function PoliticsAndTrendingSection({
             </div>
           )}
 
-          <div className="flex flex-col justify-between py-0.5 sm:py-1 h-full">
+          <div className="flex flex-col justify-between py-0.5 sm:py-1 h-full w-full sm:w-[330px] md:w-[350px] lg:w-[355px] xl:w-[375px] shrink-0">
             <div>
               <div className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wider mb-1.5">
                 {euLeadersStory.category}
               </div>
-              <h3 className="font-sans font-bold text-[25px] sm:text-[27px] md:text-[29px] leading-[1.18] text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-bold text-[26px] sm:text-[28px] md:text-[30px] xl:text-[31px] leading-[1.18] text-neutral-900 group-hover:underline max-w-[375px]">
                 {euLeadersStory.title}
               </h3>
               {euLeadersStory.summary && (
-                <p className="font-sans text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-relaxed mt-3">
+                <p className="font-sans text-[15.5px] sm:text-[16px] xl:text-[16.5px] text-neutral-600 leading-relaxed mt-3 max-w-[325px]">
                   {euLeadersStory.summary}
                 </p>
               )}
             </div>
-            <div className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-3.5">
+            <div className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-4">
               {euLeadersStory.time}
             </div>
           </div>
         </article>
 
         {/* Right Side: Trending Now with Vertical Divider and 01, 02, 03 numbers */}
-        <div className="lg:border-l lg:border-neutral-200 lg:pl-8 flex flex-col justify-between h-full">
+        <div className="lg:border-l lg:border-neutral-200 lg:pl-8 xl:pl-9 flex flex-col justify-between h-full">
           <div>
-            <h2 className="font-sans font-bold text-[30px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
+            <h2 className="font-sans font-bold text-[30px] xl:text-[32px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
               Trending Now
             </h2>
 
@@ -145,7 +145,7 @@ export default function PoliticsAndTrendingSection({
                     {item.number}
                   </span>
                   <div className="flex flex-col">
-                    <h4 className="font-sans font-bold text-[18.5px] sm:text-[19.5px] leading-snug text-neutral-900 group-hover:underline">
+                    <h4 className="font-sans font-bold text-[18.5px] sm:text-[19.5px] xl:text-[20.5px] leading-snug text-neutral-900 group-hover:underline">
                       {item.title}
                     </h4>
                     <span className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-1.5">
