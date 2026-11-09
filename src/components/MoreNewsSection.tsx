@@ -58,7 +58,7 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
       <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[1.58fr_1fr] 2xl:grid-cols-[958px_540px] justify-between gap-8 lg:gap-10 xl:gap-12 2xl:gap-16 items-start">
         
         {/* Left Column */}
-        <div className="flex flex-col space-y-8 sm:space-y-9 2xl:space-y-10">
+        <div className="flex flex-col space-y-6 sm:space-y-6 2xl:space-y-7">
           
           {/* Top Card: Vanessa Trump White House Side-by-Side */}
           <article
@@ -66,7 +66,7 @@ export default function MoreNewsSection({ onArticleClick }: MoreNewsSectionProps
             className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 2xl:gap-7 items-start"
           >
             {moreNewsVanessa.imageUrl && (
-              <div className="w-full sm:w-[320px] md:w-[350px] lg:w-[370px] xl:w-[400px] 2xl:w-[495px] aspect-square relative overflow-hidden bg-neutral-100 shrink-0">
+              <div className="w-full sm:w-[320px] md:w-[350px] lg:w-[370px] xl:w-[400px] 2xl:w-[495px] aspect-[8/7] relative overflow-hidden bg-neutral-100 shrink-0">
                 <Image
                   src={moreNewsVanessa.imageUrl}
                   alt={moreNewsVanessa.imageAlt || moreNewsVanessa.title}
