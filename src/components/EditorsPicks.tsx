@@ -12,63 +12,63 @@ interface EditorsPicksProps {
 
 export default function EditorsPicks({ onArticleClick }: EditorsPicksProps) {
   return (
-    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 pb-10">
-      {/* Header matching media_1794022061668_43bfc243.jpg */}
-      <div className="border-b border-neutral-200 pb-3 mb-6">
-        <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
+    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-12">
+      {/* Header matching media_1794203159869_dc83a53e.jpg */}
+      <div className="border-b border-neutral-200 pb-4 sm:pb-5 mb-7 sm:mb-8">
+        <h2 className="font-sans font-bold text-[34px] md:text-[38px] xl:text-[42px] 2xl:text-[46px] text-neutral-950 tracking-tight leading-none">
           Editor&apos;s Pick
         </h2>
       </div>
 
       {/* 2-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] xl:grid-cols-[1.2fr_1fr] 2xl:grid-cols-[840px_1fr] gap-7 lg:gap-8 xl:gap-9 2xl:gap-10 items-start">
         
-        {/* Left Column (col-span-7): US Capitol Dome Story */}
+        {/* Left Column: US Capitol Dome Story */}
         <article
           onClick={() => onArticleClick?.(editorLeadStory)}
-          className="lg:col-span-7 group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 items-start"
+          className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 2xl:gap-7 items-start"
         >
           {editorLeadStory.imageUrl && (
-            <div className="w-full sm:w-[220px] md:w-[240px] aspect-[4/5] relative overflow-hidden bg-neutral-100 shrink-0">
+            <div className="w-full sm:w-[280px] md:w-[320px] lg:w-[330px] xl:w-[355px] 2xl:w-[400px] aspect-[3/4] relative overflow-hidden bg-neutral-100 shrink-0">
               <Image
                 src={editorLeadStory.imageUrl}
                 alt={editorLeadStory.imageAlt || editorLeadStory.title}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                className="object-cover origin-bottom-left scale-[1.12] group-hover:scale-[1.17] transition-transform duration-300"
               />
             </div>
           )}
 
-          <div className="flex flex-col justify-start">
-            <div className="font-sans font-bold text-[10.5px] text-neutral-500 uppercase tracking-wider mb-2">
+          <div className="flex flex-col justify-start pt-2 sm:pt-3 2xl:pt-4">
+            <div className="font-sans font-bold text-[13px] sm:text-[14px] 2xl:text-[15px] text-neutral-600 uppercase tracking-wider mb-3">
               {editorLeadStory.category}
             </div>
-            <h3 className="font-sans font-bold text-[21px] sm:text-[23px] leading-[1.2] text-neutral-900 group-hover:underline">
+            <h3 className="font-sans font-bold text-[26px] sm:text-[29px] lg:text-[31px] xl:text-[34px] 2xl:text-[38px] leading-[1.16] text-neutral-950 group-hover:underline max-w-[355px]">
               {editorLeadStory.title}
             </h3>
             {editorLeadStory.summary && (
-              <p className="font-sans text-[12.5px] sm:text-[13px] text-neutral-600 leading-relaxed font-normal mt-2.5">
+              <p className="font-sans text-[15px] sm:text-[16px] lg:text-[17px] xl:text-[18px] 2xl:text-[20px] text-neutral-600 leading-[1.55] font-normal mt-4 2xl:mt-5 max-w-[385px]">
                 {editorLeadStory.summary}
               </p>
             )}
-            <div className="font-sans font-semibold text-[10.5px] text-neutral-400 uppercase tracking-wide mt-3">
+            <div className="font-sans font-bold text-[12.5px] sm:text-[13.5px] 2xl:text-[14.5px] text-neutral-500 uppercase tracking-wide mt-5 2xl:mt-6">
               {editorLeadStory.time}
             </div>
           </div>
         </article>
 
-        {/* Right Column (col-span-5): 3 Stacked Items with Vertical Separator */}
-        <div className="lg:col-span-5 lg:border-l lg:border-neutral-200 lg:pl-7 flex flex-col justify-start">
+        {/* Right Column: 3 Stacked Items with Vertical Separator */}
+        <div className="lg:border-l lg:border-neutral-200 lg:pl-7 xl:pl-8 2xl:pl-9 flex flex-col justify-start">
           {editorSideList.map((item, idx) => (
             <article
               key={item.id}
               onClick={() => onArticleClick?.(item)}
-              className={`group cursor-pointer flex items-start space-x-3.5 sm:space-x-4 ${
-                idx < editorSideList.length - 1 ? 'border-b border-neutral-200 pb-3.5 mb-3.5' : ''
+              className={`group cursor-pointer flex items-start gap-4 sm:gap-5 2xl:gap-6 ${
+                idx < editorSideList.length - 1 ? 'border-b border-neutral-200 pb-4 mb-4' : ''
               }`}
             >
               {item.imageUrl && (
-                <div className="w-[120px] h-[78px] sm:w-[130px] sm:h-[84px] relative overflow-hidden shrink-0 bg-neutral-100">
+                <div className="w-[140px] h-[94px] sm:w-[170px] sm:h-[114px] lg:w-[190px] lg:h-[126px] xl:w-[210px] xl:h-[140px] 2xl:w-[240px] 2xl:h-[158px] relative overflow-hidden shrink-0 bg-neutral-100">
                   <Image
                     src={item.imageUrl}
                     alt={item.imageAlt || item.title}
@@ -78,14 +78,14 @@ export default function EditorsPicks({ onArticleClick }: EditorsPicksProps) {
                 </div>
               )}
 
-              <div className="flex flex-col justify-start">
-                <div className="font-sans font-bold text-[10.5px] text-neutral-500 uppercase tracking-wider mb-0.5">
+              <div className="flex flex-col justify-start pt-0.5">
+                <div className="font-sans font-bold text-[12.5px] sm:text-[13.5px] 2xl:text-[14.5px] text-neutral-600 uppercase tracking-wider mb-1.5">
                   {item.category}
                 </div>
-                <h4 className="font-sans font-bold text-[13.5px] sm:text-[14px] leading-snug text-neutral-900 group-hover:underline">
+                <h4 className="font-sans font-bold text-[17px] sm:text-[19px] lg:text-[20px] xl:text-[21.5px] 2xl:text-[23.5px] leading-[1.26] text-neutral-950 group-hover:underline max-w-[385px]">
                   {item.title}
                 </h4>
-                <div className="font-sans font-semibold text-[10.5px] text-neutral-400 uppercase tracking-wide mt-1.5">
+                <div className="font-sans font-bold text-[12px] sm:text-[13px] 2xl:text-[14px] text-neutral-500 uppercase tracking-wide mt-2.5">
                   {item.time}
                 </div>
               </div>
