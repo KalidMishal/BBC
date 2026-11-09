@@ -22,22 +22,22 @@ export default function RecentVideosSection({
         Header Row matching media_1794023283220_5d1dfc4e.jpg:
         "Recent Videos" title & subtitle on left, "All Videos →" on right
       */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-5 gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-5 sm:mb-6 gap-3">
         <div>
-          <h2 className="font-sans font-bold text-[30px] text-neutral-900 tracking-tight leading-tight">
+          <h2 className="font-sans font-bold text-[34px] sm:text-[36px] md:text-[38px] lg:text-[40px] xl:text-[42px] 2xl:text-[44px] text-neutral-950 tracking-tight leading-none">
             Recent Videos
           </h2>
-          <p className="font-sans text-[14px] sm:text-[15px] text-neutral-600 mt-1">
+          <p className="font-sans text-[15px] sm:text-[16px] lg:text-[17px] 2xl:text-[18px] text-neutral-700 mt-2">
             Watch the latest reports, analyses and exclusive coverage from our newsroom.
           </p>
         </div>
 
         <Link
           href="/news"
-          className="font-sans font-bold text-[14px] sm:text-[14.5px] text-neutral-900 hover:text-black hover:underline flex items-center gap-1 transition shrink-0"
+          className="font-sans font-bold text-[14.5px] sm:text-[15.5px] 2xl:text-[17px] text-neutral-900 hover:text-black hover:underline flex items-center gap-1.5 transition shrink-0 pb-0.5"
         >
           All Videos
-          <span className="text-base font-normal">→</span>
+          <span className="text-lg font-normal">→</span>
         </Link>
       </div>
 
@@ -74,12 +74,12 @@ export default function RecentVideosSection({
                 </div>
               )}
 
-              <h3 className="font-sans font-bold text-[16px] sm:text-[17px] leading-snug text-neutral-900 group-hover:underline">
+              <h3 className="font-sans font-extrabold text-[17.5px] sm:text-[18px] lg:text-[18.5px] xl:text-[19.5px] 2xl:text-[20.5px] leading-[1.22] text-neutral-950 tracking-[-0.01em] group-hover:underline">
                 {video.title}
               </h3>
 
               {video.summary && (
-                <p className="font-sans text-[13px] sm:text-[13.5px] text-neutral-600 leading-snug font-normal mt-1.5 line-clamp-3">
+                <p className="font-sans text-[13.5px] sm:text-[14px] xl:text-[14.5px] text-neutral-600 leading-[1.4] font-normal mt-2 line-clamp-3">
                   {video.summary}
                 </p>
               )}
