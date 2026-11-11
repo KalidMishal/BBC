@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Play, Pause, X, Volume2, VolumeX, Headphones, SkipForward, SkipBack } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Play, Pause, X, Volume2, VolumeX, Bookmark, SkipForward, SkipBack } from 'lucide-react';
+import { getAuthToken, getStoredUser } from '../lib/auth';
+import { fetchSavedPodcasts, toggleSavedPodcast } from '../lib/savedPodcasts';
 import { PodcastItem } from '../types';
 
 interface AudioPlayerBarProps {
@@ -11,9 +14,34 @@ interface AudioPlayerBarProps {
 }
 
 export default function AudioPlayerBar({ podcast, onClose }: AudioPlayerBarProps) {
+  const router = useRouter();
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(25);
+  const [savedIds, setSavedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    const syncSaved = () => {
+      if (!getAuthToken() || !getStoredUser()) {
+        Promise.resolve().then(() => {
+          if (active) setSavedIds([]);
+        });
+        return;
+      }
+      fetchSavedPodcasts().then((items) => {
+        if (active) setSavedIds(items.map((p) => p.id));
+      });
+    };
+    syncSaved();
+    window.addEventListener('savedPodcastsUpdated', syncSaved);
+    window.addEventListener('authUpdated', syncSaved);
+    return () => {
+      active = false;
+      window.removeEventListener('savedPodcastsUpdated', syncSaved);
+      window.removeEventListener('authUpdated', syncSaved);
+    };
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -99,9 +127,37 @@ export default function AudioPlayerBar({ podcast, onClose }: AudioPlayerBarProps
           </div>
         </div>
 
-        {/* Right: Sound & Close */}
+        {/* Right: Save, Sound & Close */}
         <div className="flex items-center space-x-4 w-full md:w-auto justify-end">
           <button
+            type="button"
+            onClick={async () => {
+              if (!podcast) return;
+              if (!getAuthToken() || !getStoredUser()) {
+                const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+                sessionStorage.setItem('redirectAfterLogin', currentPath);
+                router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+                return;
+              }
+              const { podcasts } = await toggleSavedPodcast(podcast);
+              setSavedIds(podcasts.map((p) => p.id));
+            }}
+            className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full border transition cursor-pointer ${
+              podcast && savedIds.includes(podcast.id)
+                ? 'border-orange-400 bg-orange-500/20 text-orange-300'
+                : 'border-neutral-600 text-neutral-300 hover:text-white hover:border-neutral-400'
+            }`}
+            title="Save to Saved Podcasts"
+          >
+            <Bookmark
+              className={`w-3.5 h-3.5 ${
+                podcast && savedIds.includes(podcast.id) ? 'fill-current' : ''
+              }`}
+            />
+            <span>{podcast && savedIds.includes(podcast.id) ? 'Saved' : 'Save'}</span>
+          </button>
+          <button
+            type="button"
             onClick={() => setIsMuted(!isMuted)}
             className="text-neutral-400 hover:text-white transition cursor-pointer"
           >

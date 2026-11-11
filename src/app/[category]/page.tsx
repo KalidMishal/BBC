@@ -19,6 +19,12 @@ import AudioPlayerBar from '../../components/AudioPlayerBar';
 
 // Data
 import { findCategoryBySlug } from '../../data/categoriesData';
+import {
+  categoryHeroFallback,
+  categoryInCaseYouMissedItFallback,
+  categoryKeepingTabsFallback,
+  categoryMoreArticlesFallback,
+} from '../../data/articleEnrichments';
 import { Article, PodcastItem } from '../../types';
 
 interface CategoryPageProps {
@@ -51,28 +57,31 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const [dbArticles, setDbArticles] = useState<Article[]>([]);
 
   // Pagination for MORE [CATEGORY] section
-  const [morePage, setMorePage] = useState<number>(1);
+  const [pageState, setPageState] = useState<{ slug: string; page: number }>({
+    slug: decodedSlug,
+    page: 1,
+  });
+  const morePage = pageState.slug === decodedSlug ? pageState.page : 1;
   const itemsPerPage = 10;
   const moreTechRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const controller = new AbortController();
-    setMorePage(1);
     fetchCategoryArticlesApi(decodedSlug, 1, 24, controller.signal).then((payload) => {
+      if (controller.signal.aborted) return;
       if (payload && Array.isArray(payload.articles)) {
         setDbArticles(payload.articles);
       } else {
         setDbArticles([]);
       }
+      setPageState({ slug: decodedSlug, page: 1 });
     });
     return () => controller.abort();
   }, [decodedSlug]);
 
   const navigateToArticle = (target?: { slug?: string; id?: string }) => {
     const key = target?.slug || target?.id;
-    const isFallbackMockId =
-      key && (/^(mt|kt|ic|rel)-/.test(key) || key === 'static-fallback');
-    if (key && !isFallbackMockId) {
+    if (key) {
       router.push(`/news/articles/${encodeURIComponent(key)}`);
       return;
     }
@@ -80,45 +89,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   };
 
   // Section 1: Hero 5-Story Fallback Data
-  const staticHeroLeftTop = {
-    id: 'static-fallback',
-    title: "How one man became the unsung hero of the internet during a cyber-security scramble",
-    summary: "For more than 20 years, Ondřej Surý has been quietly helping to keep websites around the world running securely, largely in his spare time.",
-    imageUrl: "/tech-hero-1.jpg",
-    time: "4 hrs ago"
-  };
-
-  const staticHeroLeftBottom = {
-    id: 'static-fallback',
-    title: "Gabon says access to social media restored after eight month ban",
-    summary: "The authorities had justified the ban by saying online content was fuelling conflict, while the opposition had condemned it as an abuse of power.",
-    imageUrl: "/tech-hero-2.jpg",
-    time: "7 hrs ago"
-  };
-
-  const staticHeroLead = {
-    id: 'static-fallback',
-    title: "Police using AI risks making discrimination worse, researchers warn",
-    summary: "AI tools learn from biased records and may deepen discrimination against minorities without oversight, researchers say.",
-    imageUrl: "/tech-hero-lead.jpg",
-    time: "2 hrs ago"
-  };
-
-  const staticHeroRightTop = {
-    id: 'static-fallback',
-    title: "The Indian workers filming their work to train AI",
-    summary: "Indian workers are being paid to film themselves at work and the footage is used to train AI.",
-    imageUrl: "/tech-hero-3.jpg",
-    time: "5 hrs ago"
-  };
-
-  const staticHeroRightBottom = {
-    id: 'static-fallback',
-    title: "'I'm 96 and have 15 million followers': The grannies taking over TikTok",
-    summary: "Grandma Droniak, Nonna Gracie, Viv Truran and Barbara Costello have all found fame on social media in their later years.",
-    imageUrl: "/tech-hero-4.jpg",
-    time: "8 hrs ago"
-  };
+  const staticHeroLeftTop = categoryHeroFallback.leftTop;
+  const staticHeroLeftBottom = categoryHeroFallback.leftBottom;
+  const staticHeroLead = categoryHeroFallback.lead;
+  const staticHeroRightTop = categoryHeroFallback.rightTop;
+  const staticHeroRightBottom = categoryHeroFallback.rightBottom;
 
   const heroLead = dbArticles[0] || staticHeroLead;
   const heroLeftTop = dbArticles[1] || staticHeroLeftTop;
@@ -126,62 +101,16 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const heroRightTop = dbArticles[3] || staticHeroRightTop;
   const heroRightBottom = dbArticles[4] || staticHeroRightBottom;
 
-  // Section 2: KEEPING TABS (Image 2)
-  const staticKeepingTabsCards = [
-    {
-      id: 'kt-1',
-      title: "Anthropic thinks its AI might be conscious. It has profound consequences for your life",
-      summary: "Some of the most powerful people in tech are taking steps to consider AI's rights alongside humans and animals. This belief could reshape our world. Some fear it would be catastrophic.",
-      imageUrl: "/tech-tabs-1.jpg",
-      time: "3 hrs ago"
-    },
-    {
-      id: 'kt-2',
-      title: "Meta's new AI is about to make the internet more annoying",
-      summary: "Meta's new AI Muse can shop, haggle and book appointments for you. What happens when millions of agents start doing the same?",
-      imageUrl: "/tech-tabs-2.jpg",
-      time: "6 hrs ago"
-    }
-  ];
-
   const keepingTabsCards = useMemo(() => {
     const picked = dbArticles.slice(5, 7);
     if (picked.length >= 2) return picked;
-    return [...picked, ...staticKeepingTabsCards].slice(0, 2);
+    return [...picked, ...categoryKeepingTabsFallback].slice(0, 2);
   }, [dbArticles]);
-
-  // Section 4: IN CASE YOU MISSED IT (Image 4)
-  const staticInCaseYouMissedItCards = [
-    {
-      id: 'ic-1',
-      title: "Why did an OpenAI agent hack Australia's health system and can it be stopped in the future?",
-      summary: "News that an automated AI agent hacked a government IT system raises big questions about regulating the tech.",
-      imageUrl: "/tech-missed-1.jpg"
-    },
-    {
-      id: 'ic-2',
-      title: "Huge data centres rise at 'China speed' to power its AI ambitions",
-      summary: "The BBC visits Inner Mongolia, an unlikely frontier in Beijing's AI race with Washington.",
-      imageUrl: "/tech-missed-2.jpg"
-    },
-    {
-      id: 'ic-3',
-      title: "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
-      summary: "Meta has unveiled audio-only smart glasses, with some questioning whether it is a response to the backlash over privacy.",
-      imageUrl: "/tech-missed-3.jpg"
-    },
-    {
-      id: 'ic-4',
-      title: "Why are there concerns AI could threaten humanity, and how real are they?",
-      summary: "Existential fears about AI have once again reared their head - here's what you need to know.",
-      imageUrl: "/tech-missed-4.jpg"
-    }
-  ];
 
   const inCaseYouMissedItCards = useMemo(() => {
     const picked = dbArticles.slice(7, 11);
     if (picked.length >= 4) return picked;
-    return [...picked, ...staticInCaseYouMissedItCards].slice(0, 4);
+    return [...picked, ...categoryInCaseYouMissedItFallback].slice(0, 4);
   }, [dbArticles]);
 
   // Sponsored Dianomi Cards (Image 4 bottom)
@@ -193,152 +122,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     { id: 'sp-5', title: 'Robotics and Artificial Intelligence. Discover the trends.', source: 'MarketViews', imageUrl: '/taboola-1.jpg' }
   ];
 
-  // Section 5: MORE [CATEGORY] Articles
-  const staticMoreArticles = [
-    // Page 1 (Articles 1 - 10)
-    {
-      id: 'mt-1',
-      date: '2 hrs ago',
-      title: "Global connectivity surge: High-speed satellite networks challenge undersea cable dominance",
-      summary: "Engineers deploy new mesh satellite constellations as international carriers reassess deep-sea internet infrastructure vulnerabilities.",
-      imageUrl: '/more-tech-1.jpg'
-    },
-    {
-      id: 'mt-2',
-      date: '4 hrs ago',
-      title: "Robotic companions prove unexpected breakthrough in elder cognitive care therapy",
-      summary: "Clinical trials across European nursing homes suggest tactile robotic pets reduce stress and enhance daily cognitive engagement.",
-      imageUrl: '/more-tech-2.jpg'
-    },
-    {
-      id: 'mt-3',
-      date: '6 hrs ago',
-      title: "Inside the open-source community fixing legacy internet security protocols for free",
-      summary: "A distributed collective of voluntary developers continues to patch foundational web standards that commercial tech relies upon.",
-      imageUrl: '/more-tech-3.jpg'
-    },
-    {
-      id: 'mt-4',
-      date: '8 hrs ago',
-      title: "Neural synthesis models simulate authentic speech for patients with severe voice impairment",
-      summary: "Breakthrough machine learning systems restore vocal identity using only minutes of archived audio recordings.",
-      imageUrl: '/more-tech-4.jpg'
-    },
-    {
-      id: 'mt-5',
-      date: '10 hrs ago',
-      title: "Algorithmic hiring filters face strict scrutiny under new corporate accountability rules",
-      summary: "Regulators require tech companies to provide independent auditing logs for candidate resume screening tools.",
-      imageUrl: '/more-tech-5.jpg'
-    },
-    {
-      id: 'mt-6',
-      date: '12 hrs ago',
-      title: "The microchip fabrication race: How sovereign semiconductor factories are redefining geopolitical leverage",
-      summary: "Billions in state subsidies accelerate domestic foundry manufacturing across Europe and the United States.",
-      imageUrl: '/more-tech-6.jpg'
-    },
-    {
-      id: 'mt-7',
-      date: '14 hrs ago',
-      title: "Next-generation liquid cooling architectures save energy in hyperscale AI computing clusters",
-      summary: "Data centers replace traditional chillers with submerged immersion tanks to curb surging electricity demands.",
-      imageUrl: '/more-tech-7.jpg'
-    },
-    {
-      id: 'mt-8',
-      date: '16 hrs ago',
-      title: "Autonomous drone networks deliver critical emergency medical supplies to remote islands",
-      summary: "Automated flight corridors bypass inclement coastal weather to deliver anti-venom and emergency blood packs within minutes.",
-      imageUrl: '/more-tech-8.jpg'
-    },
-    {
-      id: 'mt-9',
-      date: '18 hrs ago',
-      title: "Tech CEOs clash over safety thresholds for multi-modal frontier models in closed-door summit",
-      summary: "Industry leaders debate voluntary model weight release moratoriums and government red-teaming mandates.",
-      imageUrl: '/more-tech-9.jpg'
-    },
-    {
-      id: 'mt-10',
-      date: '20 hrs ago',
-      title: "Smart grid controllers deploy machine learning to balance renewable power grid surges",
-      summary: "Software predicts sudden wind and solar generation spikes, diverting excess electricity into regional storage banks.",
-      imageUrl: '/more-tech-10.jpg'
-    },
-    // Page 2 (Articles 11 - 20)
-    {
-      id: 'mt-11',
-      date: '1 day ago',
-      title: "Wearable brain-computer interfaces demonstrate real-time keyboard typing without surgery",
-      summary: "Non-invasive optical sensors detect pre-motor cortex signals with ninety-four percent character accuracy.",
-      imageUrl: '/more-tech-11.jpg'
-    },
-    {
-      id: 'mt-12',
-      date: '1 day ago',
-      title: "European privacy regulators order compliance audits on mobile advertising device tracking IDs",
-      summary: "Cross-app tracking identifiers face renewed legal challenges under updated consumer privacy protection laws.",
-      imageUrl: '/more-tech-12.jpg'
-    },
-    {
-      id: 'mt-13',
-      date: '2 days ago',
-      title: "Quantum key distribution link secures inter-bank currency transaction network",
-      summary: "Commercial financial institutions test quantum cryptographic protocols immune to quantum computing decryption.",
-      imageUrl: '/more-tech-13.jpg'
-    },
-    {
-      id: 'mt-14',
-      date: '2 days ago',
-      title: "Biometric sensor rings predict onset of viral infections before visible symptoms emerge",
-      summary: "Continuous temperature and pulse wave micro-fluctuations alert wearers hours before fevers materialize.",
-      imageUrl: '/more-tech-14.jpg'
-    },
-    {
-      id: 'mt-15',
-      date: '3 days ago',
-      title: "Synthetic voice generation scams trigger urgent calls for digital watermarking legislation",
-      summary: "Telecommunications providers test automated cryptographic audio signatures to verify caller legitimacy.",
-      imageUrl: '/more-tech-15.jpg'
-    },
-    {
-      id: 'mt-16',
-      date: '3 days ago',
-      title: "Space telescope constellation maps orbital space debris with millimeter precision",
-      summary: "Low Earth orbit tracking network alerts satellite operators to collision risks with unprecedented advance warning.",
-      imageUrl: '/more-tech-1.jpg'
-    },
-    {
-      id: 'mt-17',
-      date: '4 days ago',
-      title: "Solid-state battery cells enter pilot automotive fleet trials with ten-minute recharge times",
-      summary: "Automakers test prototype ceramic electrolyte packs promising five hundred miles of range on a single charge.",
-      imageUrl: '/more-tech-2.jpg'
-    },
-    {
-      id: 'mt-18',
-      date: '4 days ago',
-      title: "Digital rights organizations demand open protocols for cross-platform messaging services",
-      summary: "Interoperability regulations compel tech giants to open end-to-end encrypted messaging bridge APIs.",
-      imageUrl: '/more-tech-3.jpg'
-    },
-    {
-      id: 'mt-19',
-      date: '5 days ago',
-      title: "Deep-sea underwater research drones uncover new hydrothermal vents using edge AI navigation",
-      summary: "Autonomous oceanographic submarines navigate extreme trench depths without tethered human pilot commands.",
-      imageUrl: '/more-tech-4.jpg'
-    },
-    {
-      id: 'mt-20',
-      date: '5 days ago',
-      title: "The evolving ethical framework for synthetic biological data storage in DNA molecules",
-      summary: "Scientists archive petabytes of cultural knowledge inside synthetic DNA strands capable of lasting millennia.",
-      imageUrl: '/more-tech-5.jpg'
-    }
-  ];
-
   const allMoreArticles = useMemo(() => {
     const liveMapped = dbArticles.map((art) => ({
       id: art.id,
@@ -348,7 +131,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       summary: art.summary || art.cardSummary || '',
       imageUrl: resolveMediaUrl(art.imageUrl, '/hero-lead.jpg'),
     }));
-    const combined = [...liveMapped, ...staticMoreArticles.map((s) => ({ ...s, slug: undefined }))];
+    const combined = [
+      ...liveMapped,
+      ...categoryMoreArticlesFallback.map((s) => ({ ...s, slug: undefined })),
+    ];
     return combined;
   }, [dbArticles]);
 
@@ -359,7 +145,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   );
 
   const handlePageChange = (newPage: number) => {
-    setMorePage(newPage);
+    setPageState({ slug: decodedSlug, page: newPage });
     if (moreTechRef.current) {
       moreTechRef.current.scrollIntoView({ behavior: 'smooth' });
     }
@@ -374,11 +160,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         onOpenSignIn={() => setIsSignInOpen(true)}
       />
 
-      {/* 2. Top Advertisement Banner matching reference image */}
-      <AdBanner type="placeholder" sizeText="1000 x 350" />
-
-      {/* 3. Category Title Banner */}
-      <div className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-2 pb-6 w-full text-center">
+      {/* 2. Category Title Banner */}
+      <div className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 pb-6 w-full text-center">
         {/* Category Heading matching Image 5 slice 1 */}
         <h1 className="font-serif font-black text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
           {categoryTitle}
@@ -654,13 +437,13 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 Latest Tech Episodes
               </h4>
               {[
-                { id: 'vid-1', title: "Inside the sovereign data centres powering AI models", duration: "8 mins", image: "/tech-missed-2.jpg" },
-                { id: 'vid-2', title: "The smart glasses with no cameras attached", duration: "11 mins", image: "/tech-missed-3.jpg" },
-                { id: 'vid-3', title: "Could AI truly become self-conscious?", duration: "16 mins", image: "/tech-tabs-1.jpg" }
+                { id: 'ic-2', title: "Inside the sovereign data centres powering AI models", duration: "8 mins", image: "/tech-missed-2.jpg" },
+                { id: 'ic-3', title: "The smart glasses with no cameras attached", duration: "11 mins", image: "/tech-missed-3.jpg" },
+                { id: 'kt-1', title: "Could AI truly become self-conscious?", duration: "16 mins", image: "/tech-tabs-1.jpg" }
               ].map((item, idx) => (
                 <div
                   key={idx}
-                  onClick={() => navigateToArticle()}
+                  onClick={() => navigateToArticle(item)}
                   className="flex items-center space-x-3 cursor-pointer group hover:bg-neutral-900 p-2 rounded transition"
                 >
                   <div className="relative w-24 h-16 flex-shrink-0 bg-neutral-800 rounded-xs overflow-hidden">

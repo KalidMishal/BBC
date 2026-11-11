@@ -12,6 +12,8 @@ export interface AuthUser {
   profile_picture?: string | null;
   bio?: string | null;
   linkedin_url?: string | null;
+  country?: string | null;
+  contact_number?: string | null;
 }
 
 export interface BookmarkItem {

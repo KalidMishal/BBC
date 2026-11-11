@@ -91,7 +91,7 @@ export default function Header({
       <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-white border-b border-neutral-200 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
         <div className="w-full px-4 sm:px-6 md:px-8 h-[60px] sm:h-[64px] flex items-center justify-between relative">
           {/* Left Side: Menu Hamburger & Search Icons */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {onOpenMenu ? (
               <button
                 type="button"
@@ -117,7 +117,7 @@ export default function Header({
               <button
                 type="button"
                 onClick={onOpenSearch}
-                className="p-1.5 hover:bg-neutral-100 rounded-sm text-neutral-900 transition cursor-pointer flex items-center justify-center"
+                className="hidden md:flex p-1.5 hover:bg-neutral-100 rounded-sm text-neutral-900 transition cursor-pointer items-center justify-center"
                 aria-label="Search BBC"
                 title="Search"
               >
@@ -146,7 +146,7 @@ export default function Header({
           </div>
 
           {/* Right Side: Signed-In Profile Pill OR Register & Sign In */}
-          <div className="flex items-center space-x-3 sm:space-x-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             {user ? (
               <button
                 type="button"
@@ -182,7 +182,7 @@ export default function Header({
               <>
                 <Link
                   href="/register"
-                  className="bg-black hover:bg-neutral-800 text-white text-[11px] sm:text-xs font-bold px-3.5 sm:px-4 py-1.5 transition cursor-pointer inline-flex items-center"
+                  className="hidden md:inline-flex bg-black hover:bg-neutral-800 text-white text-[11px] sm:text-xs font-bold px-3.5 sm:px-4 py-1.5 transition cursor-pointer items-center"
                 >
                   Register
                 </Link>
@@ -191,14 +191,14 @@ export default function Header({
                   <button
                     type="button"
                     onClick={onOpenSignIn}
-                    className="text-neutral-900 hover:underline font-bold text-[11px] sm:text-xs transition cursor-pointer"
+                    className="text-neutral-900 hover:underline font-bold text-xs transition cursor-pointer"
                   >
                     Sign In
                   </button>
                 ) : (
                   <Link
                     href="/login"
-                    className="text-neutral-900 hover:underline font-bold text-[11px] sm:text-xs transition cursor-pointer"
+                    className="text-neutral-900 hover:underline font-bold text-xs transition cursor-pointer"
                   >
                     Sign In
                   </Link>

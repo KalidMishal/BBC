@@ -1,13 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Play } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Bookmark, Play } from 'lucide-react';
 import {
   listenNowFeaturedPodcast,
   listenNowEpisodes
 } from '../data/bbcData';
+import { getAuthToken, getStoredUser } from '../lib/auth';
+import { fetchSavedPodcasts, toggleSavedPodcast } from '../lib/savedPodcasts';
 import { PodcastItem } from '../types';
 
 interface ListenNowSectionProps {
@@ -21,6 +24,48 @@ export default function ListenNowSection({
   featuredPodcast = listenNowFeaturedPodcast,
   episodes = listenNowEpisodes
 }: ListenNowSectionProps) {
+  const router = useRouter();
+  const [savedIds, setSavedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    const syncSaved = () => {
+      if (!getAuthToken() || !getStoredUser()) {
+        Promise.resolve().then(() => {
+          if (active) setSavedIds([]);
+        });
+        return;
+      }
+      fetchSavedPodcasts().then((items) => {
+        if (active) setSavedIds(items.map((p) => p.id));
+      });
+    };
+
+    syncSaved();
+    window.addEventListener('savedPodcastsUpdated', syncSaved);
+    window.addEventListener('authUpdated', syncSaved);
+    return () => {
+      active = false;
+      window.removeEventListener('savedPodcastsUpdated', syncSaved);
+      window.removeEventListener('authUpdated', syncSaved);
+    };
+  }, []);
+
+  const handleToggleSave = async (e: React.MouseEvent, podcast: PodcastItem) => {
+    e.stopPropagation();
+    const token = getAuthToken();
+    const user = getStoredUser();
+    if (!token || !user) {
+      const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+      sessionStorage.setItem('redirectAfterLogin', currentPath);
+      router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+    const { podcasts } = await toggleSavedPodcast(podcast);
+    setSavedIds(podcasts.map((p) => p.id));
+  };
+
+  const isFeaturedSaved = savedIds.includes(featuredPodcast.id);
   return (
     <section className="w-full max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-4 pb-12 sm:pb-14 2xl:pb-16">
       {/* 
@@ -71,10 +116,23 @@ export default function ListenNowSection({
             <div className="w-11 h-11 xl:w-12 xl:h-12 2xl:w-[54px] 2xl:h-[54px] rounded-full bg-white text-black flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <Play className="w-4 h-4 2xl:w-5 2xl:h-5 fill-black text-black ml-0.5" />
             </div>
-            <div className="font-sans text-[16.5px] sm:text-[18px] xl:text-[19.5px] 2xl:text-[21.5px] text-white flex items-center gap-3">
+            <div className="font-sans text-[16.5px] sm:text-[18px] xl:text-[19.5px] 2xl:text-[21.5px] text-white flex flex-wrap items-center gap-3">
               <span className="font-extrabold">Listen Now</span>
               <span className="text-neutral-400 font-light">|</span>
               <span className="font-normal text-neutral-200">{featuredPodcast.episodeDuration || '27 mins'}</span>
+              <button
+                type="button"
+                onClick={(e) => handleToggleSave(e, featuredPodcast)}
+                aria-label={isFeaturedSaved ? 'Remove podcast from saved' : 'Save podcast'}
+                className={`ml-1 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold transition-colors cursor-pointer ${
+                  isFeaturedSaved
+                    ? 'border-white bg-white text-black'
+                    : 'border-white/40 bg-black/40 text-white hover:border-white hover:bg-white/15'
+                }`}
+              >
+                <Bookmark className={`w-3.5 h-3.5 ${isFeaturedSaved ? 'fill-current' : ''}`} />
+                <span>{isFeaturedSaved ? 'Saved' : 'Save'}</span>
+              </button>
             </div>
           </div>
 
@@ -125,8 +183,21 @@ export default function ListenNowSection({
                 <h4 className="font-sans font-extrabold text-[17.5px] sm:text-[19.5px] lg:text-[18.5px] xl:text-[21.5px] 2xl:text-[24.5px] leading-[1.24] tracking-[-0.015em] text-neutral-950 group-hover:underline">
                   {ep.title}
                 </h4>
-                <div className="font-sans font-medium text-[14.5px] sm:text-[16px] xl:text-[17px] 2xl:text-[18.5px] text-[#666666] mt-1 2xl:mt-1.5">
-                  {ep.episodeDuration}
+                <div className="font-sans font-medium text-[14.5px] sm:text-[16px] xl:text-[17px] 2xl:text-[18.5px] text-[#666666] mt-1 2xl:mt-1.5 flex items-center gap-3">
+                  <span>{ep.episodeDuration}</span>
+                  <button
+                    type="button"
+                    onClick={(e) => handleToggleSave(e, ep)}
+                    aria-label={savedIds.includes(ep.id) ? 'Remove podcast from saved' : 'Save podcast'}
+                    className={`inline-flex items-center gap-1 text-xs font-bold transition-colors cursor-pointer ${
+                      savedIds.includes(ep.id)
+                        ? 'text-[#bb1919]'
+                        : 'text-neutral-500 hover:text-black'
+                    }`}
+                  >
+                    <Bookmark className={`w-3.5 h-3.5 ${savedIds.includes(ep.id) ? 'fill-current' : ''}`} />
+                    <span>{savedIds.includes(ep.id) ? 'Saved' : 'Save'}</span>
+                  </button>
                 </div>
               </div>
             </article>

@@ -11,6 +11,16 @@ export const API_BASE_URL =
 
 export const BACKEND_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '');
 
+function isUnreachableLocalApi(): boolean {
+  if (typeof window === 'undefined') return false;
+  const host = window.location.hostname;
+  const isBrowserLocal = host === 'localhost' || host === '127.0.0.1';
+  const isApiLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/i.test(
+    API_BASE_URL
+  );
+  return !isBrowserLocal && isApiLocal;
+}
+
 export function resolveMediaUrl(url?: string | null, fallback = ''): string {
   const clean = (url || '').trim();
   if (!clean) return fallback;
@@ -63,6 +73,7 @@ export interface ArticleDetailPayload {
 }
 
 export async function fetchHomeData(signal?: AbortSignal): Promise<HomeDataPayload | null> {
+  if (isUnreachableLocalApi()) return null;
   try {
     const res = await fetch(`${API_BASE_URL}/home`, {
       cache: 'no-store',
@@ -81,6 +92,7 @@ export async function fetchCategoryArticlesApi(
   limit = 24,
   signal?: AbortSignal
 ): Promise<CategoryArticlesPayload | null> {
+  if (isUnreachableLocalApi()) return null;
   try {
     const params = new URLSearchParams({
       page: String(page),
@@ -101,6 +113,7 @@ export async function fetchArticleDetailApi(
   idOrSlug: string,
   signal?: AbortSignal
 ): Promise<ArticleDetailPayload | null> {
+  if (isUnreachableLocalApi()) return null;
   try {
     const res = await fetch(
       `${API_BASE_URL}/articles/${encodeURIComponent(idOrSlug)}`,
@@ -117,6 +130,7 @@ export async function searchArticlesApi(
   query: string,
   signal?: AbortSignal
 ): Promise<Article[] | null> {
+  if (isUnreachableLocalApi()) return null;
   try {
     const params = new URLSearchParams({ q: query, limit: '8' });
     const res = await fetch(`${API_BASE_URL}/articles?${params.toString()}`, {

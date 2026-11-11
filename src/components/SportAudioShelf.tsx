@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Headphones, ChevronLeft, ChevronRight, Bookmark } from 'lucide-react';
 import { sportAudioBadges } from '../data/bbcData';
+import { getAuthToken, getStoredUser } from '../lib/auth';
+import { fetchSavedPodcasts, toggleSavedPodcast } from '../lib/savedPodcasts';
 import { PodcastItem } from '../types';
 
 interface SportAudioShelfProps {
@@ -11,7 +14,44 @@ interface SportAudioShelfProps {
 }
 
 export default function SportAudioShelf({ onPlayPodcast }: SportAudioShelfProps) {
+  const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [savedIds, setSavedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    const syncSaved = () => {
+      if (!getAuthToken() || !getStoredUser()) {
+        Promise.resolve().then(() => {
+          if (active) setSavedIds([]);
+        });
+        return;
+      }
+      fetchSavedPodcasts().then((items) => {
+        if (active) setSavedIds(items.map((p) => p.id));
+      });
+    };
+    syncSaved();
+    window.addEventListener('savedPodcastsUpdated', syncSaved);
+    window.addEventListener('authUpdated', syncSaved);
+    return () => {
+      active = false;
+      window.removeEventListener('savedPodcastsUpdated', syncSaved);
+      window.removeEventListener('authUpdated', syncSaved);
+    };
+  }, []);
+
+  const handleToggleSave = async (e: React.MouseEvent, pod: PodcastItem) => {
+    e.stopPropagation();
+    if (!getAuthToken() || !getStoredUser()) {
+      const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+      sessionStorage.setItem('redirectAfterLogin', currentPath);
+      router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+    const { podcasts } = await toggleSavedPodcast(pod);
+    setSavedIds(podcasts.map((p) => p.id));
+  };
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -87,15 +127,23 @@ export default function SportAudioShelf({ onPlayPodcast }: SportAudioShelfProps)
             {/* Footer Row: Save button + duration */}
             <div className="flex items-center space-x-3 text-[11px] text-neutral-500 font-sans mt-3 pt-1">
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  alert(`Saved "${pod.title}" to your BBC Sounds library.`);
-                }}
-                className="flex items-center space-x-1 hover:text-black transition cursor-pointer"
-                title="Save episode"
+                type="button"
+                onClick={(e) => handleToggleSave(e, pod)}
+                className={`flex items-center space-x-1 transition cursor-pointer ${
+                  savedIds.includes(pod.id)
+                    ? 'text-[#bb1919]'
+                    : 'hover:text-black'
+                }`}
+                title={savedIds.includes(pod.id) ? 'Remove from Saved Podcasts' : 'Save episode'}
               >
-                <Bookmark className="w-3 h-3 stroke-[2.2]" />
-                <span className="font-medium">Save</span>
+                <Bookmark
+                  className={`w-3 h-3 stroke-[2.2] ${
+                    savedIds.includes(pod.id) ? 'fill-current' : ''
+                  }`}
+                />
+                <span className="font-medium">
+                  {savedIds.includes(pod.id) ? 'Saved' : 'Save'}
+                </span>
               </button>
               <span>{pod.episodeDuration || '30 mins'}</span>
             </div>

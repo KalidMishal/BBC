@@ -47,11 +47,12 @@ export default function MobileMenu({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-[#121212] text-white w-full max-w-[420px] sm:max-w-[460px] h-full overflow-y-auto flex flex-col justify-between p-5 sm:p-6 shadow-2xl animate-in slide-in-from-left duration-200 cursor-default"
+        className="bg-[#121212] text-white w-full sm:max-w-[460px] h-full overflow-y-auto flex flex-col justify-between p-5 sm:p-6 shadow-2xl animate-in slide-in-from-left duration-200 cursor-default"
       >
         <div>
           {/* Header Bar */}
           <div className="flex items-center justify-between pb-5 border-b border-neutral-800">
+            <div className="w-9 h-9 shrink-0 md:hidden" aria-hidden="true" />
             <Link
               href="/"
               onClick={onClose}

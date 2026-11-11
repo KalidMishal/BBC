@@ -13,7 +13,7 @@ interface ProfileDrawerProps {
   profileData: { fullName?: string; photo?: string };
   onOpenSettings: () => void;
   onSignOut: () => void;
-  onTabSelect?: (tab: 'SAVED' | 'FEED' | 'MANAGE_ACCOUNT') => void;
+  onTabSelect?: (tab: 'SAVED' | 'PODCASTS' | 'PERSONAL_SETTINGS') => void;
   onWriterTabSelect?: (tab: string) => void;
   onAdminTabSelect?: (tab: string) => void;
 }
@@ -90,12 +90,12 @@ export default function ProfileDrawer({
     }
   };
 
-  const handleFeedClick = () => {
+  const handleSavedPodcastsClick = () => {
     onClose();
     if (onTabSelect) {
-      onTabSelect('FEED');
+      onTabSelect('PODCASTS');
     } else {
-      router.push('/reader/dashboard?tab=feed');
+      router.push('/reader/dashboard?tab=podcasts');
     }
   };
 
@@ -260,10 +260,10 @@ export default function ProfileDrawer({
                   </button>
                   <button
                     type="button"
-                    onClick={handleFeedClick}
+                    onClick={handleSavedPodcastsClick}
                     className="w-full text-left px-2.5 py-2 rounded-md text-[15px] font-medium text-gray-800 hover:text-black hover:bg-gray-100 cursor-pointer transition-colors focus:outline-none"
                   >
-                    Feed
+                    Saved Podcasts
                   </button>
                 </div>
               )}
@@ -336,9 +336,9 @@ export default function ProfileDrawer({
                 onClose();
                 if (!isAdmin && !isWriter) {
                   if (onTabSelect) {
-                    onTabSelect('MANAGE_ACCOUNT');
+                    onTabSelect('PERSONAL_SETTINGS');
                   } else {
-                    router.push('/reader/dashboard?tab=profile-settings');
+                    router.push('/reader/dashboard?tab=personal-settings');
                   }
                 } else {
                   onOpenSettings();

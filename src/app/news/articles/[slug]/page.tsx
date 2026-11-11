@@ -15,12 +15,21 @@ import AudioPlayerBar from '../../../../components/AudioPlayerBar';
 import { SkeletonArticleDetail } from '../../../../components/Skeletons';
 import { fetchArticleDetailApi, resolveMediaUrl } from '../../../../lib/api';
 import { getCategorySlugByName } from '../../../../data/editorialConfig';
+import {
+  buildFallbackBodyParagraphs,
+  findStaticArticleFallback,
+  getArticleEnrichment,
+} from '../../../../data/articleEnrichments';
 import { Article, PodcastItem } from '../../../../types';
 
 function extractFirstImageSrc(html: string): string {
   if (!html) return '';
   const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
   return match?.[1] ? match[1].trim() : '';
+}
+
+function stripHtmlText(html: string): string {
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function formatDisplayDate(dateStr?: string | null, fallback?: string): string {
@@ -37,6 +46,84 @@ function formatDisplayDate(dateStr?: string | null, fallback?: string): string {
   return fallback || 'Recent';
 }
 
+const STATIC_SERBIA_RELATED: Article[] = [
+  {
+    id: 'rel-1',
+    slug: "How-a-movement-of-students-brought-down-Serbia's-Vučić",
+    title:
+      'Celebrations in Serbia after veteran ruler Vučić loses election to student-led protest movement',
+    isVideo: false,
+  },
+  {
+    id: 'rel-2',
+    slug: "How-a-movement-of-students-brought-down-Serbia's-Vučić",
+    title:
+      'Joy and disbelief on Serbian streets as Vučić concedes election defeat',
+    isVideo: true,
+  },
+  {
+    id: 'rel-3',
+    slug: "How-a-movement-of-students-brought-down-Serbia's-Vučić",
+    title: 'Early reports suggest record high turnout in Serbia elections',
+    isVideo: false,
+  },
+];
+
+const STATIC_SERBIA_MORE = [
+  {
+    id: 'mf-1',
+    date: '3 days ago',
+    title:
+      'Why a student protest movement is challenging 12 years of Vučić rule in Serbia',
+    summary:
+      'After two years of student protests, Serbians vote on Sunday in elections that could bring down the ruling party.',
+    imageUrl: '/more-from-1.jpg',
+  },
+  {
+    id: 'mf-2',
+    date: '18 Jun 2026',
+    title:
+      "Parents of Serbia's teenage school shooter given jail terms in retrial",
+    summary:
+      'The boy was 13 when he killed eight girls, a boy and a school guard at Vladislav Ribnikar school in Belgrade in 2023.',
+    imageUrl: '/more-from-2.jpg',
+  },
+  {
+    id: 'mf-3',
+    date: '4 Feb 2026',
+    title: 'How plans for Trump International hotel in Belgrade unravelled',
+    summary:
+      'The project would have built on the ruins of the defence ministry bombed by Nato back in 1999.',
+    imageUrl: '/more-from-3.jpg',
+  },
+  {
+    id: 'mf-4',
+    date: '8 Nov 2025',
+    title:
+      'Serbia clears the way for controversial Trump-linked real estate plan',
+    summary:
+      'Lawmakers passed a declaration paving the way for the demolition of the former defence ministry ruins.',
+    imageUrl: '/hero-lead.jpg',
+  },
+  {
+    id: 'mf-5',
+    date: '25 Dec 2025',
+    title: 'Belgrade students blockade ministry demanding election fraud probe',
+    summary:
+      'Thousands of students took to the streets to demand a recount following disputed local election results.',
+    imageUrl: '/article-hero-students.jpg',
+  },
+  {
+    id: 'mf-6',
+    date: '5 Nov 2025',
+    title:
+      'Serbia rail disaster: Transport minister resigns after 14 killed at station',
+    summary:
+      'Goran Vesić announced his departure following public outrage over the deadly collapse of a concrete station canopy.',
+    imageUrl: '/morenews-nairobi.jpg',
+  },
+];
+
 export default function ArticleDetailPage() {
   const router = useRouter();
   const params = useParams();
@@ -49,7 +136,7 @@ export default function ArticleDetailPage() {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [activePodcast, setActivePodcast] = useState<PodcastItem | null>(null);
 
-  const [loading, setLoading] = useState(true);
+  const [loadedSlug, setLoadedSlug] = useState<string>('');
   const [article, setArticle] = useState<Article | null>(null);
   const [relatedFromDb, setRelatedFromDb] = useState<Article[]>([]);
   const [moreFromDb, setMoreFromDb] = useState<Article[]>([]);
@@ -57,19 +144,20 @@ export default function ArticleDetailPage() {
   const [notFound, setNotFound] = useState(false);
 
   // Pagination state for MORE FROM [CATEGORY] section
-  const [moreCategoryPage, setMoreCategoryPage] = useState(1);
+  const [morePageState, setMorePageState] = useState<{ slug: string; page: number }>({
+    slug: rawSlug,
+    page: 1,
+  });
+  const moreCategoryPage = morePageState.slug === rawSlug ? morePageState.page : 1;
   const itemsPerPage = 10;
+
+  const loading = Boolean(rawSlug) && loadedSlug !== rawSlug;
 
   useEffect(() => {
     const controller = new AbortController();
-    setLoading(true);
-    setNotFound(false);
-    setMoreCategoryPage(1);
 
     if (!rawSlug) {
-      setNotFound(true);
-      setLoading(false);
-      return;
+      return () => controller.abort();
     }
 
     fetchArticleDetailApi(rawSlug, controller.signal).then((payload) => {
@@ -105,39 +193,26 @@ export default function ArticleDetailPage() {
           setIsSerbiaFallback(true);
           setNotFound(false);
         } else {
-          setArticle(null);
-          setIsSerbiaFallback(false);
-          setNotFound(true);
+          const staticMatch = findStaticArticleFallback(rawSlug);
+          if (staticMatch) {
+            setArticle(staticMatch);
+            setRelatedFromDb([]);
+            setMoreFromDb([]);
+            setIsSerbiaFallback(false);
+            setNotFound(false);
+          } else {
+            setArticle(null);
+            setIsSerbiaFallback(false);
+            setNotFound(true);
+          }
         }
       }
-      setLoading(false);
+      setMorePageState({ slug: rawSlug, page: 1 });
+      setLoadedSlug(rawSlug);
     });
 
     return () => controller.abort();
   }, [rawSlug]);
-
-  const staticSerbiaRelated: Article[] = [
-    {
-      id: 'rel-1',
-      slug: "How-a-movement-of-students-brought-down-Serbia's-Vučić",
-      title:
-        'Celebrations in Serbia after veteran ruler Vučić loses election to student-led protest movement',
-      isVideo: false,
-    },
-    {
-      id: 'rel-2',
-      slug: "How-a-movement-of-students-brought-down-Serbia's-Vučić",
-      title:
-        'Joy and disbelief on Serbian streets as Vučić concedes election defeat',
-      isVideo: true,
-    },
-    {
-      id: 'rel-3',
-      slug: "How-a-movement-of-students-brought-down-Serbia's-Vučić",
-      title: 'Early reports suggest record high turnout in Serbia elections',
-      isVideo: false,
-    },
-  ];
 
   const sidebarAds = [
     {
@@ -210,65 +285,10 @@ export default function ArticleDetailPage() {
     },
   ];
 
-  const staticSerbiaMore = [
-    {
-      id: 'mf-1',
-      date: '3 days ago',
-      title:
-        'Why a student protest movement is challenging 12 years of Vučić rule in Serbia',
-      summary:
-        'After two years of student protests, Serbians vote on Sunday in elections that could bring down the ruling party.',
-      imageUrl: '/more-from-1.jpg',
-    },
-    {
-      id: 'mf-2',
-      date: '18 Jun 2026',
-      title:
-        "Parents of Serbia's teenage school shooter given jail terms in retrial",
-      summary:
-        'The boy was 13 when he killed eight girls, a boy and a school guard at Vladislav Ribnikar school in Belgrade in 2023.',
-      imageUrl: '/more-from-2.jpg',
-    },
-    {
-      id: 'mf-3',
-      date: '4 Feb 2026',
-      title: 'How plans for Trump International hotel in Belgrade unravelled',
-      summary:
-        'The project would have built on the ruins of the defence ministry bombed by Nato back in 1999.',
-      imageUrl: '/more-from-3.jpg',
-    },
-    {
-      id: 'mf-4',
-      date: '8 Nov 2025',
-      title:
-        'Serbia clears the way for controversial Trump-linked real estate plan',
-      summary:
-        'Lawmakers passed a declaration paving the way for the demolition of the former defence ministry ruins.',
-      imageUrl: '/hero-lead.jpg',
-    },
-    {
-      id: 'mf-5',
-      date: '25 Dec 2025',
-      title: 'Belgrade students blockade ministry demanding election fraud probe',
-      summary:
-        'Thousands of students took to the streets to demand a recount following disputed local election results.',
-      imageUrl: '/article-hero-students.jpg',
-    },
-    {
-      id: 'mf-6',
-      date: '5 Nov 2025',
-      title:
-        'Serbia rail disaster: Transport minister resigns after 14 killed at station',
-      summary:
-        'Goran Vesić announced his departure following public outrage over the deadly collapse of a concrete station canopy.',
-      imageUrl: '/morenews-nairobi.jpg',
-    },
-  ];
-
   const relatedArticles = useMemo(() => {
     if (relatedFromDb.length > 0) return relatedFromDb.slice(0, 3);
     if (moreFromDb.length > 0) return moreFromDb.slice(0, 3);
-    return staticSerbiaRelated;
+    return STATIC_SERBIA_RELATED;
   }, [relatedFromDb, moreFromDb]);
 
   const moreCategoryArticles = useMemo(() => {
@@ -282,7 +302,7 @@ export default function ArticleDetailPage() {
         imageUrl: resolveMediaUrl(item.imageUrl, '/hero-lead.jpg'),
       }));
     }
-    return staticSerbiaMore.map((item) => ({
+    return STATIC_SERBIA_MORE.map((item) => ({
       ...item,
       slug: "How-a-movement-of-students-brought-down-Serbia's-Vučić",
     }));
@@ -298,7 +318,7 @@ export default function ArticleDetailPage() {
   );
 
   const handlePageChange = (newPage: number) => {
-    setMoreCategoryPage(newPage);
+    setMorePageState({ slug: rawSlug, page: newPage });
     if (moreSectionRef.current) {
       moreSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -325,7 +345,7 @@ export default function ArticleDetailPage() {
     );
   }
 
-  if (notFound || !article) {
+  if (!rawSlug || notFound || !article) {
     return (
       <main className="min-h-screen bg-white text-neutral-900 font-sans antialiased flex flex-col">
         <Header
@@ -372,11 +392,36 @@ export default function ArticleDetailPage() {
   const mainCatName = article.category || 'World News';
   const subCats = article.subCategories || [];
   const tags = article.tags || [];
-  const resolvedCover = resolveMediaUrl(article.imageUrl);
-  const firstInlineImg = resolveMediaUrl(extractFirstImageSrc(article.content || ''));
-  const showSeparateHeroImage = Boolean(
-    resolvedCover && (!article.content || !firstInlineImg || resolvedCover !== firstInlineImg)
+  const enrichment = getArticleEnrichment(article);
+  const leadSummary = (
+    article.subtitle ||
+    article.summary ||
+    article.cardSummary ||
+    ''
+  ).trim();
+  const resolvedCover =
+    resolveMediaUrl(article.imageUrl) ||
+    enrichment?.imageUrl ||
+    '/hero-lead.jpg';
+  const rawContent = (article.content || '').trim();
+  const strippedContent = rawContent ? stripHtmlText(rawContent) : '';
+  const hasRichArticleBody = Boolean(
+    rawContent &&
+      strippedContent !== leadSummary &&
+      (/<(p|h[1-6]|ul|ol|blockquote|img|div)\b/i.test(rawContent) ||
+        strippedContent.length > leadSummary.length + 25)
   );
+  const firstInlineImg = hasRichArticleBody
+    ? resolveMediaUrl(extractFirstImageSrc(rawContent))
+    : '';
+  const showSeparateHeroImage = Boolean(
+    resolvedCover && (!firstInlineImg || resolvedCover !== firstInlineImg)
+  );
+  const imageCaption = isSerbiaFallback
+    ? "Although it was a students' movement that won Serbia's election, no student has been elected"
+    : enrichment?.caption || article.imageAlt || '';
+  const fallbackParagraphs =
+    enrichment?.paragraphs || buildFallbackBodyParagraphs(article);
   const displayPublishDate = formatDisplayDate(article.publishedAt, article.time);
   const displayReadTime = article.readDuration
     ? `${article.readDuration} min read`
@@ -391,11 +436,8 @@ export default function ArticleDetailPage() {
         onOpenSignIn={() => setIsSignInOpen(true)}
       />
 
-      {/* 2. Top Advertisement Banner */}
-      <AdBanner type="placeholder" sizeText="1000 x 350" />
-
-      {/* 3. Main Article Body Container */}
-      <article className="max-w-[1040px] mx-auto px-4 sm:px-6 pt-4 pb-8">
+      {/* 2. Main Article Body Container */}
+      <article className="max-w-[1040px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-8">
         {/* Category Breadcrumb Bar */}
         <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider mb-3">
           <Link
@@ -422,9 +464,9 @@ export default function ArticleDetailPage() {
           {article.title}
         </h1>
 
-        {article.subtitle && (
+        {leadSummary && (
           <p className="font-serif text-lg sm:text-xl text-neutral-600 leading-relaxed mb-4">
-            {article.subtitle}
+            {leadSummary}
           </p>
         )}
 
@@ -441,42 +483,44 @@ export default function ArticleDetailPage() {
           article={{
             slug: article.slug || rawSlug,
             title: article.title,
-            image: resolvedCover || '/hero-lead.jpg',
-            imageUrl: resolvedCover || '/hero-lead.jpg',
+            image: resolvedCover,
+            imageUrl: resolvedCover,
             category: mainCatName,
             date: displayPublishDate,
             author: article.author || 'BBC News Staff',
           }}
         />
 
-        {/* Hero / Cover Image */}
-        {showSeparateHeroImage && resolvedCover && (
-          <div className="mt-4 mb-6">
-            <div className="relative aspect-[16/9.5] w-full overflow-hidden bg-neutral-100 rounded-xs">
-              <img
-                src={resolvedCover}
-                alt={article.imageAlt || article.title}
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = '/hero-lead.jpg';
-                }}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            {isSerbiaFallback && (
-              <div className="flex items-center justify-between font-sans text-xs text-neutral-500 mt-2">
-                <span>
-                  Although it was a students&apos; movement that won Serbia&apos;s election, no student has been elected
-                </span>
-                <span className="text-[11px] text-neutral-400">AFP via Getty Images</span>
-              </div>
-            )}
-          </div>
-        )}
-
         {/* 5. Article Content & Right Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-6">
           {/* Main Story Text Column */}
           <div className="lg:col-span-8">
+            {/* Hero / Cover Image */}
+            {showSeparateHeroImage && resolvedCover && (
+              <div className="mb-6">
+                <div className="relative aspect-[16/9.5] w-full overflow-hidden bg-neutral-100 rounded-xs">
+                  <img
+                    src={resolvedCover}
+                    alt={article.imageAlt || enrichment?.imageAlt || article.title}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/hero-lead.jpg';
+                    }}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {(imageCaption || isSerbiaFallback) && (
+                  <div className="flex items-center justify-between font-sans text-xs text-neutral-500 mt-2 gap-4">
+                    <span>{imageCaption}</span>
+                    {isSerbiaFallback && (
+                      <span className="text-[11px] text-neutral-400 shrink-0">
+                        AFP via Getty Images
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
             {isSerbiaFallback ? (
               <>
                 <p className="font-serif text-[17.5px] sm:text-[18.5px] text-neutral-800 leading-[1.68] mb-5">
@@ -511,50 +555,37 @@ export default function ArticleDetailPage() {
                   As he joined the students marching towards Belgrade last week, lead candidate and cardiologist Ilija Srdanović said history was being rewritten: &quot;The energy is unstoppable.&quot;
                 </p>
               </>
-            ) : article.content ? (
+            ) : hasRichArticleBody ? (
               <div
                 className="bbc-article-content font-serif text-[17.5px] sm:text-[18.5px] text-neutral-800 leading-[1.7]"
-                dangerouslySetInnerHTML={{ __html: article.content }}
+                dangerouslySetInnerHTML={{ __html: rawContent }}
               />
             ) : (
-              <div className="space-y-5 font-serif text-[17.5px] sm:text-[18.5px] text-neutral-800 leading-[1.7]">
-                {article.summary && <p>{article.summary}</p>}
-                {article.bulletPoints && article.bulletPoints.length > 0 && (
-                  <ul className="list-disc pl-6 space-y-2 text-[16px] text-neutral-700">
-                    {article.bulletPoints.map((pt, i) => (
-                      <li key={i}>{pt}</li>
-                    ))}
-                  </ul>
-                )}
+              <div>
+                {fallbackParagraphs.map((paragraph, idx) => (
+                  <p
+                    key={idx}
+                    className="font-serif text-[17.5px] sm:text-[18.5px] text-neutral-800 leading-[1.68] mb-5"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             )}
 
-            {/* Tags & Topic Badges */}
-            <div className="mt-8 pt-5 border-t border-neutral-200 flex flex-wrap gap-2">
-              <Link
-                href={`/${getCategorySlugByName(mainCatName)}`}
-                className="inline-block bg-neutral-100 text-neutral-800 text-xs font-sans font-semibold px-3.5 py-1.5 rounded-xs hover:bg-neutral-200 transition"
-              >
-                {mainCatName}
-              </Link>
-              {subCats.map((sub) => (
-                <Link
-                  key={sub}
-                  href={`/${getCategorySlugByName(sub)}`}
-                  className="inline-block bg-neutral-100 text-neutral-800 text-xs font-sans font-medium px-3.5 py-1.5 rounded-xs hover:bg-neutral-200 transition"
-                >
-                  {sub}
-                </Link>
-              ))}
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-block bg-neutral-100 text-neutral-700 text-xs font-sans font-medium px-3.5 py-1.5 rounded-xs"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
+            {/* Topic Tags (Hashtags Only) */}
+            {tags.length > 0 && (
+              <div className="mt-8 pt-5 border-t border-neutral-200 flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-block bg-neutral-100 text-neutral-700 text-xs font-sans font-medium px-3.5 py-1.5 rounded-xs"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Sidebar Ad Area */}
