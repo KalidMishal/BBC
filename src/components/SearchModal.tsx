@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, X, ArrowRight } from 'lucide-react';
 import { Article } from '../types';
+import { searchArticlesApi } from '../lib/api';
 import {
   topStoryLead,
   topStoriesSecondary,
@@ -30,6 +31,7 @@ interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose, onSelectArticle }: SearchModalProps) {
   const [query, setQuery] = useState('');
+  const [remoteResults, setRemoteResults] = useState<Article[] | null>(null);
 
   // Collect all articles for local search
   const allArticles = useMemo(() => {
@@ -64,7 +66,29 @@ export default function SearchModal({ isOpen, onClose, onSelectArticle }: Search
     return Array.from(map.values());
   }, []);
 
-  const searchResults = useMemo(() => {
+  useEffect(() => {
+    const trimmed = query.trim();
+    if (!isOpen || !trimmed) {
+      setRemoteResults(null);
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      searchArticlesApi(trimmed, controller.signal).then((articles) => {
+        if (articles !== null) {
+          setRemoteResults(articles);
+        }
+      });
+    }, 180);
+
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [isOpen, query]);
+
+  const localResults = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
     return allArticles.filter(
@@ -75,6 +99,8 @@ export default function SearchModal({ isOpen, onClose, onSelectArticle }: Search
         (a.tag && a.tag.toLowerCase().includes(q))
     ).slice(0, 8);
   }, [query, allArticles]);
+
+  const searchResults = remoteResults ?? localResults;
 
   if (!isOpen) return null;
 

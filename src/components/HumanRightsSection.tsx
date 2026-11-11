@@ -7,10 +7,15 @@ import { Article } from '../types';
 
 interface HumanRightsSectionProps {
   onArticleClick?: (article: Article) => void;
+  articles?: Article[];
 }
 
-export default function HumanRightsSection({ onArticleClick }: HumanRightsSectionProps) {
-  const [story1, story2] = humanRightsArticles;
+export default function HumanRightsSection({
+  onArticleClick,
+  articles = humanRightsArticles
+}: HumanRightsSectionProps) {
+  const story1 = articles[0] || humanRightsArticles[0];
+  const story2 = articles[1] || humanRightsArticles[1];
 
   return (
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-5 pb-8">

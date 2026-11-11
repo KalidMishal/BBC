@@ -7,21 +7,25 @@ import { Article } from '../types';
 
 interface SportsCardsSectionProps {
   onArticleClick?: (article: Article) => void;
+  articles?: Article[];
 }
 
-export default function SportsCardsSection({ onArticleClick }: SportsCardsSectionProps) {
+export default function SportsCardsSection({
+  onArticleClick,
+  articles = sportsSectionArticles
+}: SportsCardsSectionProps) {
   return (
-    <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-8">
-      {/* Header matching media_1794217196154_22da8df7.jpg */}
+    <section className="w-full max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-8">
+      {/* Header matching media_1794330932958_066b33ac.jpg */}
       <div className="mb-7 sm:mb-8 xl:mb-9 2xl:mb-10">
-        <h2 className="font-sans font-bold text-[34px] md:text-[38px] xl:text-[42px] 2xl:text-[46px] text-neutral-950 tracking-tight leading-none">
+        <h2 className="font-sans font-extrabold text-[32px] sm:text-[36px] lg:text-[clamp(36px,2.85vw,46px)] text-neutral-950 tracking-[-0.02em] leading-none">
           Sports
         </h2>
       </div>
 
-      {/* 4 Cards Grid matching media_1794217196154_22da8df7.jpg */}
+      {/* 4 Cards Grid matching media_1794330932958_066b33ac.jpg */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 xl:gap-6 2xl:gap-7 pb-10 sm:pb-12 2xl:pb-14 border-b border-neutral-200">
-        {sportsSectionArticles.map((card) => (
+        {articles.map((card) => (
           <article
             key={card.id}
             onClick={() => onArticleClick?.(card)}
@@ -29,7 +33,7 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
           >
             <div>
               {card.imageUrl && (
-                <div className="relative aspect-[375/260] w-full overflow-hidden bg-neutral-100 mb-4 2xl:mb-5">
+                <div className="relative aspect-[375/250] w-full overflow-hidden bg-neutral-100 mb-3.5 xl:mb-4">
                   <Image
                     src={card.imageUrl}
                     alt={card.imageAlt || card.title}
@@ -38,10 +42,10 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
                   />
                 </div>
               )}
-              <div className="font-sans font-bold text-[12.5px] sm:text-[13.5px] 2xl:text-[14.5px] text-neutral-600 uppercase tracking-wider mb-2">
+              <div className="font-sans font-bold text-[12.5px] sm:text-[13.5px] lg:text-[clamp(12.5px,0.95vw,15px)] text-[#666666] uppercase tracking-wider mb-1.5 xl:mb-2">
                 {card.category}
               </div>
-              <h3 className="font-sans font-bold text-[21px] sm:text-[22px] lg:text-[21px] xl:text-[24px] 2xl:text-[27.5px] leading-[1.18] text-neutral-950 group-hover:underline max-w-[330px] lg:max-w-[260px] xl:max-w-[290px] 2xl:max-w-[330px]">
+              <h3 className="font-sans font-extrabold text-[21px] sm:text-[22px] lg:text-[clamp(19px,1.56vw,25.5px)] leading-[1.16] tracking-[-0.02em] text-neutral-950 group-hover:underline max-w-[330px] lg:max-w-[clamp(242px,19vw,305px)]">
                 {card.title.split(' ').map((word, wIdx, arr) => (
                   <React.Fragment key={wIdx}>
                     {word.includes('-') ? (
@@ -54,7 +58,7 @@ export default function SportsCardsSection({ onArticleClick }: SportsCardsSectio
                 ))}
               </h3>
               {card.summary && (
-                <p className="font-sans text-[14.5px] sm:text-[15.5px] lg:text-[14.5px] xl:text-[16px] 2xl:text-[18.5px] text-neutral-600 leading-[1.46] font-normal mt-2.5 2xl:mt-3">
+                <p className="font-sans font-medium text-[14.5px] sm:text-[15.5px] lg:text-[clamp(13.5px,1.06vw,17px)] text-[#686868] leading-[1.42] mt-2.5 2xl:mt-3">
                   {card.summary}
                 </p>
               )}

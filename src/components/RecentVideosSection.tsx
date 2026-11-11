@@ -4,17 +4,19 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Play } from 'lucide-react';
-import { recentVideosList } from '../data/bbcData';
+import { recentVideosList, VideoCardItem } from '../data/bbcData';
 import { Article } from '../types';
 
 interface RecentVideosSectionProps {
   onVideoClick?: (video: Article) => void;
   onArticleClick?: (article: Article) => void;
+  videos?: VideoCardItem[];
 }
 
 export default function RecentVideosSection({
   onVideoClick,
-  onArticleClick
+  onArticleClick,
+  videos = recentVideosList
 }: RecentVideosSectionProps) {
   return (
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-3 pb-8">
@@ -43,7 +45,7 @@ export default function RecentVideosSection({
 
       {/* 5 Video Cards Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 lg:gap-4">
-        {recentVideosList.map((video) => (
+        {videos.map((video) => (
           <article
             key={video.id}
             onClick={() => {
@@ -74,21 +76,21 @@ export default function RecentVideosSection({
                 </div>
               )}
 
-              <h3 className="font-sans font-extrabold text-[17.5px] sm:text-[18px] lg:text-[18.5px] xl:text-[19.5px] 2xl:text-[20.5px] leading-[1.22] text-neutral-950 tracking-[-0.01em] group-hover:underline">
+              <h3 className="font-sans font-extrabold text-[19px] sm:text-[19.5px] lg:text-[17.5px] xl:text-[20.5px] 2xl:text-[22px] leading-[1.2] text-neutral-950 tracking-[-0.015em] group-hover:underline">
                 {video.title}
               </h3>
 
               {video.summary && (
-                <p className="font-sans text-[13.5px] sm:text-[14px] xl:text-[14.5px] text-neutral-600 leading-[1.4] font-normal mt-2 line-clamp-3">
+                <p className="font-sans font-medium text-[15px] sm:text-[15.5px] lg:text-[14px] xl:text-[15.5px] 2xl:text-[16.5px] text-neutral-700 leading-[1.38] mt-2.5">
                   {video.summary}
                 </p>
               )}
             </div>
 
-            <div className="flex items-center space-x-1.5 font-sans font-bold text-[12px] sm:text-[12.5px] text-neutral-600 tracking-wide mt-2.5">
-              <span>{video.category}</span>
-              <span>|</span>
-              <span>{video.time}</span>
+            <div className="flex items-center space-x-2 font-sans text-[13px] sm:text-[13.5px] lg:text-[12px] xl:text-[13.5px] 2xl:text-[14.5px] tracking-wide mt-3.5">
+              <span className="font-bold text-neutral-800">{video.category}</span>
+              <span className="text-neutral-400">|</span>
+              <span className="font-medium text-neutral-600">{video.time}</span>
             </div>
           </article>
         ))}

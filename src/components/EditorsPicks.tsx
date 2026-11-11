@@ -8,9 +8,15 @@ import { Article } from '../types';
 interface EditorsPicksProps {
   onArticleClick?: (article: Article) => void;
   onVideoClick?: (article: Article) => void;
+  leadStory?: Article;
+  sideList?: Article[];
 }
 
-export default function EditorsPicks({ onArticleClick }: EditorsPicksProps) {
+export default function EditorsPicks({
+  onArticleClick,
+  leadStory = editorLeadStory,
+  sideList = editorSideList
+}: EditorsPicksProps) {
   return (
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-12">
       {/* Header matching media_1794203159869_dc83a53e.jpg */}
@@ -25,14 +31,14 @@ export default function EditorsPicks({ onArticleClick }: EditorsPicksProps) {
         
         {/* Left Column: US Capitol Dome Story */}
         <article
-          onClick={() => onArticleClick?.(editorLeadStory)}
+          onClick={() => onArticleClick?.(leadStory)}
           className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 2xl:gap-7 items-start"
         >
-          {editorLeadStory.imageUrl && (
+          {leadStory.imageUrl && (
             <div className="w-full sm:w-[280px] md:w-[320px] lg:w-[330px] xl:w-[355px] 2xl:w-[400px] aspect-[3/4] relative overflow-hidden bg-neutral-100 shrink-0">
               <Image
-                src={editorLeadStory.imageUrl}
-                alt={editorLeadStory.imageAlt || editorLeadStory.title}
+                src={leadStory.imageUrl}
+                alt={leadStory.imageAlt || leadStory.title}
                 fill
                 className="object-cover origin-bottom-left scale-[1.12] group-hover:scale-[1.17] transition-transform duration-300"
               />
@@ -41,30 +47,30 @@ export default function EditorsPicks({ onArticleClick }: EditorsPicksProps) {
 
           <div className="flex flex-col justify-start pt-2 sm:pt-3 2xl:pt-4">
             <div className="font-sans font-bold text-[13px] sm:text-[14px] 2xl:text-[15px] text-neutral-600 uppercase tracking-wider mb-3">
-              {editorLeadStory.category}
+              {leadStory.category}
             </div>
             <h3 className="font-sans font-bold text-[26px] sm:text-[29px] lg:text-[31px] xl:text-[34px] 2xl:text-[38px] leading-[1.16] text-neutral-950 group-hover:underline max-w-[355px]">
-              {editorLeadStory.title}
+              {leadStory.title}
             </h3>
-            {editorLeadStory.summary && (
+            {leadStory.summary && (
               <p className="font-sans text-[15px] sm:text-[16px] lg:text-[17px] xl:text-[18px] 2xl:text-[20px] text-neutral-600 leading-[1.55] font-normal mt-4 2xl:mt-5 max-w-[385px]">
-                {editorLeadStory.summary}
+                {leadStory.summary}
               </p>
             )}
             <div className="font-sans font-bold text-[12.5px] sm:text-[13.5px] 2xl:text-[14.5px] text-neutral-500 uppercase tracking-wide mt-5 2xl:mt-6">
-              {editorLeadStory.time}
+              {leadStory.time}
             </div>
           </div>
         </article>
 
         {/* Right Column: 3 Stacked Items with Vertical Separator */}
         <div className="lg:border-l lg:border-neutral-200 lg:pl-7 xl:pl-8 2xl:pl-9 flex flex-col justify-start">
-          {editorSideList.map((item, idx) => (
+          {sideList.map((item, idx) => (
             <article
               key={item.id}
               onClick={() => onArticleClick?.(item)}
               className={`group cursor-pointer flex items-start gap-4 sm:gap-5 2xl:gap-6 ${
-                idx < editorSideList.length - 1 ? 'border-b border-neutral-200 pb-4 mb-4' : ''
+                idx < sideList.length - 1 ? 'border-b border-neutral-200 pb-4 mb-4' : ''
               }`}
             >
               {item.imageUrl && (

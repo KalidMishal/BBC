@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { fetchHomeData, HomeDataPayload } from '../lib/api';
 
 // Components
 import Header from '../components/Header';
@@ -40,13 +41,25 @@ export default function BBCCloneHomePage() {
   const [activeArticle, setActiveArticle] = useState<Article | null>(null);
   const [activeVideo, setActiveVideo] = useState<Article | null>(null);
   const [activePodcast, setActivePodcast] = useState<PodcastItem | null>(null);
+  const [homeData, setHomeData] = useState<HomeDataPayload | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchHomeData(controller.signal).then((data) => {
+      if (data) {
+        setHomeData(data);
+      }
+    });
+    return () => controller.abort();
+  }, []);
 
   const handleArticleClick = (article: Article) => {
-    if (typeof window !== 'undefined') {
-      window.location.href = encodeURI("/news/articles/How-a-movement-of-students-brought-down-Serbia's-Vučić");
-    } else {
-      router.push(encodeURI("/news/articles/How-a-movement-of-students-brought-down-Serbia's-Vučić"));
+    const slugOrId = article.slug || article.id;
+    if (slugOrId) {
+      router.push(`/news/articles/${encodeURIComponent(slugOrId)}`);
+      return;
     }
+    router.push(encodeURI("/news/articles/How-a-movement-of-students-brought-down-Serbia's-Vučić"));
   };
 
   return (
@@ -62,11 +75,17 @@ export default function BBCCloneHomePage() {
       <HeroSection
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}
+        leadStory={homeData?.topStoryLead ?? undefined}
+        secondaryStories={homeData?.topStoriesSecondary?.length ? homeData.topStoriesSecondary : undefined}
+        sideStories={homeData?.topStoriesSideList?.length ? homeData.topStoriesSideList : undefined}
       />
 
       {/* 2.5 Politics & Government (4 cards) + EU Leaders Feature & Trending Now */}
       <PoliticsAndTrendingSection
         onArticleClick={handleArticleClick}
+        gridArticles={homeData?.politicsGridArticles?.length ? homeData.politicsGridArticles : undefined}
+        euStory={homeData?.euLeadersStory ?? undefined}
+        trendingItems={homeData?.trendingNowArticles?.length ? homeData.trendingNowArticles : undefined}
       />
 
       {/* 3. Advertisement Banner */}
@@ -76,11 +95,15 @@ export default function BBCCloneHomePage() {
       <MoreNewsSection
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}
+        featuredStory={homeData?.moreNewsVanessa ?? undefined}
+        bottomStory={homeData?.moreNewsBurnham ?? undefined}
+        sideArticles={homeData?.moreNewsSideList?.length ? homeData.moreNewsSideList : undefined}
       />
 
       {/* 5. Human Rights & Civil Liberties (matching Image 2) */}
       <HumanRightsSection
         onArticleClick={handleArticleClick}
+        articles={homeData?.humanRightsArticles?.length ? homeData.humanRightsArticles : undefined}
       />
 
       {/* 6. Advertisement Banner moved under Human Rights & Civil Liberties */}
@@ -89,28 +112,37 @@ export default function BBCCloneHomePage() {
       {/* 7. Watch Feature (Macro Snake Video Banner matching Image 1) */}
       <WatchHero
         onVideoClick={(video) => setActiveVideo(video)}
+        feature={homeData?.watchHeroCinema ?? undefined}
       />
 
       {/* 7.5 Recent Videos Section (5 video cards matching Image 1) */}
       <RecentVideosSection
         onVideoClick={(video) => setActiveVideo(video)}
         onArticleClick={handleArticleClick}
+        videos={homeData?.recentVideosList?.length ? homeData.recentVideosList : undefined}
       />
 
       {/* 8. Editor's Pick (US Capitol dome + 3 items matching Image 2) */}
       <EditorsPicks
         onArticleClick={handleArticleClick}
         onVideoClick={(video) => setActiveVideo(video)}
+        leadStory={homeData?.editorLeadStory ?? undefined}
+        sideList={homeData?.editorSideList?.length ? homeData.editorSideList : undefined}
       />
 
       {/* 8.5 In-Depth The People Driving Change in 2026 + 4 Cards Grid matching Image 2 */}
       <InDepthDrivingChangeSection
         onArticleClick={handleArticleClick}
+        leadStory={homeData?.inDepthChangeLead ?? undefined}
+        cards={homeData?.inDepthChangeCards?.length ? homeData.inDepthChangeCards : undefined}
       />
 
       {/* 9. In Focus This Week & Market Update matching media_1794035586863_48a12b3e */}
       <InFocusAndMarketUpdateSection
         onArticleClick={handleArticleClick}
+        leadStory={homeData?.inFocusLeadStory ?? undefined}
+        sideList={homeData?.inFocusSideList?.length ? homeData.inFocusSideList : undefined}
+        metrics={homeData?.marketUpdateMetrics?.length ? homeData.marketUpdateMetrics : undefined}
       />
 
       {/* 10. Advertisement Banner under Market Update */}
@@ -119,16 +151,20 @@ export default function BBCCloneHomePage() {
       {/* 11. Sports (4 Cards Grid) matching media_1794035724019_9e85fb91 */}
       <SportsCardsSection
         onArticleClick={handleArticleClick}
+        articles={homeData?.sportsSectionArticles?.length ? homeData.sportsSectionArticles : undefined}
       />
 
       {/* 12. Listen Now matching media_1794035802116_4ce202c6 */}
       <ListenNowSection
         onPlayPodcast={(podcast) => setActivePodcast(podcast)}
+        featuredPodcast={homeData?.listenNowFeaturedPodcast ?? undefined}
+        episodes={homeData?.listenNowEpisodes?.length ? homeData.listenNowEpisodes : undefined}
       />
 
       {/* 13. Education, Travel & Lifestyle, Energy & Infrastructure, Opinions matching media_1794035851083_5bb58673 */}
       <FourCategoriesDigestSection
         onArticleClick={handleArticleClick}
+        columns={homeData?.fourCategoriesDigestData?.length ? homeData.fourCategoriesDigestData : undefined}
       />
 
       {/* 14. Global BBC Footer */}

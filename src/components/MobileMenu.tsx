@@ -3,19 +3,22 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { X, Search, User, ChevronDown, ChevronUp } from 'lucide-react';
+import { X, Search, ChevronDown, ChevronUp } from 'lucide-react';
 import { mainCategories } from '../data/categoriesData';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenSearch: () => void;
-  onOpenSignIn: () => void;
+  onOpenSignIn?: () => void;
 }
 
-export default function MobileMenu({ isOpen, onClose, onOpenSearch, onOpenSignIn }: MobileMenuProps) {
+export default function MobileMenu({
+  isOpen,
+  onClose,
+  onOpenSearch,
+}: MobileMenuProps) {
   const router = useRouter();
-  // Track open state of category dropdowns by category id
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
 
   if (!isOpen) return null;
@@ -24,7 +27,7 @@ export default function MobileMenu({ isOpen, onClose, onOpenSearch, onOpenSignIn
     e.stopPropagation();
     setOpenCategories((prev) => ({
       ...prev,
-      [id]: !prev[id]
+      [id]: !prev[id],
     }));
   };
 
@@ -66,6 +69,7 @@ export default function MobileMenu({ isOpen, onClose, onOpenSearch, onOpenSignIn
               </div>
             </Link>
             <button
+              type="button"
               onClick={onClose}
               className="text-neutral-400 hover:text-white p-1.5 rounded hover:bg-neutral-800 transition cursor-pointer"
               aria-label="Close menu"
@@ -74,25 +78,10 @@ export default function MobileMenu({ isOpen, onClose, onOpenSearch, onOpenSignIn
             </button>
           </div>
 
-          {/* Quick Sign In / Register */}
-          <div className="py-4 border-b border-neutral-800 flex items-center justify-between">
-            <button
-              onClick={() => {
-                onClose();
-                onOpenSignIn();
-              }}
-              className="flex items-center space-x-3 text-neutral-200 hover:text-white font-bold text-sm cursor-pointer"
-            >
-              <div className="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-300">
-                <User className="w-4 h-4" />
-              </div>
-              <span>Sign In / Register</span>
-            </button>
-          </div>
-
           {/* Search Trigger */}
           <div className="py-4 border-b border-neutral-800">
             <button
+              type="button"
               onClick={() => {
                 onClose();
                 onOpenSearch();
@@ -104,19 +93,18 @@ export default function MobileMenu({ isOpen, onClose, onOpenSearch, onOpenSignIn
             </button>
           </div>
 
-          {/* 15 Main Categories & 84 Subcategories Navigation */}
+          {/* 15 Main Categories & 84 Subcategories */}
           <div className="py-4">
             <ul className="divide-y divide-neutral-800/80">
               {mainCategories.map((category) => {
-                const isOpen = !!openCategories[category.id];
+                const isCatOpen = !!openCategories[category.id];
                 const hasSubcategories = category.subcategories.length > 0;
 
                 return (
                   <li key={category.id} className="py-1">
-                    {/* Main Category Header Row */}
                     <div className="flex items-center justify-between group rounded hover:bg-neutral-900 transition">
-                      {/* Category Name Link */}
                       <button
+                        type="button"
                         onClick={() => handleNavigate(category.slug)}
                         className="flex-1 text-left py-2.5 px-2 text-neutral-100 hover:text-white font-bold text-[15px] sm:text-base transition cursor-pointer flex items-center space-x-2"
                       >
@@ -125,15 +113,15 @@ export default function MobileMenu({ isOpen, onClose, onOpenSearch, onOpenSignIn
                         </span>
                       </button>
 
-                      {/* Dropdown Toggle Button */}
                       {hasSubcategories && (
                         <button
+                          type="button"
                           onClick={(e) => toggleCategory(category.id, e)}
                           className="p-2 text-neutral-400 hover:text-white rounded hover:bg-neutral-800 transition cursor-pointer"
                           aria-label={`Toggle ${category.name} subcategories`}
                           title={`Toggle ${category.name} subcategories`}
                         >
-                          {isOpen ? (
+                          {isCatOpen ? (
                             <ChevronUp className="w-4 h-4 text-neutral-200 stroke-[2.5]" />
                           ) : (
                             <ChevronDown className="w-4 h-4 text-neutral-400 group-hover:text-white stroke-[2.2]" />
@@ -142,13 +130,13 @@ export default function MobileMenu({ isOpen, onClose, onOpenSearch, onOpenSignIn
                       )}
                     </div>
 
-                    {/* Subcategories Dropdown Accordion (No red vertical line, no arrows) */}
-                    {hasSubcategories && isOpen && (
+                    {hasSubcategories && isCatOpen && (
                       <div className="mt-1 mb-2 ml-4 pl-1 animate-in fade-in slide-in-from-top-1 duration-150">
                         <ul className="space-y-1">
                           {category.subcategories.map((sub) => (
                             <li key={sub.slug}>
                               <button
+                                type="button"
                                 onClick={() => handleNavigate(sub.slug)}
                                 className="w-full text-left py-1.5 px-2 text-[13.5px] text-neutral-300 hover:text-white hover:bg-neutral-900/90 rounded transition cursor-pointer"
                               >

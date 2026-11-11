@@ -253,16 +253,20 @@ export function findCategoryBySlug(slug: string) {
 
   // 4. Aliases
   if (cleanSlug === 'earth') {
-    const climate = mainCategories.find(c => c.id === 'cat-7');
+    const climate = mainCategories.find(c => c.id === 'climate-environment');
     if (climate) return { main: climate, sub: null, isMain: true };
   }
   if (cleanSlug === 'news') {
-    const world = mainCategories.find(c => c.id === 'cat-1');
+    const world = mainCategories.find(c => c.id === 'world-news');
     if (world) return { main: world, sub: null, isMain: true };
   }
   if (cleanSlug === 'business') {
-    const biz = mainCategories.find(c => c.id === 'cat-3');
+    const biz = mainCategories.find(c => c.id === 'business-economy');
     if (biz) return { main: biz, sub: null, isMain: true };
+  }
+  if (cleanSlug === 'sports') {
+    const sport = mainCategories.find(c => c.id === 'sport');
+    if (sport) return { main: sport, sub: null, isMain: true };
   }
 
   return null;

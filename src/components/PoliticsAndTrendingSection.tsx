@@ -6,16 +6,23 @@ import Link from 'next/link';
 import {
   politicsGridArticles,
   euLeadersStory,
-  trendingNowArticles
+  trendingNowArticles,
+  TrendingItem
 } from '../data/bbcData';
 import { Article } from '../types';
 
 interface PoliticsAndTrendingSectionProps {
   onArticleClick?: (article: Article) => void;
+  gridArticles?: Article[];
+  euStory?: Article;
+  trendingItems?: TrendingItem[];
 }
 
 export default function PoliticsAndTrendingSection({
-  onArticleClick
+  onArticleClick,
+  gridArticles = politicsGridArticles,
+  euStory = euLeadersStory,
+  trendingItems = trendingNowArticles
 }: PoliticsAndTrendingSectionProps) {
   return (
     <section className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 pt-2 pb-8">
@@ -28,8 +35,8 @@ export default function PoliticsAndTrendingSection({
         Matching media_1793990467065_bdb49109.jpg (top part)
         =======================================================
       */}
-      <div className="flex items-center justify-between mb-4 sm:mb-5">
-        <h2 className="font-sans font-bold text-[34px] sm:text-[34px] md:text-[35px] text-neutral-900 tracking-tight leading-tight">
+      <div className="flex flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-5">
+        <h2 className="font-sans font-bold text-[27px] sm:text-[34px] md:text-[35px] text-neutral-900 tracking-tight leading-tight whitespace-nowrap sm:whitespace-normal">
           Politics &amp; Government
         </h2>
         <Link
@@ -42,7 +49,7 @@ export default function PoliticsAndTrendingSection({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 sm:gap-8 lg:gap-9 xl:gap-10">
-        {politicsGridArticles.map((article) => (
+        {gridArticles.map((article) => (
           <article
             key={article.id}
             onClick={() => onArticleClick?.(article)}
@@ -82,52 +89,52 @@ export default function PoliticsAndTrendingSection({
         Matching media_1793990467065_bdb49109.jpg (bottom part)
         =======================================================
       */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_390px] xl:grid-cols-[1fr_475px] gap-6 lg:gap-8 xl:gap-9 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.9fr_1fr] xl:grid-cols-[2fr_1fr] gap-6 lg:gap-8 xl:gap-10 items-stretch">
         {/* Left Side: EU Leaders Horizontal Feature */}
         <article
-          onClick={() => onArticleClick?.(euLeadersStory)}
-          className="group cursor-pointer flex flex-col sm:flex-row gap-5 sm:gap-6 lg:gap-8 items-stretch h-full"
+          onClick={() => onArticleClick?.(euStory)}
+          className="group cursor-pointer flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-6 xl:gap-7 items-stretch lg:self-end w-full"
         >
-          {euLeadersStory.imageUrl && (
-            <div className="relative w-full sm:w-[320px] md:w-[360px] lg:flex-1 shrink-0 overflow-hidden bg-neutral-100 min-h-[250px] sm:min-h-full">
+          {euStory.imageUrl && (
+            <div className="relative aspect-[16/10] sm:aspect-auto lg:aspect-[16/10] w-full sm:w-[300px] md:w-[330px] lg:w-[47%] xl:w-[49%] shrink-0 overflow-hidden bg-neutral-100 sm:min-h-[240px] lg:min-h-0">
               <Image
-                src={euLeadersStory.imageUrl}
-                alt={euLeadersStory.imageAlt || euLeadersStory.title}
+                src={euStory.imageUrl}
+                alt={euStory.imageAlt || euStory.title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
           )}
 
-          <div className="flex flex-col justify-between py-0.5 sm:py-1 h-full w-full sm:w-[330px] md:w-[350px] lg:w-[355px] xl:w-[375px] shrink-0">
+          <div className="flex flex-col justify-between py-0.5 sm:py-1 flex-1 min-w-0">
             <div>
               <div className="font-sans font-bold text-[13.5px] sm:text-[14px] text-neutral-600 uppercase tracking-wider mb-1.5">
-                {euLeadersStory.category}
+                {euStory.category}
               </div>
-              <h3 className="font-sans font-bold text-[26px] sm:text-[28px] md:text-[30px] xl:text-[31px] leading-[1.18] text-neutral-900 group-hover:underline max-w-[375px]">
-                {euLeadersStory.title}
+              <h3 className="font-sans font-extrabold text-[27px] sm:text-[29px] md:text-[31px] lg:text-[29px] xl:text-[34px] 2xl:text-[36px] leading-[1.15] tracking-[-0.015em] text-neutral-950 group-hover:underline max-w-[405px]">
+                {euStory.title}
               </h3>
-              {euLeadersStory.summary && (
-                <p className="font-sans text-[15.5px] sm:text-[16px] xl:text-[16.5px] text-neutral-600 leading-relaxed mt-3 max-w-[325px]">
-                  {euLeadersStory.summary}
+              {euStory.summary && (
+                <p className="font-sans font-semibold text-[16.5px] sm:text-[17px] lg:text-[16.5px] xl:text-[18px] 2xl:text-[18.5px] text-neutral-700 leading-[1.48] mt-3 max-w-[375px] 2xl:max-w-[395px]">
+                  {euStory.summary}
                 </p>
               )}
             </div>
             <div className="font-sans font-bold text-[13px] sm:text-[13.5px] text-neutral-500 uppercase tracking-wide mt-4">
-              {euLeadersStory.time}
+              {euStory.time}
             </div>
           </div>
         </article>
 
         {/* Right Side: Trending Now with Vertical Divider and 01, 02, 03 numbers */}
-        <div className="lg:border-l lg:border-neutral-200 lg:pl-8 xl:pl-9 flex flex-col justify-between h-full">
+        <div className="border-t border-neutral-200 pt-6 lg:border-t-0 lg:pt-0 lg:border-l lg:border-neutral-200 lg:pl-8 xl:pl-10 flex flex-col justify-between lg:h-full">
           <div>
-            <h2 className="font-sans font-bold text-[30px] xl:text-[32px] text-neutral-900 mb-4 sm:mb-5 tracking-tight leading-tight">
+            <h2 className="font-sans font-extrabold text-[29px] sm:text-[31px] xl:text-[33px] 2xl:text-[34px] text-neutral-950 mb-3.5 sm:mb-4 tracking-tight leading-tight">
               Trending Now
             </h2>
 
-            <div className="flex flex-col space-y-4 sm:space-y-5">
-              {trendingNowArticles.map((item) => (
+            <div className="flex flex-col space-y-4 sm:space-y-4 xl:space-y-[18px]">
+              {trendingItems.map((item) => (
                 <div
                   key={item.number}
                   onClick={() =>
@@ -139,9 +146,9 @@ export default function PoliticsAndTrendingSection({
                       link: '#'
                     })
                   }
-                  className="group cursor-pointer flex items-start space-x-3.5"
+                  className="group cursor-pointer flex items-start space-x-3.5 sm:space-x-4 xl:space-x-5"
                 >
-                  <span className="font-sans font-bold text-[24px] sm:text-[26px] text-neutral-400 leading-none shrink-0 min-w-[34px]">
+                  <span className="font-sans font-bold text-[30px] sm:text-[32px] lg:text-[32px] xl:text-[36px] 2xl:text-[38px] text-neutral-400 leading-none shrink-0 min-w-[40px] sm:min-w-[44px] xl:min-w-[48px] pt-1">
                     {item.number}
                   </span>
                   <div className="flex flex-col">

@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useRef, use } from 'react';
+import React, { useState, useRef, use, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Play, Bookmark, ChevronRight, ChevronLeft } from 'lucide-react';
+import { fetchCategoryArticlesApi, resolveMediaUrl } from '../../lib/api';
 
 // Components
 import Header from '../../components/Header';
@@ -47,59 +48,86 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState<Article | null>(null);
   const [activePodcast, setActivePodcast] = useState<PodcastItem | null>(null);
+  const [dbArticles, setDbArticles] = useState<Article[]>([]);
 
   // Pagination for MORE [CATEGORY] section
   const [morePage, setMorePage] = useState<number>(1);
   const itemsPerPage = 10;
   const moreTechRef = useRef<HTMLDivElement>(null);
 
-  const navigateToArticle = () => {
-    const articleUrl = encodeURI("/news/articles/How-a-movement-of-students-brought-down-Serbia's-Vučić");
-    if (typeof window !== 'undefined') {
-      window.location.href = articleUrl;
-    } else {
-      router.push(articleUrl);
+  useEffect(() => {
+    const controller = new AbortController();
+    setMorePage(1);
+    fetchCategoryArticlesApi(decodedSlug, 1, 24, controller.signal).then((payload) => {
+      if (payload && Array.isArray(payload.articles)) {
+        setDbArticles(payload.articles);
+      } else {
+        setDbArticles([]);
+      }
+    });
+    return () => controller.abort();
+  }, [decodedSlug]);
+
+  const navigateToArticle = (target?: { slug?: string; id?: string }) => {
+    const key = target?.slug || target?.id;
+    const isFallbackMockId =
+      key && (/^(mt|kt|ic|rel)-/.test(key) || key === 'static-fallback');
+    if (key && !isFallbackMockId) {
+      router.push(`/news/articles/${encodeURIComponent(key)}`);
+      return;
     }
+    router.push(encodeURI("/news/articles/How-a-movement-of-students-brought-down-Serbia's-Vučić"));
   };
 
-  // Section 1: Hero 5-Story Data (Image 1)
-  const heroLeftTop = {
+  // Section 1: Hero 5-Story Fallback Data
+  const staticHeroLeftTop = {
+    id: 'static-fallback',
     title: "How one man became the unsung hero of the internet during a cyber-security scramble",
     summary: "For more than 20 years, Ondřej Surý has been quietly helping to keep websites around the world running securely, largely in his spare time.",
     imageUrl: "/tech-hero-1.jpg",
     time: "4 hrs ago"
   };
 
-  const heroLeftBottom = {
+  const staticHeroLeftBottom = {
+    id: 'static-fallback',
     title: "Gabon says access to social media restored after eight month ban",
     summary: "The authorities had justified the ban by saying online content was fuelling conflict, while the opposition had condemned it as an abuse of power.",
     imageUrl: "/tech-hero-2.jpg",
     time: "7 hrs ago"
   };
 
-  const heroLead = {
+  const staticHeroLead = {
+    id: 'static-fallback',
     title: "Police using AI risks making discrimination worse, researchers warn",
     summary: "AI tools learn from biased records and may deepen discrimination against minorities without oversight, researchers say.",
     imageUrl: "/tech-hero-lead.jpg",
     time: "2 hrs ago"
   };
 
-  const heroRightTop = {
+  const staticHeroRightTop = {
+    id: 'static-fallback',
     title: "The Indian workers filming their work to train AI",
     summary: "Indian workers are being paid to film themselves at work and the footage is used to train AI.",
     imageUrl: "/tech-hero-3.jpg",
     time: "5 hrs ago"
   };
 
-  const heroRightBottom = {
+  const staticHeroRightBottom = {
+    id: 'static-fallback',
     title: "'I'm 96 and have 15 million followers': The grannies taking over TikTok",
     summary: "Grandma Droniak, Nonna Gracie, Viv Truran and Barbara Costello have all found fame on social media in their later years.",
     imageUrl: "/tech-hero-4.jpg",
     time: "8 hrs ago"
   };
 
+  const heroLead = dbArticles[0] || staticHeroLead;
+  const heroLeftTop = dbArticles[1] || staticHeroLeftTop;
+  const heroLeftBottom = dbArticles[2] || staticHeroLeftBottom;
+  const heroRightTop = dbArticles[3] || staticHeroRightTop;
+  const heroRightBottom = dbArticles[4] || staticHeroRightBottom;
+
   // Section 2: KEEPING TABS (Image 2)
-  const keepingTabsCards = [
+  const staticKeepingTabsCards = [
     {
       id: 'kt-1',
       title: "Anthropic thinks its AI might be conscious. It has profound consequences for your life",
@@ -116,8 +144,14 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     }
   ];
 
+  const keepingTabsCards = useMemo(() => {
+    const picked = dbArticles.slice(5, 7);
+    if (picked.length >= 2) return picked;
+    return [...picked, ...staticKeepingTabsCards].slice(0, 2);
+  }, [dbArticles]);
+
   // Section 4: IN CASE YOU MISSED IT (Image 4)
-  const inCaseYouMissedItCards = [
+  const staticInCaseYouMissedItCards = [
     {
       id: 'ic-1',
       title: "Why did an OpenAI agent hack Australia's health system and can it be stopped in the future?",
@@ -144,6 +178,12 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     }
   ];
 
+  const inCaseYouMissedItCards = useMemo(() => {
+    const picked = dbArticles.slice(7, 11);
+    if (picked.length >= 4) return picked;
+    return [...picked, ...staticInCaseYouMissedItCards].slice(0, 4);
+  }, [dbArticles]);
+
   // Sponsored Dianomi Cards (Image 4 bottom)
   const sponsoredDianomi1 = [
     { id: 'sp-1', title: 'Discover the latest finance insights from global experts.', source: 'MarketViews', imageUrl: '/sidebar-ad-1.jpg' },
@@ -153,8 +193,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     { id: 'sp-5', title: 'Robotics and Artificial Intelligence. Discover the trends.', source: 'MarketViews', imageUrl: '/taboola-1.jpg' }
   ];
 
-  // Section 5: MORE TECH Articles (20 items total, 10 per page matching Image 5 slices 3, 4, 5)
-  const allMoreArticles = [
+  // Section 5: MORE [CATEGORY] Articles
+  const staticMoreArticles = [
     // Page 1 (Articles 1 - 10)
     {
       id: 'mt-1',
@@ -299,6 +339,19 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     }
   ];
 
+  const allMoreArticles = useMemo(() => {
+    const liveMapped = dbArticles.map((art) => ({
+      id: art.id,
+      slug: art.slug,
+      date: art.time || 'Recent',
+      title: art.title,
+      summary: art.summary || art.cardSummary || '',
+      imageUrl: resolveMediaUrl(art.imageUrl, '/hero-lead.jpg'),
+    }));
+    const combined = [...liveMapped, ...staticMoreArticles.map((s) => ({ ...s, slug: undefined }))];
+    return combined;
+  }, [dbArticles]);
+
   const totalPages = Math.ceil(allMoreArticles.length / itemsPerPage);
   const currentArticles = allMoreArticles.slice(
     (morePage - 1) * itemsPerPage,
@@ -338,10 +391,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           {/* Left Column: 2 Stacked Stories (lg:col-span-3) */}
           <div className="lg:col-span-3 flex flex-col space-y-6">
             {/* Story 1 */}
-            <article onClick={navigateToArticle} className="group cursor-pointer flex flex-col">
+            <article onClick={() => navigateToArticle(heroLeftTop)} className="group cursor-pointer flex flex-col">
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-3 rounded-xs shadow-2xs">
                 <Image
-                  src={heroLeftTop.imageUrl}
+                  src={resolveMediaUrl(heroLeftTop.imageUrl, '/hero-lead.jpg')}
                   alt={heroLeftTop.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -357,10 +410,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
             <div className="border-t border-neutral-200 pt-6">
               {/* Story 2 */}
-              <article onClick={navigateToArticle} className="group cursor-pointer flex flex-col">
+              <article onClick={() => navigateToArticle(heroLeftBottom)} className="group cursor-pointer flex flex-col">
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-3 rounded-xs shadow-2xs">
                   <Image
-                    src={heroLeftBottom.imageUrl}
+                    src={resolveMediaUrl(heroLeftBottom.imageUrl, '/hero-lead.jpg')}
                     alt={heroLeftBottom.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -378,10 +431,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
           {/* Center Column: 1 Large Lead Story (lg:col-span-6) */}
           <div className="lg:col-span-6 flex flex-col border-y lg:border-y-0 lg:border-x border-neutral-200 py-6 lg:py-0 lg:px-8">
-            <article onClick={navigateToArticle} className="group cursor-pointer flex flex-col text-center">
+            <article onClick={() => navigateToArticle(heroLead)} className="group cursor-pointer flex flex-col text-center">
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-4 rounded-xs shadow-xs">
                 <Image
-                  src={heroLead.imageUrl}
+                  src={resolveMediaUrl(heroLead.imageUrl, '/hero-lead.jpg')}
                   alt={heroLead.title}
                   fill
                   priority
@@ -400,10 +453,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           {/* Right Column: 2 Stacked Stories (lg:col-span-3) */}
           <div className="lg:col-span-3 flex flex-col space-y-6">
             {/* Story 1 */}
-            <article onClick={navigateToArticle} className="group cursor-pointer flex flex-col">
+            <article onClick={() => navigateToArticle(heroRightTop)} className="group cursor-pointer flex flex-col">
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-3 rounded-xs shadow-2xs">
                 <Image
-                  src={heroRightTop.imageUrl}
+                  src={resolveMediaUrl(heroRightTop.imageUrl, '/hero-lead.jpg')}
                   alt={heroRightTop.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -419,10 +472,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
             <div className="border-t border-neutral-200 pt-6">
               {/* Story 2 */}
-              <article onClick={navigateToArticle} className="group cursor-pointer flex flex-col">
+              <article onClick={() => navigateToArticle(heroRightBottom)} className="group cursor-pointer flex flex-col">
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-3 rounded-xs shadow-2xs">
                   <Image
-                    src={heroRightBottom.imageUrl}
+                    src={resolveMediaUrl(heroRightBottom.imageUrl, '/hero-lead.jpg')}
                     alt={heroRightBottom.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -455,10 +508,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {/* 2-Card Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {keepingTabsCards.map((card) => (
-            <article key={card.id} onClick={navigateToArticle} className="group cursor-pointer flex flex-col">
+            <article key={card.id} onClick={() => navigateToArticle(card)} className="group cursor-pointer flex flex-col">
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-3 rounded-xs shadow-2xs">
                 <Image
-                  src={card.imageUrl}
+                  src={resolveMediaUrl(card.imageUrl, '/hero-lead.jpg')}
                   alt={card.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -601,13 +654,13 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 Latest Tech Episodes
               </h4>
               {[
-                { title: "Inside the sovereign data centres powering AI models", duration: "8 mins", image: "/tech-missed-2.jpg" },
-                { title: "The smart glasses with no cameras attached", duration: "11 mins", image: "/tech-missed-3.jpg" },
-                { title: "Could AI truly become self-conscious?", duration: "16 mins", image: "/tech-tabs-1.jpg" }
+                { id: 'vid-1', title: "Inside the sovereign data centres powering AI models", duration: "8 mins", image: "/tech-missed-2.jpg" },
+                { id: 'vid-2', title: "The smart glasses with no cameras attached", duration: "11 mins", image: "/tech-missed-3.jpg" },
+                { id: 'vid-3', title: "Could AI truly become self-conscious?", duration: "16 mins", image: "/tech-tabs-1.jpg" }
               ].map((item, idx) => (
                 <div
                   key={idx}
-                  onClick={navigateToArticle}
+                  onClick={() => navigateToArticle()}
                   className="flex items-center space-x-3 cursor-pointer group hover:bg-neutral-900 p-2 rounded transition"
                 >
                   <div className="relative w-24 h-16 flex-shrink-0 bg-neutral-800 rounded-xs overflow-hidden">
@@ -665,10 +718,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {inCaseYouMissedItCards.map((card) => (
-            <article key={card.id} onClick={navigateToArticle} className="group cursor-pointer flex flex-col">
+            <article key={card.id} onClick={() => navigateToArticle(card)} className="group cursor-pointer flex flex-col">
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 mb-3 rounded-xs shadow-2xs">
                 <Image
-                  src={card.imageUrl}
+                  src={resolveMediaUrl(card.imageUrl, '/hero-lead.jpg')}
                   alt={card.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -688,11 +741,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       {/* 12. Fourth Advertisement Banner */}
       <AdBanner type="placeholder" sizeText="1000 x 350" />
 
-      {/* 13. Section 6: MORE TECH (10 articles per page, centered pagination with next arrow matching Image 5) */}
+      {/* 13. Section 6: MORE [CATEGORY] (10 articles per page, centered pagination with next arrow) */}
       <section ref={moreTechRef} className="max-w-[1640px] mx-auto px-4 sm:px-6 md:px-8 py-8 w-full scroll-mt-20">
         <div className="border-t-2 border-neutral-900 pt-2.5 mb-6">
           <h2 className="text-xs sm:text-[13px] font-black text-neutral-900 tracking-wider uppercase">
-            MORE TECH
+            MORE {categoryTitle.toUpperCase()}
           </h2>
         </div>
 
@@ -701,7 +754,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           {currentArticles.map((article) => (
             <article
               key={article.id}
-              onClick={navigateToArticle}
+              onClick={() => navigateToArticle(article)}
               className="flex flex-col sm:flex-row items-start justify-between py-5 border-b border-neutral-200 group cursor-pointer first:pt-0"
             >
               {/* Left Column: Date */}
@@ -722,7 +775,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               {/* Right Column: Landscape Image */}
               <div className="relative w-full sm:w-44 md:w-48 lg:w-52 aspect-[16/10] flex-shrink-0 overflow-hidden bg-neutral-100 rounded-xs mt-3 sm:mt-0 shadow-2xs">
                 <Image
-                  src={article.imageUrl}
+                  src={resolveMediaUrl(article.imageUrl, '/hero-lead.jpg')}
                   alt={article.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -784,7 +837,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
-        onSelectArticle={() => setIsSearchOpen(false)}
+        onSelectArticle={(article) => {
+          setIsSearchOpen(false);
+          navigateToArticle(article);
+        }}
       />
 
       <MobileMenu

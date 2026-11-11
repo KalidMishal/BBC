@@ -3,7 +3,7 @@ import { Article, PodcastItem, ColumnSection } from '../types';
 export const topStoryLead: Article = {
   id: 'lead-1',
   title: "Clashes erupt in Paris and other cities after thousands join mostly peaceful protests across France",
-  summary: "There has not yet been a repeat of the chaos seen during previous protests, our correspondent in Paris reports.",
+  summary: "There has not yet been a repeat of the chaos seen during previous protests, our correspondent in Paris reports. Heavy police deployments remain across central districts as unions warn further strikes could continue this week.",
   tag: "WORLD",
   badge: "LIVE",
   time: "2 days ago",
@@ -71,6 +71,14 @@ export const topStoriesSideList: Article[] = [
     summary: "The slowed Starlink connections had affected the Ukraine's military and drone operations for a week.",
     time: "2 DAYS AGO",
     category: "EUROPE",
+    link: "#"
+  },
+  {
+    id: 'side-5',
+    title: "Global airlines warn of higher fares as fuel costs climb",
+    summary: "Carriers across Europe and North America say sustained jet fuel increases could push ticket prices higher in the coming months.",
+    time: "2 DAYS AGO",
+    category: "BUSINESS",
     link: "#"
   }
 ];

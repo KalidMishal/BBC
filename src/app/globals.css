@@ -25,10 +25,114 @@ body {
 }
 
 /* Custom hide-scrollbar utility */
-.no-scrollbar::-webkit-scrollbar {
+.no-scrollbar::-webkit-scrollbar,
+.custom-scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
-.no-scrollbar {
+.no-scrollbar,
+.custom-scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Thin subtle scrollbar for dashboards */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.6s infinite linear;
+}
+
+/* Editorial rich-HTML article rendering */
+.bbc-article-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.bbc-article-content p {
+  margin-bottom: 1.25rem;
+}
+
+.bbc-article-content h2 {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: 1.55rem;
+  line-height: 1.25;
+  margin-top: 2rem;
+  margin-bottom: 0.9rem;
+  color: #141414;
+}
+
+.bbc-article-content figure {
+  max-width: 100%;
+}
+
+.bbc-article-content figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.375rem;
+}
+
+.bbc-article-content figcaption {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.bbc-article-content a {
+  color: #bb1919;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.bbc-article-content blockquote {
+  border-left: 4px solid #bb1919;
+  padding: 0.75rem 1rem;
+  margin: 1.25rem 0;
+  background-color: #f9fafb;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.bbc-article-content pre {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin: 1rem 0;
+  white-space: pre-wrap;
+}
+
+.bbc-article-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.bbc-article-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
 }
